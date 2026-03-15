@@ -1,6 +1,6 @@
-# Black Spirit Lens
+# Black Desert Asset Tracker
 
-![Black Spirit Lens](https://img.shields.io/badge/Black%20Desert%20Online-Asset%20Tracker-blue?style=for-the-badge&logo=game&logoColor=white)
+![Black Desert Asset Tracker](https://img.shields.io/badge/Black%20Desert%20Online-Asset%20Tracker-blue?style=for-the-badge&logo=game&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue?style=flat-square&logo=python)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.135.1-green?style=flat-square&logo=fastapi)
 ![Tesseract OCR](https://img.shields.io/badge/Tesseract-OCR-orange?style=flat-square)

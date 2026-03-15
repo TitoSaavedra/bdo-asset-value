@@ -1,3 +1,17 @@
+INVENTORY_SILVER_REGION = {
+    "x": 2965,
+    "y": 1001,
+    "width": 274,
+    "height": 76,
+}
+
+MARKET_SILVER_REGION = {
+    "x": 2696,
+    "y": 1028,
+    "width": 240,
+    "height": 43,
+}
+
 STORAGE_NAME_REGION = {
     "x": 1961,
     "y": 343,
@@ -10,19 +24,5 @@ STORAGE_SILVER_REGION = {
     "y": 975,
     "width": 181,
     "height": 40,
-}
-
-MARKET_SILVER_REGION = {
-    "x": 2660,
-    "y": 1006,
-    "width": 280,
-    "height": 70,
-}
-
-INVENTORY_SILVER_REGION = {
-    "x": 2965,
-    "y": 1001,
-    "width": 274,
-    "height": 76,
 }
 

@@ -7,6 +7,20 @@ from watchdog.events import FileSystemEventHandler
 
 process = None
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+VENV_PYTHON = os.path.join(BASE_DIR, "venv", "Scripts", "python.exe")
+
+
+def get_python_executable() -> str:
+    """Get the preferred Python executable for restarting the app.
+
+    Returns:
+        Python executable path, preferring local venv when available.
+    """
+    if os.path.exists(VENV_PYTHON):
+        return VENV_PYTHON
+    return sys.executable
+
 
 IGNORED_FOLDERS = [
     "logs",
@@ -40,7 +54,7 @@ class RestartHandler(FileSystemEventHandler):
 
         print("\nReiniciando aplicación...\n")
 
-        process = subprocess.Popen([sys.executable, "run.py"])
+        process = subprocess.Popen([get_python_executable(), "run.py"])
 
     def on_modified(self, event):
 

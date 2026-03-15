@@ -1,7 +1,21 @@
 export function money(value) {
-    return new Intl.NumberFormat("es-CL", {
-        style: "currency", currency: "CLP", maximumFractionDigits: 0,
-    }).format(value || 0);
+    const amount = Number(value || 0);
+    const silverSymbol = "ⓢ";
+
+    if (Math.abs(amount) >= 1_000_000_000) {
+        const billions = amount / 1_000_000_000;
+        const formattedBillions = new Intl.NumberFormat("es-CL", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 1,
+        }).format(billions);
+        return `${silverSymbol} ${formattedBillions}B`;
+    }
+
+    const formattedAmount = new Intl.NumberFormat("es-CL", {
+        maximumFractionDigits: 0,
+    }).format(amount);
+
+    return `${silverSymbol} ${formattedAmount}`;
 }
 
 export function dateTime(value) {

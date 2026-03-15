@@ -1,6 +1,925 @@
 {
-  "records": [],
-  "warehouse_snapshots": [],
+  "records": [
+    {
+      "captured_at": "2026-03-15T15:37:33",
+      "market_silver": 0,
+      "inventory_silver": null,
+      "preorder_silver": 0,
+      "warehouses_total": 0,
+      "total_with_warehouses": 0,
+      "total_without_warehouses": 0,
+      "source": "ocr-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T15:37:35",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 0,
+      "total_with_warehouses": 120100508,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T15:44:36",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 5602026742,
+      "total_with_warehouses": 5722127250,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Aldea de Eil"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:44:38",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 7406802696,
+      "total_with_warehouses": 7526903204,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Olvia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:44:40",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 8065684446,
+      "total_with_warehouses": 8185784954,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Isla de Illya"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:47:36",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 8065684446,
+      "total_with_warehouses": 8185784954,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T15:50:04",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 8101322686,
+      "total_with_warehouses": 8221423194,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Aldea de Eil"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:06",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 8632571329,
+      "total_with_warehouses": 8752671837,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Velia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:08",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 8632571329,
+      "total_with_warehouses": 8752671837,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Olvia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:10",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 8632571329,
+      "total_with_warehouses": 8752671837,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Aldea de Eil"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:13",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 18560176629,
+      "total_with_warehouses": 18680277137,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Calpheon"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:15",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 19331926629,
+      "total_with_warehouses": 19452027137,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Puerto de Epheria"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:17",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 24969685479,
+      "total_with_warehouses": 25089785987,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Trent"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:19",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 26873042354,
+      "total_with_warehouses": 26993142862,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Tarif"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:22",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 29584910484,
+      "total_with_warehouses": 29705010992,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Shakatu"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:24",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 29724910484,
+      "total_with_warehouses": 29845010992,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Puerto Interior de Ancado"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:26",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 29724910485,
+      "total_with_warehouses": 29845010993,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Muiquun"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:28",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 31688566485,
+      "total_with_warehouses": 31808666993,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Árbol de la Sabiduría"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:31",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 83954183366,
+      "total_with_warehouses": 84074283874,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Duvencrune"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:33",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86235259474,
+      "total_with_warehouses": 86355359982,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Ojo de Okilua"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:35",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86369773514,
+      "total_with_warehouses": 86489874022,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Mudeul (Nampo)"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:37",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86375100614,
+      "total_with_warehouses": 86495201122,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Byeot (Nopsae)"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:40",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86375100615,
+      "total_with_warehouses": 86495201123,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Bukpo"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:50:42",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86495674723,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Belander"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T15:55:22",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86495674723,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T15:56:48",
+      "market_silver": 0,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86495674723,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T15:59:24",
+      "market_silver": null,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86495674723,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:00:05",
+      "market_silver": null,
+      "inventory_silver": 120100508,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86495674723,
+      "total_without_warehouses": 120100508,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:04:58",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86497628497,
+      "total_without_warehouses": 122054282,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:06:33",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86497628497,
+      "total_without_warehouses": 122054282,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:09:46",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86497628497,
+      "total_without_warehouses": 122054282,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:10:25",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86497628497,
+      "total_without_warehouses": 122054282,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:10:25",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86497628497,
+      "total_without_warehouses": 122054282,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:12:09",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86497628497,
+      "total_without_warehouses": 122054282,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:12:09",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 86497628497,
+      "total_without_warehouses": 122054282,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:14:35",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:14:35",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:18:33",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:18:33",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:20:28",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:20:28",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:20:28",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:05",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:05",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:05",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:06",
+      "market_silver": 347338037063,
+      "inventory_silver": null,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:17",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:17",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:17",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:17",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:33",
+      "market_silver": null,
+      "inventory_silver": null,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:33",
+      "market_silver": null,
+      "inventory_silver": null,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:35",
+      "market_silver": null,
+      "inventory_silver": null,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:35",
+      "market_silver": null,
+      "inventory_silver": null,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:23:37",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:25:41",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:25:41",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:25:41",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:25:41",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:26:21",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:26:21",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:26:21",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:26:21",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:28:50",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:28:50",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:28:50",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:28:50",
+      "market_silver": null,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:37:16",
+      "market_silver": 347338037063,
+      "inventory_silver": null,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:38:55",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T16:39:07",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 86375574215,
+      "total_with_warehouses": 433835665560,
+      "total_without_warehouses": 347460091345,
+      "source": "ocr-market-inventory",
+      "details": {}
+    }
+  ],
+  "warehouse_snapshots": [
+    {
+      "captured_at": "2026-03-15T15:44:36",
+      "warehouse": "Aldea de Eil",
+      "market_silver": 5602026742
+    },
+    {
+      "captured_at": "2026-03-15T15:44:38",
+      "warehouse": "Olvia",
+      "market_silver": 1804775954
+    },
+    {
+      "captured_at": "2026-03-15T15:44:40",
+      "warehouse": "Isla de Illya",
+      "market_silver": 658881750
+    },
+    {
+      "captured_at": "2026-03-15T15:50:04",
+      "warehouse": "Aldea de Eil",
+      "market_silver": 5637664982
+    },
+    {
+      "captured_at": "2026-03-15T15:50:06",
+      "warehouse": "Velia",
+      "market_silver": 531248643
+    },
+    {
+      "captured_at": "2026-03-15T15:50:08",
+      "warehouse": "Olvia",
+      "market_silver": 1804775954
+    },
+    {
+      "captured_at": "2026-03-15T15:50:10",
+      "warehouse": "Aldea de Eil",
+      "market_silver": 5637664982
+    },
+    {
+      "captured_at": "2026-03-15T15:50:13",
+      "warehouse": "Calpheon",
+      "market_silver": 9927605300
+    },
+    {
+      "captured_at": "2026-03-15T15:50:15",
+      "warehouse": "Puerto de Epheria",
+      "market_silver": 771750000
+    },
+    {
+      "captured_at": "2026-03-15T15:50:17",
+      "warehouse": "Trent",
+      "market_silver": 5637758850
+    },
+    {
+      "captured_at": "2026-03-15T15:50:19",
+      "warehouse": "Tarif",
+      "market_silver": 1903356875
+    },
+    {
+      "captured_at": "2026-03-15T15:50:22",
+      "warehouse": "Shakatu",
+      "market_silver": 2711868130
+    },
+    {
+      "captured_at": "2026-03-15T15:50:24",
+      "warehouse": "Puerto Interior de Ancado",
+      "market_silver": 140000000
+    },
+    {
+      "captured_at": "2026-03-15T15:50:26",
+      "warehouse": "Muiquun",
+      "market_silver": 1
+    },
+    {
+      "captured_at": "2026-03-15T15:50:28",
+      "warehouse": "Árbol de la Sabiduría",
+      "market_silver": 1963656000
+    },
+    {
+      "captured_at": "2026-03-15T15:50:31",
+      "warehouse": "Duvencrune",
+      "market_silver": 52265616881
+    },
+    {
+      "captured_at": "2026-03-15T15:50:33",
+      "warehouse": "Ojo de Okilua",
+      "market_silver": 2281076108
+    },
+    {
+      "captured_at": "2026-03-15T15:50:35",
+      "warehouse": "Mudeul (Nampo)",
+      "market_silver": 134514040
+    },
+    {
+      "captured_at": "2026-03-15T15:50:37",
+      "warehouse": "Byeot (Nopsae)",
+      "market_silver": 5327100
+    },
+    {
+      "captured_at": "2026-03-15T15:50:40",
+      "warehouse": "Bukpo",
+      "market_silver": 1
+    },
+    {
+      "captured_at": "2026-03-15T15:50:42",
+      "warehouse": "Belander",
+      "market_silver": 473600
+    }
+  ],
   "settings": {
     "include_warehouses_in_total": true
   }

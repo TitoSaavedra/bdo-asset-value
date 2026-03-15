@@ -1,4 +1,5 @@
 import json
+from json import JSONDecodeError
 from typing import List, Dict, Any
 from app.config import DATA_FILE
 from app.models import AppState, RecordItem, WarehouseSnapshot
@@ -13,7 +14,24 @@ class JSONStorage:
             state = AppState()
             self.write_state(state)
             return state
-        raw = json.loads(DATA_FILE.read_text(encoding='utf-8'))
+
+        content = DATA_FILE.read_text(encoding='utf-8')
+
+        try:
+            raw = json.loads(content)
+        except JSONDecodeError as exc:
+            if exc.msg == 'Extra data':
+                decoder = json.JSONDecoder()
+                raw, end_index = decoder.raw_decode(content)
+                trailing = content[end_index:].strip()
+                if trailing:
+                    DATA_FILE.write_text(
+                        json.dumps(raw, ensure_ascii=False, indent=2),
+                        encoding='utf-8'
+                    )
+            else:
+                raise
+
         return AppState(**raw)
 
     def write_state(self, state: AppState) -> None:

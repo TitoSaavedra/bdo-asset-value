@@ -2,6 +2,7 @@ import tkinter as tk
 import mss
 from PIL import Image, ImageTk
 import os
+import importlib.util
 
 OUTPUT_PATH = "app/ocr/config/regions.py"
 
@@ -13,6 +14,30 @@ REGION_KEYS = {
 }
 
 regions = {}
+
+
+def load_existing_regions():
+
+    if not os.path.exists(OUTPUT_PATH):
+        return {}
+
+    spec = importlib.util.spec_from_file_location("bdo_regions", OUTPUT_PATH)
+
+    if spec is None or spec.loader is None:
+        return {}
+
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    existing = {}
+
+    for attr_name in dir(module):
+        if attr_name.endswith("_REGION"):
+            value = getattr(module, attr_name)
+            if isinstance(value, dict):
+                existing[attr_name] = value
+
+    return existing
 
 
 def capture_region(region_name, description):
@@ -85,9 +110,12 @@ def save_regions():
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
+    existing_regions = load_existing_regions()
+    merged_regions = {**existing_regions, **regions}
+
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
 
-        for name, region in regions.items():
+        for name, region in merged_regions.items():
 
             f.write(f"{name} = {{\n")
 
