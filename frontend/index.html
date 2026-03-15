@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDO Asset Value</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <div class="app">
+        <aside class="card sidebar">
+            <h1 class="logo">BDO Asset Value</h1>
+            <p class="sub">Dashboard de silvers con OCR para almacenes, inventario, preorder y evolución histórica.</p>
+            <div class="menu">
+                <button class="active" data-screen="dashboard">Dashboard</button>
+                <button data-screen="manual">Registro manual</button>
+                <button data-screen="warehouses">Activos por almacén</button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <section class="screen active" id="screen-dashboard">
+                <div class="card header">
+                    <h1>Dashboard</h1>
+                    <p>ALT + 1 captura almacén actual y asset value. ALT + 2 captura inventario. El preorder llega por
+                        API.</p>
+                </div>
+
+                <div class="grid-4">
+                    <div class="card metric">
+                        <div class="k">Mercado</div>
+                        <div class="v" id="mMarket">$0</div>
+                        <div class="s">Último valor manual u OCR</div>
+                    </div>
+                    <div class="card metric">
+                        <div class="k">Inventario</div>
+                        <div class="v" id="mInventory">$0</div>
+                        <div class="s">Leído por OCR</div>
+                    </div>
+                    <div class="card metric">
+                        <div class="k">Preorders</div>
+                        <div class="v" id="mPreorder">$0</div>
+                        <div class="s">Integración navegador</div>
+                    </div>
+                    <div class="card metric">
+                        <div class="k">Total</div>
+                        <div class="v" id="mTotal">$0</div>
+                        <div class="s" id="mTotalHint">Incluye almacenes</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <section class="card panel">
+                        <div class="panel-head">
+                            <h2>Evolución histórica</h2>
+                            <div class="toolbar">
+                                <label class="toggle">
+                                    <input type="checkbox" id="includeWarehousesToggle">
+                                    Sumar almacenes
+                                </label>
+                            </div>
+                        </div>
+                        <canvas id="chart" width="1000" height="420"></canvas>
+                    </section>
+
+                    <section class="card panel">
+                        <div class="panel-head">
+                            <h2>Resumen almacenes</h2>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Almacén</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="warehouseSummaryBody"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="card panel">
+                    <div class="panel-head">
+                        <h2>Historial general</h2>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Fuente</th>
+                                    <th>Mercado</th>
+                                    <th>Inventario</th>
+                                    <th>Preorder</th>
+                                    <th>Total sin almacenes</th>
+                                    <th>Total con almacenes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <section class="screen" id="screen-manual">
+                <div class="card header">
+                    <h1>Registro manual</h1>
+                    <p>Puedes guardar mercado, inventario y preorder a mano.</p>
+                </div>
+
+                <section class="card panel">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="marketInput">Silver mercado</label>
+                            <input id="marketInput" type="number" min="0" placeholder="8508622614">
+                        </div>
+                        <div class="field">
+                            <label for="inventoryInput">Silver inventario</label>
+                            <input id="inventoryInput" type="number" min="0" placeholder="500000">
+                        </div>
+                        <div class="field">
+                            <label for="preorderInput">Silver preorder</label>
+                            <input id="preorderInput" type="number" min="0" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" id="saveManualBtn">Guardar manual</button>
+                        <button class="btn btn-secondary" id="refreshBtn">Actualizar dashboard</button>
+                        <button class="btn btn-muted" id="downloadBtn">Descargar JSON</button>
+                    </div>
+                    <div class="status" id="status"></div>
+                </section>
+            </section>
+
+            <section class="screen" id="screen-warehouses">
+                <div class="card header">
+                    <h1>Activos por almacén</h1>
+                    <p>Se guarda snapshot siempre y además se registra cambio cuando cambia el nombre del almacén
+                        detectado.</p>
+                </div>
+
+                <section class="card panel">
+                    <div class="panel-head">
+                        <h2>Listado actual por almacén</h2>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Almacén</th>
+                                    <th>Valor actual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="warehouseListBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card panel">
+                    <div class="panel-head">
+                        <h2>Snapshots OCR</h2>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Almacén</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="snapshotsBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="/static/js/main.js"></script>
+</body>
+
+</html>
