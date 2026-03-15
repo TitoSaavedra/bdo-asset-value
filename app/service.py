@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from typing import Optional, Dict, Any
 from app.models import AppState, RecordItem, WarehouseSnapshot
+from app.ocr.config.storages import KNOWN_STORAGES
 from app.storage import storage
 
 
@@ -272,6 +273,36 @@ class AssetService:
         state = self.get_state()
         latest = state.records[-1] if state.records else None
         warehouse_totals = self.get_warehouse_totals(state)
+        latest_snapshot_by_warehouse: Dict[str, WarehouseSnapshot] = {}
+
+        for snapshot in state.warehouse_snapshots:
+            latest_snapshot_by_warehouse[snapshot.warehouse] = snapshot
+
+        warehouse_status_list = []
+        missing_warehouses = []
+
+        for warehouse in KNOWN_STORAGES:
+            snapshot = latest_snapshot_by_warehouse.get(warehouse)
+
+            if snapshot is None:
+                warehouse_status_list.append(
+                    {
+                        'warehouse': warehouse,
+                        'market_silver': None,
+                        'last_captured_at': None,
+                        'updated': False,
+                    }
+                )
+                missing_warehouses.append(warehouse)
+            else:
+                warehouse_status_list.append(
+                    {
+                        'warehouse': warehouse,
+                        'market_silver': snapshot.market_silver,
+                        'last_captured_at': snapshot.captured_at,
+                        'updated': True,
+                    }
+                )
 
         return {
             'latest': latest.model_dump() if latest else None,
@@ -282,6 +313,8 @@ class AssetService:
                 for warehouse, value in warehouse_totals.items()
             ],
             'warehouse_snapshots': [s.model_dump() for s in state.warehouse_snapshots[-200:]],
+            'warehouse_status_list': warehouse_status_list,
+            'missing_warehouses': missing_warehouses,
             'settings': state.settings,
         }
 

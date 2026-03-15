@@ -2,7 +2,7 @@
 
 import time
 import threading
-from typing import Optional
+from typing import Callable, Optional
 from pynput import keyboard
 from app.logs.logger import logger
 from app.ocr.capture import capture_region
@@ -24,6 +24,36 @@ esc_pressed = threading.Event()
 
 # Service instance
 service = AssetService()
+
+# Background task locks to avoid running the same capture concurrently
+storage_capture_lock = threading.Lock()
+market_inventory_capture_lock = threading.Lock()
+
+
+def run_in_background(task_name: str, lock: threading.Lock, target: Callable[[], None]) -> None:
+    """Run a task in a daemon thread with non-blocking concurrency control.
+
+    Args:
+        task_name: Human-readable task name for logging.
+        lock: Lock used to prevent concurrent runs of the same task.
+        target: Task function to execute.
+    """
+
+    def worker() -> None:
+        acquired = lock.acquire(blocking=False)
+        if not acquired:
+            logger.info(f"{task_name} is already running. Ignoring new trigger.")
+            return
+
+        try:
+            target()
+        except Exception as error:
+            logger.exception(f"Unexpected error in {task_name}: {error}")
+        finally:
+            lock.release()
+
+    thread = threading.Thread(target=worker, daemon=True)
+    thread.start()
 
 
 def handle_storage_snapshot() -> None:
@@ -131,10 +161,18 @@ def start_hotkeys() -> None:
         elif hasattr(key, "char"):
             if key.char == "1" and "alt" in pressed_keys:
                 logger.info("ALT+1 detected")
-                handle_storage_snapshot()
+                run_in_background(
+                    task_name="Storage snapshot",
+                    lock=storage_capture_lock,
+                    target=handle_storage_snapshot,
+                )
             elif key.char == "2" and "alt" in pressed_keys:
                 logger.info("ALT+2 detected")
-                handle_market_inventory()
+                run_in_background(
+                    task_name="Market and inventory capture",
+                    lock=market_inventory_capture_lock,
+                    target=handle_market_inventory,
+                )
 
     def on_release(key: keyboard.Key) -> None:
         """Handle key release events."""

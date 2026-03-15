@@ -21,6 +21,7 @@
 body {
   margin: 0;
   min-height: 100vh;
+  padding: 18px 0;
   font-family:
     Inter,
     Segoe UI,
@@ -30,11 +31,12 @@ body {
   background:
     radial-gradient(circle at top, rgba(200, 169, 106, 0.16), transparent 28%),
     radial-gradient(circle at right bottom, rgba(90, 164, 255, 0.12), transparent 25%), linear-gradient(180deg, #13100b 0%, #090806 100%);
+  overflow-x: hidden;
 }
 
 .app {
   width: min(1400px, calc(100% - 30px));
-  margin: 18px auto;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 18px;
@@ -238,6 +240,63 @@ th {
   border: 1px solid rgba(200, 169, 106, 0.18);
   border-radius: 18px;
   background: rgba(14, 11, 8, 0.9);
+}
+
+#warehouseSummaryTableWrap {
+  --table-body-max-height: 330px;
+}
+
+#historyTableWrap {
+  --table-body-max-height: 360px;
+}
+
+.table-scroll-y {
+  overflow: hidden;
+}
+
+.table-scroll-y table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table-scroll-y thead,
+.table-scroll-y tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table-scroll-y thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.table-scroll-y tbody {
+  display: block;
+  max-height: var(--table-body-max-height, 340px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.table-scroll-y tbody::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-scroll-y tbody::-webkit-scrollbar-track {
+  background: rgba(35, 28, 19, 0.95);
+}
+
+.table-scroll-y tbody::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #e1c58d, #b88e52);
+  border-radius: 10px;
+  border: 2px solid rgba(35, 28, 19, 0.95);
+}
+
+.table-scroll-y tbody {
+  scrollbar-color: var(--gold) rgba(35, 28, 19, 0.95);
+  scrollbar-width: thin;
 }
 
 .field-grid {

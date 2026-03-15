@@ -126,6 +126,27 @@ def find_storage_fuzzy(name: str, known_storages: list) -> Tuple[Optional[str], 
 
     return None, max_ratio
 
+
+def find_storage_by_inclusion(name: str, known_storages: list) -> Optional[str]:
+    """Find storage by direct inclusion in OCR text.
+
+    Prefers longer matches to avoid partial-name ambiguity.
+
+    Args:
+        name: OCR text that may contain a storage name.
+        known_storages: List of known storage names.
+
+    Returns:
+        Matched storage name or None if no direct inclusion match is found.
+    """
+    lower_name = name.lower()
+    matches = [storage for storage in known_storages if storage.lower() in lower_name]
+
+    if not matches:
+        return None
+
+    return max(matches, key=len)
+
 def read_storage_name(img: np.ndarray) -> Optional[str]:
     """Read storage name from image using OCR.
 
@@ -148,6 +169,14 @@ def read_storage_name(img: np.ndarray) -> Optional[str]:
 
         if match:
             name_to_check = match.group(1).strip()
+
+            direct_match = find_storage_by_inclusion(name_to_check, KNOWN_STORAGES)
+            if direct_match:
+                logger.info(
+                    f"Storage found by direct inclusion: {direct_match} | Original text: {name_to_check}"
+                )
+                return direct_match
+
             storage, score = find_storage_fuzzy(name_to_check, KNOWN_STORAGES)
 
             if storage:

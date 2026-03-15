@@ -8,6 +8,7 @@ const elements = {
     historyBody: document.getElementById("historyBody"),
     warehouseSummaryBody: document.getElementById("warehouseSummaryBody"),
     warehouseListBody: document.getElementById("warehouseListBody"),
+    warehouseMissingInfo: document.getElementById("warehouseMissingInfo"),
     snapshotsBody: document.getElementById("snapshotsBody"),
     chart: document.getElementById("chart"),
     market: document.getElementById("mMarket"),
@@ -20,6 +21,37 @@ const elements = {
 };
 
 let state = { dashboard: null };
+
+
+function formatRelativeTime(isoDate) {
+    if (!isoDate) return "Sin actualización";
+
+    const updateTime = new Date(isoDate);
+    const now = new Date();
+    const diffMs = now.getTime() - updateTime.getTime();
+
+    if (Number.isNaN(updateTime.getTime()) || diffMs < 0) {
+        return "Hace un momento";
+    }
+
+    const diffSeconds = Math.floor(diffMs / 1000);
+    if (diffSeconds < 60) {
+        return `Hace ${diffSeconds}s`;
+    }
+
+    const diffMinutes = Math.floor(diffSeconds / 60);
+    if (diffMinutes < 60) {
+        return `Hace ${diffMinutes} min`;
+    }
+
+    const diffHours = Math.floor(diffMinutes / 60);
+    if (diffHours < 24) {
+        return `Hace ${diffHours} h`;
+    }
+
+    const diffDays = Math.floor(diffHours / 24);
+    return `Hace ${diffDays} días`;
+}
 
 function connectUpdatesSocket() {
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
@@ -83,14 +115,26 @@ function render() {
     `);
 
     const warehouseRows = dashboard.warehouse_list || [];
+    const warehouseStatusRows = dashboard.warehouse_status_list || [];
+    const missingWarehouses = dashboard.missing_warehouses || [];
+
+    if (elements.warehouseMissingInfo) {
+        if (missingWarehouses.length === 0) {
+            elements.warehouseMissingInfo.textContent = "Todos los almacenes conocidos están actualizados.";
+        } else {
+            elements.warehouseMissingInfo.textContent = `Faltan ${missingWarehouses.length} almacenes por actualizar: ${missingWarehouses.join(', ')}`;
+        }
+    }
     ui.updateTable(elements.warehouseSummaryBody, warehouseRows, (item) => `
         <td>${item.warehouse}</td>
         <td>${money(item.market_silver)}</td>
     `);
 
-    ui.updateTable(elements.warehouseListBody, warehouseRows, (item) => `
+    ui.updateTable(elements.warehouseListBody, warehouseStatusRows, (item) => `
         <td>${item.warehouse}</td>
-        <td>${money(item.market_silver)}</td>
+        <td>${item.market_silver === null ? '-' : money(item.market_silver)}</td>
+        <td>${item.last_captured_at ? dateTime(item.last_captured_at) : '-'}</td>
+        <td>${item.updated ? formatRelativeTime(item.last_captured_at) : 'Pendiente'}</td>
     `);
 
     ui.updateTable(elements.snapshotsBody, [...(dashboard.warehouse_snapshots || [])].reverse(), (item) => `
