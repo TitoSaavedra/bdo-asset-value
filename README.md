@@ -102,6 +102,27 @@ Esto inicia:
 - `ALT + 2`: captura mercado e inventario (encolado inmediato).
 - `ESC`: cancela monitoreo activo de almacén.
 
+## Integración con Extensión de Navegador
+
+Este proyecto se puede usar junto con la extensión `bdo-market-buyer-ext`  para sincronizar datos.
+
+Flujo de integración:
+
+1. La extensión lee datos de precompra del market web de BDO.
+2. La extensión calcula el total de `preorder_silver`.
+3. La extensión envía el total al backend de este proyecto.
+4. El backend registra el valor como entrada de preorders en el historial.
+
+Endpoint utilizado por la extensión:
+
+- `POST /api/preorders`
+
+Requisitos para que funcione:
+
+- Tener este backend corriendo en `http://127.0.0.1:8000`.
+- Abrir la web del market de BDO en el navegador.
+- Cargar/usar la extensión `bdo-market-buyer-ext` y ejecutar la sincronización de precompra.
+
 ## API Principal
 
 | Método | Endpoint | Descripción |
