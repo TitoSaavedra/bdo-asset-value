@@ -45,11 +45,21 @@ const elements = {
     metricWritesPerMinute: document.getElementById("metricWritesPerMinute"),
     metricsBody: document.getElementById("metricsBody"),
     metricsUpdatedAt: document.getElementById("metricsUpdatedAt"),
+    recentLogsBody: document.getElementById("recentLogsBody"),
+    recentLogsUpdatedAt: document.getElementById("recentLogsUpdatedAt"),
+    apiConnectionBadge: document.getElementById("apiConnectionBadge"),
+    wsConnectionBadge: document.getElementById("wsConnectionBadge"),
+    connectionUpdatedAt: document.getElementById("connectionUpdatedAt"),
+    startupOverlay: document.getElementById('startupOverlay'),
+    startupMessage: document.getElementById('startupMessage'),
+    startupProgressBar: document.getElementById('startupProgressBar'),
 };
 
 const CHART_PREFS_KEY = "bdo_asset_chart_prefs";
 const THEME_PREFS_KEY = "bdo_asset_theme";
 const TABLE_PAGE_SIZE = 20;
+const STARTUP_RETRY_DELAY_MS = 1200;
+const STARTUP_MAX_ATTEMPTS = 30;
 const ALLOWED_THEMES = new Set(["desert", "midnight", "light"]);
 const DEFAULT_VISIBLE_SERIES = {
     total: true,
@@ -70,7 +80,96 @@ let state = {
     theme: "desert",
     visibleSeries: { ...DEFAULT_VISIBLE_SERIES },
     recentlyUpdatedWarehouse: null,
+    apiConnected: false,
+    wsConnected: false,
+    connectionUpdatedAt: null,
 };
+
+
+function formatConnectionTime(isoDate) {
+    if (!isoDate) {
+        return 'Sin actividad reciente';
+    }
+
+    const parsed = new Date(isoDate);
+    if (Number.isNaN(parsed.getTime())) {
+        return 'Sin actividad reciente';
+    }
+
+    return `Última señal: ${parsed.toLocaleTimeString()}`;
+}
+
+
+function setStartupVisible(visible) {
+    if (!elements.startupOverlay) {
+        return;
+    }
+
+    elements.startupOverlay.hidden = !visible;
+}
+
+
+function setStartupProgress(progress) {
+    if (!elements.startupProgressBar) {
+        return;
+    }
+
+    const safeProgress = Math.max(6, Math.min(100, Number(progress || 0)));
+    elements.startupProgressBar.style.width = `${safeProgress}%`;
+}
+
+
+function setStartupMessage(message) {
+    if (!elements.startupMessage) {
+        return;
+    }
+
+    elements.startupMessage.textContent = message;
+}
+
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+        window.setTimeout(resolve, ms);
+    });
+}
+
+
+function renderConnectionStatus() {
+    if (elements.apiConnectionBadge) {
+        elements.apiConnectionBadge.textContent = state.apiConnected ? 'Conectada' : 'Desconectada';
+        elements.apiConnectionBadge.classList.toggle('connection-online', state.apiConnected);
+        elements.apiConnectionBadge.classList.toggle('connection-offline', !state.apiConnected);
+    }
+
+    if (elements.wsConnectionBadge) {
+        elements.wsConnectionBadge.textContent = state.wsConnected ? 'Conectado' : 'Desconectado';
+        elements.wsConnectionBadge.classList.toggle('connection-online', state.wsConnected);
+        elements.wsConnectionBadge.classList.toggle('connection-offline', !state.wsConnected);
+    }
+
+    if (elements.connectionUpdatedAt) {
+        elements.connectionUpdatedAt.textContent = formatConnectionTime(state.connectionUpdatedAt);
+    }
+}
+
+
+function handleConnectionSignal(signal) {
+    if (!signal || !signal.kind) {
+        return;
+    }
+
+    if (signal.kind === 'api') {
+        state.apiConnected = Boolean(signal.connected);
+    }
+
+    if (signal.kind === 'ws') {
+        state.wsConnected = Boolean(signal.connected);
+    }
+
+    state.connectionUpdatedAt = signal.at || new Date().toISOString();
+    renderConnectionStatus();
+}
 
 
 function updatePaginationControls(kind, pageData) {
@@ -332,7 +431,20 @@ function connectUpdatesSocket() {
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     const socket = new WebSocket(`${protocol}://${window.location.host}/ws/updates`);
 
+    socket.addEventListener('open', () => {
+        handleConnectionSignal({
+            kind: 'ws',
+            connected: true,
+            at: new Date().toISOString(),
+        });
+    });
+
     socket.addEventListener('message', async (event) => {
+        handleConnectionSignal({
+            kind: 'ws',
+            connected: true,
+            at: new Date().toISOString(),
+        });
         try {
             const payload = JSON.parse(event.data);
             if (payload?.type === 'asset_history_updated') {
@@ -344,7 +456,20 @@ function connectUpdatesSocket() {
     });
 
     socket.addEventListener('close', () => {
+        handleConnectionSignal({
+            kind: 'ws',
+            connected: false,
+            at: new Date().toISOString(),
+        });
         setTimeout(connectUpdatesSocket, 2000);
+    });
+
+    socket.addEventListener('error', () => {
+        handleConnectionSignal({
+            kind: 'ws',
+            connected: false,
+            at: new Date().toISOString(),
+        });
     });
 }
 
@@ -355,6 +480,39 @@ async function refresh() {
         loadSnapshotsPage(),
     ]);
     render();
+}
+
+
+async function startupWithRetry() {
+    setStartupVisible(true);
+    setStartupProgress(8);
+    setStartupMessage('Conectando con la API...');
+
+    for (let attempt = 1; attempt <= STARTUP_MAX_ATTEMPTS; attempt += 1) {
+        const progress = Math.round((attempt / STARTUP_MAX_ATTEMPTS) * 100);
+        setStartupProgress(progress);
+        setStartupMessage(`Esperando backend (${attempt}/${STARTUP_MAX_ATTEMPTS})...`);
+
+        try {
+            await refresh();
+            await refreshMetricsPanel();
+            setStartupProgress(100);
+            setStartupMessage('Aplicación lista.');
+
+            window.setTimeout(() => {
+                setStartupVisible(false);
+            }, 180);
+            return;
+        } catch (_error) {
+            if (attempt >= STARTUP_MAX_ATTEMPTS) {
+                setStartupMessage('Sin conexión al backend. Reintentando en segundo plano...');
+                setStartupProgress(100);
+                return;
+            }
+
+            await sleep(STARTUP_RETRY_DELAY_MS);
+        }
+    }
 }
 
 
@@ -678,12 +836,32 @@ function formatBytes(bytes) {
 }
 
 
+function formatLogDetail(logItem) {
+    const details = logItem?.details;
+    if (!details || typeof details !== 'object' || Array.isArray(details)) {
+        return '-';
+    }
+
+    const parts = [];
+    Object.entries(details).forEach(([key, value]) => {
+        if (value === null || value === undefined || value === '') {
+            return;
+        }
+        parts.push(`${key}: ${value}`);
+    });
+
+    return parts.length > 0 ? parts.join(' · ') : '-';
+}
+
+
 async function refreshMetricsPanel() {
     if (!elements.metricDashboardLastMs || !elements.metricsBody) {
         return;
     }
 
     const metrics = await api.getMetrics();
+    const recentLogsResponse = await api.getRecentLogs(30);
+    const recentLogs = recentLogsResponse?.items || [];
 
     elements.metricDashboardLastMs.textContent = `${Number(metrics.dashboard_render_ms_last || 0).toFixed(1)} ms`;
     elements.metricDashboardAvgMs.textContent = `${Number(metrics.dashboard_render_ms_avg || 0).toFixed(1)} ms`;
@@ -704,6 +882,19 @@ async function refreshMetricsPanel() {
 
     if (elements.metricsUpdatedAt) {
         elements.metricsUpdatedAt.textContent = `Actualizado: ${new Date().toLocaleTimeString()}`;
+    }
+
+    if (elements.recentLogsBody) {
+        ui.updateTable(elements.recentLogsBody, recentLogs, (item) => `
+            <td>${dateTime(item.timestamp)}</td>
+            <td>${item.action_type || '-'}</td>
+            <td>${item.source || '-'}</td>
+            <td>${formatLogDetail(item)}</td>
+        `);
+    }
+
+    if (elements.recentLogsUpdatedAt) {
+        elements.recentLogsUpdatedAt.textContent = `Logs: ${new Date().toLocaleTimeString()}`;
     }
 }
 
@@ -796,6 +987,7 @@ bindChartRangeFilters();
 bindChartSeriesToggles();
 bindThemeSelector();
 bindTablePagination();
-refresh();
-refreshMetricsPanel();
+api.setConnectionObserver(handleConnectionSignal);
+renderConnectionStatus();
 connectUpdatesSocket();
+startupWithRetry();

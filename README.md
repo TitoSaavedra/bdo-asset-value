@@ -6,309 +6,225 @@
 ![Tesseract OCR](https://img.shields.io/badge/Tesseract-OCR-orange?style=flat-square)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
 
-> *Un poderoso sistema de seguimiento de activos para Black Desert Online que combina visión computacional avanzada con una interfaz web intuitiva.*
+Sistema de seguimiento de activos para Black Desert Online con OCR, API FastAPI y dashboard web con historial, métricas y estado de conexión.
 
-## 🌟 Visión General
+## Descripción General
 
-**Black Desert Asset Tracker** es una herramienta automatizada diseñada para jugadores de Black Desert Online que desean mantener un registro preciso y en tiempo real de sus activos financieros. Utilizando técnicas avanzadas de OCR (Reconocimiento Óptico de Caracteres) y procesamiento de imágenes, la aplicación captura automáticamente los valores de plata en el mercado, inventario y almacenes, proporcionando análisis históricos y visualizaciones interactivas.
+Esta aplicación captura valores de plata (mercado, inventario y almacenes), los procesa con OCR y los persiste como historial para análisis en tiempo real.
 
-### ✨ Características Principales
+Principales objetivos:
 
-- **OCR Automático**: Detección precisa de valores numéricos en capturas de pantalla del juego
-- **Interfaz Web Moderna**: Dashboard interactivo con gráficos en tiempo real
-- **Soporte Multi-Almacén**: Seguimiento de múltiples almacenes y tipos de almacenamiento
-- **Análisis Histórico**: Tendencias y gráficos de evolución de activos
-- **API RESTful**: Backend robusto construido con FastAPI
-- **Hotkeys Integradas**: Captura instantánea con atajos de teclado
-- **Procesamiento de Imágenes Avanzado**: Múltiples algoritmos de preprocesamiento para máxima precisión OCR
+- Registrar activos con baja fricción desde hotkeys.
+- Mantener historial y snapshots de almacenes.
+- Visualizar evolución, métricas y estado del sistema.
+- Permitir operación local sin infraestructura adicional (JSON local), con base preparada para MongoDB.
 
-## 🏗️ Arquitectura Técnica
+## Novedades Recientes
 
-### Backend (Python/FastAPI)
+- OCR desacoplado de hotkeys mediante cola de tareas.
+- Nuevo módulo dedicado: `app/ocr/queue_processor.py`.
+- Captura rápida + procesamiento diferido (OCR y guardado en JSON) en segundo plano.
+- Frontend con estado de conexión API/WebSocket.
+- Overlay de arranque con reintentos al iniciar frontend.
+- Endpoint de logs recientes: `/api/logs/recent`.
 
-El backend está estructurado en módulos especializados:
+## Arquitectura
 
-- **`app/main.py`**: Punto de entrada FastAPI con endpoints REST
-- **`app/service.py`**: Lógica de negocio y gestión de datos
-- **`app/models.py`**: Modelos de datos Pydantic
-- **`app/storage.py`**: Persistencia de datos (JSON local actualmente, preparado para MongoDB)
-- **`app/database.py`**: Cliente MongoDB para futuras migraciones
-- **`app/hotkeys.py`**: Sistema de capturas por teclado
-- **`app/config.py`**: Configuración centralizada
+### Backend
 
-### OCR Engine
+- `app/main.py`: App FastAPI, rutas REST, WebSocket y ciclo de vida.
+- `app/service.py`: Lógica de negocio, cache de dashboard, métricas y compacción de historial.
+- `app/storage.py`: Persistencia actual en JSON (`data/asset_history.json`) y opción MongoDB.
+- `app/database.py`: Cliente y creación de índices MongoDB.
+- `app/hotkeys.py`: Captura de imágenes desde atajos y encolado de tareas OCR.
+- `app/models.py`: Modelos Pydantic de entrada/salida y estado.
 
-El motor de OCR utiliza Tesseract con procesamiento de imágenes personalizado:
+### OCR
 
-- **`app/ocr/reader.py`**: Lógica principal de reconocimiento de texto
-- **`app/ocr/image.py`**: Algoritmos de preprocesamiento de imágenes (bright_text, warm_text, cream_to_bw)
-- **`app/ocr/capture.py`**: Captura de pantalla y recorte de regiones
-- **`app/ocr/config/`**: Configuraciones de regiones y calibración
-- **`app/ocr/utils.py`**: Utilidades de procesamiento y depuración
+- `app/ocr/capture.py`: Captura de regiones de pantalla con `mss`.
+- `app/ocr/image.py`: Preprocesamiento de imagen para OCR.
+- `app/ocr/reader.py`: Lectura OCR y limpieza de valores/nombres.
+- `app/ocr/queue_processor.py`: Cola, workers OCR y guardado diferido.
+- `app/ocr/config/`: Regiones, calibración y catálogos de almacenes.
 
-**Técnicas OCR Avanzadas:**
-- Configuración PSM 7 para texto uniforme
-- Whitelist de caracteres numéricos
-- Múltiples métodos de preprocesamiento (brillo, temperatura de color, binarización)
-- Limpieza regex para extracción de dígitos
-- Sistema de fallback para mayor robustez
+### Frontend
 
-### Frontend (JavaScript Modular)
+- `frontend/index.html`: Shell principal + overlay de inicio.
+- `frontend/js/main.js`: Estado UI, render y sincronización.
+- `frontend/js/api.js`: Cliente API + observador de conexión.
+- `frontend/views/`: Pantallas (`dashboard`, `manual`, `metrics`, `warehouses`).
 
-La interfaz web utiliza una arquitectura modular moderna:
+## Flujo OCR en Cola (actual)
 
-- **`frontend/js/main.js`**: Controlador principal y estado de la aplicación
-- **`frontend/js/api.js`**: Cliente API para comunicación con backend
-- **`frontend/js/ui-manager.js`**: Gestión de interfaces y navegación
-- **`frontend/js/chart-engine.js`**: Renderizado de gráficos con Chart.js
-- **`frontend/js/utils.js`**: Utilidades compartidas (formateo de moneda, fechas)
+1. Hotkey captura imágenes (rápido).
+2. Se encola una tarea (`market_inventory` o `storage_snapshot`).
+3. Worker de `queue_processor` procesa OCR en segundo plano.
+4. El resultado se guarda vía `AssetService` en `data/asset_history.json`.
+5. El backend emite actualización para refresco de UI.
 
-**Características del Frontend:**
-- Arquitectura basada en módulos ES6
-- Estado centralizado y renderizado reactivo
-- Componentes reutilizables
-- API asíncrona con manejo de errores
-- Visualizaciones interactivas de datos
+Esto reduce bloqueos en la entrada de hotkeys cuando se disparan muchas capturas seguidas.
 
-## � Almacenamiento de Datos
+## Requisitos
 
-### Almacenamiento Actual (Local JSON)
-Actualmente, la aplicación utiliza **almacenamiento local basado en JSON** para simplicidad y portabilidad:
+- Python 3.8+
+- Tesseract OCR instalado
+- Windows 10/11 (flujo de captura actual pensado para Windows)
 
-- **Archivo**: `data/asset_history.json`
-- **Ventajas**: No requiere configuración adicional, portable, fácil de backup
-- **Limitaciones**: Lectura/escritura del archivo completo, no óptimo para grandes volúmenes
-
-### Preparación para MongoDB (Futuro)
-El código está preparado para migrar a **MongoDB** cuando sea necesario:
-
-- **Cliente**: Motor (async MongoDB driver)
-- **Colecciones**: `records`, `warehouse_snapshots`, `settings`
-- **Migración**: Script `migrate_to_mongodb.py` incluido
-- **Configuración**: Variables de entorno `MONGODB_URL` y `DATABASE_NAME`
-
-Para migrar a MongoDB más adelante:
-1. Instalar MongoDB (local o cloud)
-2. Ejecutar `python migrate_to_mongodb.py`
-3. Cambiar `storage = JSONStorage()` por `storage = MongoDBStorage()` en `app/storage.py`
-
-## �🚀 Instalación y Configuración
-
-### Prerrequisitos
-
-- **Python 3.8+**
-- **Tesseract OCR 5.0+**
-- **Windows 10/11** (soporte nativo para capturas de pantalla)
-
-### 1. Instalar Tesseract OCR
-
-> ⚠️ **IMPORTANTE**: Tesseract OCR es **requerido** para la funcionalidad de reconocimiento de texto. Sin él, la aplicación no podrá detectar valores de plata en las capturas de pantalla.
-
-Descarga e instala Tesseract desde el [repositorio oficial de GitHub](https://github.com/UB-Mannheim/tesseract/wiki):
+## Instalación
 
 ```bash
-# Para Windows, descarga el instalador desde:
-# https://github.com/UB-Mannheim/tesseract/wiki
-```
-
-Asegúrate de que `tesseract.exe` esté en el PATH del sistema.
-
-### 2. Configurar Entorno Python
-
-```bash
-# Clonar o descargar el proyecto
 cd bdo-asset-value
-
-# Crear entorno virtual
-python -m venv venv
-
-# Activar entorno virtual
-venv\Scripts\activate  # Windows
-
-# Instalar dependencias
+python -m venv .venv
+.venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. Verificar Instalación
+Instala Tesseract OCR (UB Mannheim recomendado en Windows):
+
+- https://github.com/UB-Mannheim/tesseract/wiki
+
+Si hace falta, ajusta ruta de Tesseract en `app/config.py` (`TESSERACT_CMD`).
+
+## Ejecución
 
 ```bash
-# Verificar Python
-python --version
-
-# Verificar Tesseract
-tesseract --version
-
-# Verificar dependencias
-python -c "import pytesseract, cv2, fastapi; print('Todas las dependencias instaladas correctamente')"
-```
-
-## 🎮 Uso
-
-### Inicio Rápido
-
-```bash
-# Ejecutar la aplicación
 python run.py
 ```
 
-La aplicación iniciará:
-- Servidor web en `http://127.0.0.1:8000`
-- Sistema de hotkeys para capturas automáticas
+Esto inicia:
 
-### Hotkeys Disponibles
+- API en `http://127.0.0.1:8000`
+- Listener de hotkeys globales
 
-- **F9**: Capturar inventario
-- **F10**: Capturar almacén
-- **F11**: Capturar valor de mercado
+## Hotkeys Vigentes
 
-### Interfaz Web
+- `ALT + 1`: monitoreo de almacenes (captura nombre + valor y encola).
+- `ALT + 2`: captura mercado + inventario (encolado inmediato).
+- `ESC`: cancela monitoreo activo de almacén.
 
-1. Abre `http://127.0.0.1:8000` en tu navegador
-2. Navega entre las pestañas: Dashboard, Historial, Configuración
-3. Visualiza gráficos de tendencias de activos
-4. Agrega registros manuales si es necesario
-
-### Calibración OCR
-
-Para máxima precisión, calibra las regiones de captura:
-
-1. Ejecuta `python dev.py` para modo desarrollador
-2. Ajusta las coordenadas en `app/ocr/config/regions.py`
-3. Prueba capturas en diferentes resoluciones de pantalla
-
-## 📊 API Endpoints
+## API Principal
 
 | Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/` | Interfaz web principal |
-| GET | `/api/dashboard` | Datos del dashboard |
-| POST | `/api/manual-record` | Registro manual de activos |
-| POST | `/api/ocr/storage` | Captura OCR de almacén |
-| POST | `/api/ocr/inventory` | Captura OCR de inventario |
-| POST | `/api/preorders` | Registro de preorders |
+|---|---|---|
+| GET | `/` | Frontend principal |
+| GET | `/api/dashboard` | Datos agregados de dashboard |
+| GET | `/api/history` | Historial paginado |
+| GET | `/api/snapshots` | Snapshots de almacenes paginados |
+| GET | `/api/metrics` | Métricas internas de runtime |
+| GET | `/api/logs/recent` | Acciones recientes para monitoreo |
+| POST | `/api/manual-record` | Alta manual de registro |
+| POST | `/api/manual-warehouse-value` | Corrección manual de almacén |
+| POST | `/api/ocr/storage` | Alta de snapshot de almacén por API |
+| POST | `/api/ocr/inventory` | Alta de inventario por API |
+| POST | `/api/preorders` | Alta de preorders |
+| POST | `/api/settings/include-warehouses/{value}` | Toggle de inclusión de almacenes |
+| POST | `/api/history/compact` | Compacción manual de historial |
+| WS | `/ws/updates` | Actualizaciones en tiempo real |
 
-## 🔧 Desarrollo
+## Persistencia
 
-### Estructura del Proyecto
+### Actual (por defecto)
 
-```
+- Archivo: `data/asset_history.json`
+- Ventaja: simple y portable.
+- Limitación: lectura/escritura completa del archivo.
+
+### Preparado para MongoDB
+
+- Variables: `MONGODB_URL`, `DATABASE_NAME`.
+- Script de migración: `migrate_to_mongodb.py`.
+- Índices automáticos en startup (`app/database.py`).
+
+## Variables de Entorno
+
+Variables útiles en backend (`app/config.py`):
+
+- `MONGODB_URL`
+- `DATABASE_NAME`
+- `DASHBOARD_CACHE_TTL_SECONDS`
+- `HISTORY_COMPACTOR_INTERVAL_SECONDS`
+- `HISTORY_RETENTION_DAYS`
+
+Variables de logging (`app/logs/logger.py`):
+
+- `ENABLE_BACKEND_CONSOLE_LOGS=true|false`
+- `LOG_LEVEL=DEBUG|INFO|WARNING|ERROR`
+
+## Estructura del Proyecto
+
+```text
 bdo-asset-value/
-├── app/                    # Backend Python
-│   ├── ocr/               # Motor OCR
-│   ├── logs/              # Sistema de logging
-│   └── *.py               # Módulos principales
-├── frontend/              # Interfaz web
-│   ├── js/                # JavaScript modular
-│   ├── css/               # Estilos
-│   └── index.html         # HTML principal
-├── data/                  # Datos persistentes
-├── requirements.txt       # Dependencias Python
-├── run.py                 # Punto de entrada
-├── dev.py                 # Modo desarrollador
-└── migrate_to_mongodb.py  # Script de migración a MongoDB
+├── app/
+│   ├── config.py
+│   ├── database.py
+│   ├── hotkeys.py
+│   ├── main.py
+│   ├── models.py
+│   ├── service.py
+│   ├── storage.py
+│   ├── logs/
+│   └── ocr/
+│       ├── capture.py
+│       ├── image.py
+│       ├── queue_processor.py
+│       ├── reader.py
+│       ├── utils.py
+│       └── config/
+├── data/
+│   └── asset_history.json
+├── frontend/
+│   ├── css/
+│   ├── js/
+│   └── views/
+├── run.py
+├── dev.py
+└── migrate_to_mongodb.py
 ```
 
-### Modo Desarrollador
+## Desarrollo
+
+Modo desarrollo (auto-restart por cambios Python):
 
 ```bash
 python dev.py
 ```
 
-Inicia el servidor con recarga automática para desarrollo.
+Notas:
 
-## � Logging y Depuración
+- El proyecto sigue convención PEP 8 y tipado en backend.
+- Mantener nombres en inglés para código/variables/modelos.
 
-### Configuración de Logs
+## Roadmap de Rendimiento (Backend)
 
-La aplicación utiliza un sistema de logging dual:
+### Prioridad Alta
 
-- **Archivo**: `app/logs/bdo_asset_YYYYMMDD.log` - Todos los logs (DEBUG y superiores)
-- **Consola**: Muestra todos los logs del OCR y operaciones principales
+- [ ] Migrar persistencia principal a MongoDB (o repositorio en memoria + flush por lotes).
+- [ ] Reducir recálculo completo de dashboard en broadcasts de actualización.
+- [ ] Añadir sincronización más robusta de escritura entre entradas concurrentes.
 
-### Niveles de Logging
+### Prioridad Media
 
-```bash
-# Mostrar todos los logs (por defecto)
-python run.py
+- [ ] Reutilizar instancia de captura (`mss`) para bajar overhead.
+- [ ] Endurecer gestión de conexiones WebSocket caídas.
+- [ ] Exponer métricas de cola OCR (`enqueued`, `processed`, `dropped`, `queue_size`).
 
-# Solo logs INFO y superiores
-LOG_LEVEL=INFO python run.py
+### Quick Wins
 
-# Solo logs WARNING y superiores
-LOG_LEVEL=WARNING python run.py
-```
+- [ ] Eventos WS livianos y refresco de dashboard con debounce en frontend.
+- [ ] Ajustar TTL de cache de dashboard según carga real.
+- [ ] Separar proceso OCR/hotkeys del proceso API en producción.
 
-### Logs del OCR
+## Contribución
 
-Todos los logs del OCR se muestran en consola para facilitar la depuración:
+1. Haz fork del repositorio.
+2. Crea una rama de trabajo.
+3. Implementa cambios con foco en módulos y responsabilidad única.
+4. Abre Pull Request con contexto técnico claro.
 
-- `DEBUG`: Procesamiento detallado de imágenes y texto OCR
-- `INFO`: Resultados exitosos de detección de valores
-- `WARNING`: Capturas fallidas guardadas para análisis
+## Licencia
 
-### Ejemplo de Output en Consola
+Este proyecto está bajo licencia MIT.
 
-```
-2026-03-15 15:16:11 | DEBUG | reader | read_silver_value | Iniciando lectura de silver con OCR
-2026-03-15 15:16:11 | DEBUG | reader | read_silver_value | Imagen procesada con bright_text
-2026-03-15 15:16:11 | DEBUG | reader | read_silver_value | OCR resultado primary: 1,234,567
-2026-03-15 15:16:11 | INFO | reader | read_silver_value | Silver detectado (modo primary): 1234567
-```
+## Descargo de Responsabilidad
 
-## �🚀 Futuras Mejoras
-
-### Detección Automática de Precios de Mercado
-- **Integración con APIs de BDO**: Sincronización automática con precios del mercado del juego
-- **Análisis Predictivo**: Algoritmos de machine learning para predicción de tendencias
-- **Alertas en Tiempo Real**: Notificaciones cuando los precios alcancen umbrales específicos
-
-### Mejoras en OCR
-- **IA Avanzada**: Implementación de modelos de visión computacional (CNN) para mayor precisión
-- **Soporte Multi-Idioma**: Reconocimiento de texto en múltiples idiomas del juego
-- **Detección de Objetos**: Identificación automática de items y cantidades
-
-### Características de la Interfaz
-- **Modo Oscuro**: Tema adaptativo para sesiones prolongadas
-- **PWA Support**: Instalación como aplicación web progresiva
-- **Sincronización en la Nube**: Backup y sincronización de datos entre dispositivos
-
-### Expansión del Sistema
-- **Análisis de Portafolio**: Métricas avanzadas de rendimiento de inversiones
-- **Integración con Discord**: Webhooks para compartir estadísticas en comunidades
-- **Soporte Multi-Plataforma**: Versiones para macOS y Linux
-
-## 🤝 Contribución
-
-¡Las contribuciones son bienvenidas! Para contribuir:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-### Guías de Contribución
-
-- Sigue PEP 8 para código Python
-- Usa ESLint para JavaScript
-- Documenta nuevas funciones y cambios
-- Agrega tests para funcionalidades críticas
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## ⚠️ Descargo de Responsabilidad
-
-Esta herramienta es para uso personal y educativo únicamente. No está afiliada con Pearl Abyss ni Black Desert Online. El uso de herramientas de automatización puede violar los términos de servicio del juego - úsala bajo tu propio riesgo.
-
-## 🙏 Agradecimientos
-
-- Comunidad de Black Desert Online por la inspiración
-- Desarrolladores de Tesseract OCR
-- Equipo de FastAPI por el framework excepcional
-- Contribuidores de bibliotecas open-source utilizadas
-
----
-
-**Desarrollado con ❤️ para la comunidad de Black Desert Online**
+Proyecto para uso personal/educativo. No está afiliado con Pearl Abyss ni Black Desert Online. Usa esta herramienta bajo tu responsabilidad y revisa los términos del juego.

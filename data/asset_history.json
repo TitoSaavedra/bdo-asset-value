@@ -49,7 +49,7 @@
       }
     },
     {
-      "captured_at": "2026-03-15T15:44:40",
+      "captured_at": "2026-03-15T15:47:36",
       "market_silver": 0,
       "inventory_silver": 120100508,
       "preorder_silver": 0,
@@ -58,19 +58,13 @@
       "total_without_warehouses": 120100508,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Isla de Illya"
+        "warehouse": "Isla de Illya",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage",
+          "ocr-inventory"
+        ]
       }
-    },
-    {
-      "captured_at": "2026-03-15T15:47:36",
-      "market_silver": 0,
-      "inventory_silver": 120100508,
-      "preorder_silver": 0,
-      "warehouses_total": 8065684446,
-      "total_with_warehouses": 8185784954,
-      "total_without_warehouses": 120100508,
-      "source": "ocr-inventory",
-      "details": {}
     },
     {
       "captured_at": "2026-03-15T15:50:04",
@@ -86,32 +80,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T15:50:06",
-      "market_silver": 0,
-      "inventory_silver": 120100508,
-      "preorder_silver": 0,
-      "warehouses_total": 8632571329,
-      "total_with_warehouses": 8752671837,
-      "total_without_warehouses": 120100508,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Velia"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T15:50:08",
-      "market_silver": 0,
-      "inventory_silver": 120100508,
-      "preorder_silver": 0,
-      "warehouses_total": 8632571329,
-      "total_with_warehouses": 8752671837,
-      "total_without_warehouses": 120100508,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Olvia"
-      }
-    },
-    {
       "captured_at": "2026-03-15T15:50:10",
       "market_silver": 0,
       "inventory_silver": 120100508,
@@ -121,7 +89,11 @@
       "total_without_warehouses": 120100508,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Aldea de Eil"
+        "warehouse": "Velia",
+        "merged_count": 3,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -294,7 +266,7 @@
       }
     },
     {
-      "captured_at": "2026-03-15T15:50:42",
+      "captured_at": "2026-03-15T15:59:24",
       "market_silver": 0,
       "inventory_silver": 120100508,
       "preorder_silver": 0,
@@ -303,41 +275,14 @@
       "total_without_warehouses": 120100508,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Belander"
+        "warehouse": "Belander",
+        "merged_count": 4,
+        "merged_sources": [
+          "ocr-storage",
+          "ocr-inventory",
+          "ocr-market-inventory"
+        ]
       }
-    },
-    {
-      "captured_at": "2026-03-15T15:55:22",
-      "market_silver": 0,
-      "inventory_silver": 120100508,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86495674723,
-      "total_without_warehouses": 120100508,
-      "source": "ocr-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T15:56:48",
-      "market_silver": 0,
-      "inventory_silver": 120100508,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86495674723,
-      "total_without_warehouses": 120100508,
-      "source": "ocr-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T15:59:24",
-      "market_silver": null,
-      "inventory_silver": 120100508,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86495674723,
-      "total_without_warehouses": 120100508,
-      "source": "ocr-market-inventory",
-      "details": {}
     },
     {
       "captured_at": "2026-03-15T16:00:05",
@@ -351,61 +296,6 @@
       "details": {}
     },
     {
-      "captured_at": "2026-03-15T16:04:58",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86497628497,
-      "total_without_warehouses": 122054282,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:06:33",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86497628497,
-      "total_without_warehouses": 122054282,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:09:46",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86497628497,
-      "total_without_warehouses": 122054282,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:10:25",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86497628497,
-      "total_without_warehouses": 122054282,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:10:25",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86497628497,
-      "total_without_warehouses": 122054282,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
       "captured_at": "2026-03-15T16:12:09",
       "market_silver": null,
       "inventory_silver": 122054282,
@@ -414,403 +304,12 @@
       "total_with_warehouses": 86497628497,
       "total_without_warehouses": 122054282,
       "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:12:09",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 86497628497,
-      "total_without_warehouses": 122054282,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:14:35",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:14:35",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:18:33",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:18:33",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:20:28",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:20:28",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:20:28",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:05",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:05",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:05",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:06",
-      "market_silver": 347338037063,
-      "inventory_silver": null,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:17",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:17",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:17",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:17",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:33",
-      "market_silver": null,
-      "inventory_silver": null,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:33",
-      "market_silver": null,
-      "inventory_silver": null,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:35",
-      "market_silver": null,
-      "inventory_silver": null,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:35",
-      "market_silver": null,
-      "inventory_silver": null,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:23:37",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:25:41",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:25:41",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:25:41",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:25:41",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:26:21",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:26:21",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:26:21",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:26:21",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:28:50",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:28:50",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:28:50",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:28:50",
-      "market_silver": null,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:37:16",
-      "market_silver": 347338037063,
-      "inventory_silver": null,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:38:55",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T16:39:07",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 86375574215,
-      "total_with_warehouses": 433835665560,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-market-inventory",
-      "details": {}
+      "details": {
+        "merged_count": 7,
+        "merged_sources": [
+          "ocr-market-inventory"
+        ]
+      }
     },
     {
       "captured_at": "2026-03-15T16:41:41",
@@ -821,7 +320,12 @@
       "total_with_warehouses": 433835665560,
       "total_without_warehouses": 347460091345,
       "source": "ocr-market-inventory",
-      "details": {}
+      "details": {
+        "merged_count": 36,
+        "merged_sources": [
+          "ocr-market-inventory"
+        ]
+      }
     },
     {
       "captured_at": "2026-03-15T16:45:01",
@@ -850,19 +354,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:45:19",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 88384868611,
-      "total_with_warehouses": 435844959956,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Glish"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:45:30",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -872,7 +363,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Aldea de Eil"
+        "warehouse": "Glish",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -902,32 +397,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:46:00",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 97978552028,
-      "total_with_warehouses": 445438643373,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Valencia"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:46:06",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 97978552028,
-      "total_with_warehouses": 445438643373,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Puerto Interior de Ancado"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:46:09",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -937,7 +406,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Muiquun"
+        "warehouse": "Valencia",
+        "merged_count": 3,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -993,32 +466,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:46:29",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 116029517899,
-      "total_with_warehouses": 463489609244,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Odraxia"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:46:33",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 116029517899,
-      "total_with_warehouses": 463489609244,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Ojo de Okilua"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:46:35",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -1028,20 +475,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Mudeul (Nampo)"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:46:40",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 116049890049,
-      "total_with_warehouses": 463509981394,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Dalbeol"
+        "warehouse": "Odraxia",
+        "merged_count": 3,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1054,7 +492,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Byeot (Nopsae)"
+        "warehouse": "Dalbeol",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1071,19 +513,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:46:49",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 127315425799,
-      "total_with_warehouses": 474775517144,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Godu"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:46:51",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -1093,7 +522,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Bukpo"
+        "warehouse": "Godu",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1110,19 +543,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:46:58",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 197543219708,
-      "total_with_warehouses": 545003311053,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Asparkan"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:47:13",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -1132,7 +552,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Belander"
+        "warehouse": "Asparkan",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1201,58 +625,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:55:01",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 212103899036,
-      "total_with_warehouses": 559563990381,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Heidel"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:55:05",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 212103899036,
-      "total_with_warehouses": 559563990381,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Mudeul (Nampo)"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:55:07",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 212103899036,
-      "total_with_warehouses": 559563990381,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Muzgar"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:55:10",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 212103899036,
-      "total_with_warehouses": 559563990381,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Belander"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:55:12",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -1262,20 +634,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Bukpo"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:55:14",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 212103907136,
-      "total_with_warehouses": 559563998481,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Byeot (Nopsae)"
+        "warehouse": "Heidel",
+        "merged_count": 5,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1288,20 +651,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Dalbeol"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T16:55:19",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 206434426882,
-      "total_with_warehouses": 553894518227,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Aldea de Eil"
+        "warehouse": "Byeot (Nopsae)",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1314,7 +668,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Ojo de Okilua"
+        "warehouse": "Aldea de Eil",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1357,19 +715,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:55:30",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 250188957494,
-      "total_with_warehouses": 597649048839,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Árbol de la Sabiduría"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:55:33",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -1379,7 +724,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Puerto Interior de Ancado"
+        "warehouse": "Árbol de la Sabiduría",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1435,19 +784,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T16:55:44",
-      "market_silver": 347338037063,
-      "inventory_silver": 122054282,
-      "preorder_silver": 0,
-      "warehouses_total": 255587534385,
-      "total_with_warehouses": 603047625730,
-      "total_without_warehouses": 347460091345,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Glish"
-      }
-    },
-    {
       "captured_at": "2026-03-15T16:55:46",
       "market_silver": 347338037063,
       "inventory_silver": 122054282,
@@ -1457,7 +793,11 @@
       "total_without_warehouses": 347460091345,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Isla de Illya"
+        "warehouse": "Glish",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1531,7 +871,7 @@
       }
     },
     {
-      "captured_at": "2026-03-15T18:37:21",
+      "captured_at": "2026-03-15T18:37:28",
       "market_silver": 354646149563,
       "inventory_silver": 3900174282,
       "preorder_silver": 7637400000,
@@ -1539,18 +879,12 @@
       "total_with_warehouses": 632730088987,
       "total_without_warehouses": 366183723845,
       "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T18:37:28",
-      "market_silver": null,
-      "inventory_silver": null,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 266546365142,
-      "total_with_warehouses": 632730088987,
-      "total_without_warehouses": 366183723845,
-      "source": "ocr-market-inventory",
-      "details": {}
+      "details": {
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-market-inventory"
+        ]
+      }
     },
     {
       "captured_at": "2026-03-15T18:51:03",
@@ -1601,32 +935,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T18:56:03",
-      "market_silver": 358546323845,
-      "inventory_silver": 4290074600,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 306354566610,
-      "total_with_warehouses": 676828365055,
-      "total_without_warehouses": 370473798445,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Glish"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T18:56:05",
-      "market_silver": 358546323845,
-      "inventory_silver": 4290074600,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 306354566610,
-      "total_with_warehouses": 676828365055,
-      "total_without_warehouses": 370473798445,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Heidel"
-      }
-    },
-    {
       "captured_at": "2026-03-15T18:56:10",
       "market_silver": 358546323845,
       "inventory_silver": 4290074600,
@@ -1636,7 +944,11 @@
       "total_without_warehouses": 370473798445,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Velia"
+        "warehouse": "Glish",
+        "merged_count": 3,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1653,19 +965,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T18:56:19",
-      "market_silver": 358546323845,
-      "inventory_silver": 4290074600,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 306471190254,
-      "total_with_warehouses": 676944988699,
-      "total_without_warehouses": 370473798445,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Valencia"
-      }
-    },
-    {
       "captured_at": "2026-03-15T18:56:29",
       "market_silver": 358546323845,
       "inventory_silver": 4290074600,
@@ -1675,7 +974,11 @@
       "total_without_warehouses": 370473798445,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Velia"
+        "warehouse": "Valencia",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1692,19 +995,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T18:56:44",
-      "market_silver": 358546323845,
-      "inventory_silver": 4290074600,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 255404505104,
-      "total_with_warehouses": 625878303549,
-      "total_without_warehouses": 370473798445,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Heidel"
-      }
-    },
-    {
       "captured_at": "2026-03-15T18:56:49",
       "market_silver": 358546323845,
       "inventory_silver": 4290074600,
@@ -1714,7 +1004,11 @@
       "total_without_warehouses": 370473798445,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Glish"
+        "warehouse": "Heidel",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1783,19 +1077,6 @@
       }
     },
     {
-      "captured_at": "2026-03-15T18:57:15",
-      "market_silver": 358546323845,
-      "inventory_silver": 4290074600,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 250549457104,
-      "total_with_warehouses": 621023255549,
-      "total_without_warehouses": 370473798445,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Bazar Granos de Arena"
-      }
-    },
-    {
       "captured_at": "2026-03-15T18:57:19",
       "market_silver": 358546323845,
       "inventory_silver": 4290074600,
@@ -1805,20 +1086,11 @@
       "total_without_warehouses": 370473798445,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Puerto Interior de Ancado"
-      }
-    },
-    {
-      "captured_at": "2026-03-15T18:57:22",
-      "market_silver": 358546323845,
-      "inventory_silver": 4290074600,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 250549972414,
-      "total_with_warehouses": 621023770859,
-      "total_without_warehouses": 370473798445,
-      "source": "ocr-storage",
-      "details": {
-        "warehouse": "Arehaza"
+        "warehouse": "Bazar Granos de Arena",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1831,7 +1103,11 @@
       "total_without_warehouses": 370473798445,
       "source": "ocr-storage",
       "details": {
-        "warehouse": "Shakatu"
+        "warehouse": "Arehaza",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -1953,28 +1229,6 @@
       "details": {}
     },
     {
-      "captured_at": "2026-03-15T22:28:35",
-      "market_silver": 253860750,
-      "inventory_silver": 369474591422,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 216774360206,
-      "total_with_warehouses": 594140212378,
-      "total_without_warehouses": 377365852172,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T22:38:10",
-      "market_silver": null,
-      "inventory_silver": null,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 216774360206,
-      "total_with_warehouses": 594140212378,
-      "total_without_warehouses": 377365852172,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
       "captured_at": "2026-03-15T22:38:12",
       "market_silver": 253860750,
       "inventory_silver": 369474591422,
@@ -1983,7 +1237,12 @@
       "total_with_warehouses": 594140212378,
       "total_without_warehouses": 377365852172,
       "source": "ocr-market-inventory",
-      "details": {}
+      "details": {
+        "merged_count": 3,
+        "merged_sources": [
+          "ocr-market-inventory"
+        ]
+      }
     },
     {
       "captured_at": "2026-03-15T22:38:22",
@@ -2023,7 +1282,7 @@
       "details": {}
     },
     {
-      "captured_at": "2026-03-15T22:45:39",
+      "captured_at": "2026-03-15T22:51:22",
       "market_silver": 365928452172,
       "inventory_silver": 0,
       "preorder_silver": 7637400000,
@@ -2031,29 +1290,12 @@
       "total_with_warehouses": 590141644678,
       "total_without_warehouses": 373565852172,
       "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T22:49:22",
-      "market_silver": null,
-      "inventory_silver": 0,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 216575792506,
-      "total_with_warehouses": 590141644678,
-      "total_without_warehouses": 373565852172,
-      "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T22:51:22",
-      "market_silver": null,
-      "inventory_silver": 0,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 216575792506,
-      "total_with_warehouses": 590141644678,
-      "total_without_warehouses": 373565852172,
-      "source": "ocr-market-inventory",
-      "details": {}
+      "details": {
+        "merged_count": 3,
+        "merged_sources": [
+          "ocr-market-inventory"
+        ]
+      }
     },
     {
       "captured_at": "2026-03-15T22:53:38",
@@ -2084,7 +1326,7 @@
       }
     },
     {
-      "captured_at": "2026-03-15T23:10:32",
+      "captured_at": "2026-03-15T23:10:33",
       "market_silver": null,
       "inventory_silver": 0,
       "preorder_silver": 7637400000,
@@ -2092,19 +1334,12 @@
       "total_with_warehouses": 579013356890,
       "total_without_warehouses": 373565852172,
       "source": "ocr-market-inventory",
-      "details": {}
-    },
-    {
-      "captured_at": "2026-03-15T23:10:33",
-      "market_silver": 365928452172,
-      "inventory_silver": 0,
-      "preorder_silver": 7637400000,
-      "warehouses_total": 205447504718,
-      "total_with_warehouses": 579013356890,
-      "total_without_warehouses": 373565852172,
-      "source": "ocr-storage",
       "details": {
-        "warehouse": "Muzgar"
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-market-inventory",
+          "ocr-storage"
+        ]
       }
     },
     {
@@ -2132,6 +1367,268 @@
       "details": {
         "warehouse": "Velia",
         "manual": true
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:26",
+      "market_silver": 365928452172,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 211512886831,
+      "total_with_warehouses": 585078739003,
+      "total_without_warehouses": 373565852172,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Valencia"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:32",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 211512886831,
+      "total_with_warehouses": 577614883217,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-16T01:17:40",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 212058295408,
+      "total_with_warehouses": 578160291794,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Velia"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:42",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 212019106821,
+      "total_with_warehouses": 578121103207,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Heidel"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:46",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 206765631781,
+      "total_with_warehouses": 572867628167,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Calpheon",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:49",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 206678855941,
+      "total_with_warehouses": 572780852327,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Altinova"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:51",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 219667877036,
+      "total_with_warehouses": 585769873422,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Tarif"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:53",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214455479772,
+      "total_with_warehouses": 580557476158,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Bazar Granos de Arena"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:56",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214468335222,
+      "total_with_warehouses": 580570331608,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Grana"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:17:58",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214487118222,
+      "total_with_warehouses": 580589114608,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Duvencrune"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:18:00",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214487119202,
+      "total_with_warehouses": 580589115588,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Ojo de Okilua"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:18:02",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214493081912,
+      "total_with_warehouses": 580595078298,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Mudeul (Nampo)"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:18:07",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214234793322,
+      "total_with_warehouses": 580336789708,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Avenida Yukjo",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:18:09",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214235753902,
+      "total_with_warehouses": 580337750288,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Asparkan"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:18:11",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214238691052,
+      "total_with_warehouses": 580340687438,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Templo de Hakinza"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:25:31",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214140081870,
+      "total_with_warehouses": 580242078256,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Valencia"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:31:11",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214126100224,
+      "total_with_warehouses": 580228096610,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Shakatu",
+        "merged_count": 2,
+        "merged_sources": [
+          "ocr-storage"
+        ]
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:31:13",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 214126393722,
+      "total_with_warehouses": 580228390108,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Grana"
+      }
+    },
+    {
+      "captured_at": "2026-03-16T01:31:33",
+      "market_silver": 358383917172,
+      "inventory_silver": 80679214,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 265508353810,
+      "total_with_warehouses": 631610350196,
+      "total_without_warehouses": 366101996386,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Duvencrune",
+        "merged_count": 4,
+        "merged_sources": [
+          "ocr-storage",
+          "ocr-market-inventory"
+        ]
       }
     }
   ],
@@ -2685,6 +2182,131 @@
       "captured_at": "2026-03-15T23:14:46",
       "warehouse": "Velia",
       "market_silver": 123457
+    },
+    {
+      "captured_at": "2026-03-16T01:17:26",
+      "warehouse": "Valencia",
+      "market_silver": 14892964055
+    },
+    {
+      "captured_at": "2026-03-16T01:17:37",
+      "warehouse": "Valencia",
+      "market_silver": 14892964055
+    },
+    {
+      "captured_at": "2026-03-16T01:17:40",
+      "warehouse": "Velia",
+      "market_silver": 545532034
+    },
+    {
+      "captured_at": "2026-03-16T01:17:42",
+      "warehouse": "Heidel",
+      "market_silver": 5641497507
+    },
+    {
+      "captured_at": "2026-03-16T01:17:44",
+      "warehouse": "Calpheon",
+      "market_silver": 4686616700
+    },
+    {
+      "captured_at": "2026-03-16T01:17:46",
+      "warehouse": "Puerto de Epheria",
+      "market_silver": 771750000
+    },
+    {
+      "captured_at": "2026-03-16T01:17:49",
+      "warehouse": "Altinova",
+      "market_silver": 5670466750
+    },
+    {
+      "captured_at": "2026-03-16T01:17:51",
+      "warehouse": "Tarif",
+      "market_silver": 14892964055
+    },
+    {
+      "captured_at": "2026-03-16T01:17:53",
+      "warehouse": "Bazar Granos de Arena",
+      "market_silver": 140000000
+    },
+    {
+      "captured_at": "2026-03-16T01:17:56",
+      "warehouse": "Grana",
+      "market_silver": 7115342364
+    },
+    {
+      "captured_at": "2026-03-16T01:17:58",
+      "warehouse": "Duvencrune",
+      "market_silver": 1345760858
+    },
+    {
+      "captured_at": "2026-03-16T01:18:00",
+      "warehouse": "Ojo de Okilua",
+      "market_silver": 2281077088
+    },
+    {
+      "captured_at": "2026-03-16T01:18:02",
+      "warehouse": "Mudeul (Nampo)",
+      "market_silver": 140476750
+    },
+    {
+      "captured_at": "2026-03-16T01:18:05",
+      "warehouse": "Avenida Yukjo",
+      "market_silver": 10586913640
+    },
+    {
+      "captured_at": "2026-03-16T01:18:07",
+      "warehouse": "Muzgar",
+      "market_silver": 66025467400
+    },
+    {
+      "captured_at": "2026-03-16T01:18:09",
+      "warehouse": "Asparkan",
+      "market_silver": 401273850
+    },
+    {
+      "captured_at": "2026-03-16T01:18:11",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 6856618520
+    },
+    {
+      "captured_at": "2026-03-16T01:25:31",
+      "warehouse": "Valencia",
+      "market_silver": 14794354873
+    },
+    {
+      "captured_at": "2026-03-16T01:31:04",
+      "warehouse": "Valencia",
+      "market_silver": 14771835527
+    },
+    {
+      "captured_at": "2026-03-16T01:31:09",
+      "warehouse": "Shakatu",
+      "market_silver": 2720405830
+    },
+    {
+      "captured_at": "2026-03-16T01:31:11",
+      "warehouse": "Muiquun",
+      "market_silver": 1
+    },
+    {
+      "captured_at": "2026-03-16T01:31:13",
+      "warehouse": "Grana",
+      "market_silver": 7115635862
+    },
+    {
+      "captured_at": "2026-03-16T01:31:15",
+      "warehouse": "Duvencrune",
+      "market_silver": 52727720946
+    },
+    {
+      "captured_at": "2026-03-16T01:31:17",
+      "warehouse": "Aldea de Eil",
+      "market_silver": 2626650
+    },
+    {
+      "captured_at": "2026-03-16T01:31:19",
+      "warehouse": "Byeot (Nopsae)",
+      "market_silver": 5335200
     }
   ],
   "settings": {

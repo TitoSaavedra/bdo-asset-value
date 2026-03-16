@@ -34,6 +34,17 @@
                     <option value="light">Claro</option>
                 </select>
             </div>
+
+            <div class="connection-card" aria-live="polite">
+                <div class="connection-card-title">Conexión</div>
+                <div class="connection-grid">
+                    <span class="connection-label">API</span>
+                    <span class="connection-pill connection-offline" id="apiConnectionBadge">Desconectada</span>
+                    <span class="connection-label">WebSocket</span>
+                    <span class="connection-pill connection-offline" id="wsConnectionBadge">Desconectado</span>
+                </div>
+                <div class="connection-updated" id="connectionUpdatedAt">Sin actividad reciente</div>
+            </div>
         </aside>
 
         <main class="content">
@@ -42,6 +53,16 @@
             <section class="screen" id="screen-warehouses" data-view="/static/views/warehouses.html"></section>
             <section class="screen" id="screen-metrics" data-view="/static/views/metrics.html"></section>
         </main>
+    </div>
+
+    <div class="startup-overlay" id="startupOverlay" hidden>
+        <div class="card startup-card" role="status" aria-live="polite" aria-atomic="true">
+            <h2>Esperando inicio de aplicación</h2>
+            <p id="startupMessage">Conectando con la API...</p>
+            <div class="startup-progress" aria-hidden="true">
+                <div class="startup-progress-bar" id="startupProgressBar"></div>
+            </div>
+        </div>
     </div>
 
     <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>

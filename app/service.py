@@ -42,12 +42,35 @@ class AssetService:
         self._cache_lock = Lock()
         self._dashboard_cache: Dict[Tuple[int, int], Dict[str, Any]] = {}
         self._metrics_lock = Lock()
+        self._actions_lock = Lock()
+        self._recent_actions: deque[Dict[str, Any]] = deque(maxlen=300)
         self._dashboard_render_ms_last: float = 0.0
         self._dashboard_render_ms_avg: float = 0.0
         self._dashboard_payload_bytes_last: int = 0
         self._dashboard_calls: int = 0
         self._writes_total: int = 0
         self._write_timestamps: deque[datetime] = deque(maxlen=5000)
+
+    def _register_action(self, action_type: str, source: str, details: Optional[Dict[str, Any]] = None) -> None:
+        with self._actions_lock:
+            self._recent_actions.appendleft(
+                {
+                    'timestamp': now_iso(),
+                    'action_type': action_type,
+                    'source': source,
+                    'details': details or {},
+                }
+            )
+
+    def get_recent_actions(self, limit: int = 30) -> Dict[str, Any]:
+        safe_limit = max(1, min(limit, 200))
+        with self._actions_lock:
+            items = list(self._recent_actions)[:safe_limit]
+        return {
+            'items': items,
+            'total': len(items),
+            'limit': safe_limit,
+        }
 
     def _invalidate_dashboard_cache(self) -> None:
         with self._cache_lock:
@@ -271,6 +294,18 @@ class AssetService:
         if after_len != original_len:
             self._write_state(state)
 
+        if merged_count > 0 or pruned_count > 0:
+            self._register_action(
+                action_type='history-compaction',
+                source='system-compactor',
+                details={
+                    'before': original_len,
+                    'after': after_len,
+                    'merged': merged_count,
+                    'pruned': pruned_count,
+                },
+            )
+
         return {
             'before': original_len,
             'after': after_len,
@@ -457,6 +492,15 @@ class AssetService:
                     'merged_sources': merged_sources,
                 }
                 self._write_state(state)
+                self._register_action(
+                    action_type='record-merged',
+                    source=source,
+                    details={
+                        'captured_at': captured_at,
+                        'total_with_warehouses': total_with_warehouses,
+                        'total_without_warehouses': total_without_warehouses,
+                    },
+                )
 
                 self._broadcast_update('asset_history_updated', {
                     'dashboard': self.dashboard()
@@ -477,6 +521,15 @@ class AssetService:
         )
         state.records.append(record)
         self._write_state(state)
+        self._register_action(
+            action_type='record-added',
+            source=source,
+            details={
+                'captured_at': captured_at,
+                'total_with_warehouses': total_with_warehouses,
+                'total_without_warehouses': total_without_warehouses,
+            },
+        )
 
         self._broadcast_update('asset_history_updated', {
             'dashboard': self.dashboard()
@@ -574,6 +627,14 @@ class AssetService:
         snapshot = WarehouseSnapshot(captured_at=now_iso(), warehouse=warehouse, market_silver=market_silver)
         state.warehouse_snapshots.append(snapshot)
         self._write_state(state)
+        self._register_action(
+            action_type='storage-capture',
+            source='ocr-storage',
+            details={
+                'warehouse': warehouse,
+                'market_silver': market_silver,
+            },
+        )
 
         self._broadcast_update('asset_history_updated', {
             'dashboard': self.dashboard()
@@ -610,6 +671,14 @@ class AssetService:
         )
         state.warehouse_snapshots.append(snapshot)
         self._write_state(state)
+        self._register_action(
+            action_type='manual-warehouse-change',
+            source='manual-storage',
+            details={
+                'warehouse': warehouse,
+                'market_silver': market_silver,
+            },
+        )
 
         record = self.append_record(
             state,
@@ -671,6 +740,13 @@ class AssetService:
         state = self.get_state()
         state.settings['include_warehouses_in_total'] = include
         self._write_state(state)
+        self._register_action(
+            action_type='settings-change',
+            source='manual',
+            details={
+                'include_warehouses_in_total': include,
+            },
+        )
         self._broadcast_update('asset_history_updated', {
             'dashboard': self.dashboard()
         })

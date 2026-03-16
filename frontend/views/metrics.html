@@ -48,3 +48,25 @@
 
     <div class="status" id="metricsUpdatedAt"></div>
 </section>
+
+<section class="card panel">
+    <div class="panel-head">
+        <h2>Logs recientes</h2>
+    </div>
+
+    <div class="table-wrap table-scroll-y" id="recentLogsTableWrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Acción</th>
+                    <th>Origen</th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+            <tbody id="recentLogsBody" data-columns="4" data-empty-message="Sin acciones recientes."></tbody>
+        </table>
+    </div>
+
+    <div class="status" id="recentLogsUpdatedAt"></div>
+</section>

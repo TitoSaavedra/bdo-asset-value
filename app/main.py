@@ -155,6 +155,15 @@ def get_metrics(service: AssetService = Depends(get_asset_service)) -> Dict[str,
     return service.metrics()
 
 
+@app.get('/api/logs/recent')
+def get_recent_logs(
+    limit: int = 30,
+    service: AssetService = Depends(get_asset_service),
+) -> Dict[str, Any]:
+    """Get recent action logs for UI monitoring."""
+    return service.get_recent_actions(limit=limit)
+
+
 @app.post('/api/manual-record')
 def create_manual_record(
     payload: ManualRecordIn,
