@@ -77,15 +77,20 @@ async def periodic_compactor_loop() -> None:
             pass
 
 
-@app.on_event('startup')
-async def on_startup() -> None:
-    """Initialize startup resources and background jobs."""
-    global compactor_task
+async def _ensure_indexes_background() -> None:
+    """Run index creation in background"""
     try:
         from app.database import ensure_indexes
         await ensure_indexes()
     except Exception:
         pass
+
+
+@app.on_event('startup')
+async def on_startup() -> None:
+    """Initialize startup resources and background jobs."""
+    global compactor_task
+    asyncio.create_task(_ensure_indexes_background())
 
     if compactor_task is None or compactor_task.done():
         compactor_task = asyncio.create_task(periodic_compactor_loop())
