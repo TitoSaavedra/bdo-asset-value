@@ -1,7 +1,24 @@
-# Tauri + SvelteKit + TypeScript
+# Frontend Tauri (SvelteKit)
 
-This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
+Cliente desktop para `bdo-asset-value`.
 
-## Recommended IDE Setup
+## Desarrollo
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
+Desde `frontend-tauri/`:
+
+```bash
+pnpm install
+pnpm tauri dev
+```
+
+Variables de entorno opcionales:
+
+- `VITE_API_BASE_URL` (default: `http://127.0.0.1:8000`)
+- `VITE_WS_URL` (default derivado de `VITE_API_BASE_URL`)
+
+## Build
+
+```bash
+pnpm build
+pnpm tauri build
+```

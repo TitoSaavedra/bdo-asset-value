@@ -5,7 +5,6 @@ import pytesseract
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / 'data'
 DATA_FILE = DATA_DIR / 'asset_history.json'
-FRONTEND_DIR = BASE_DIR / 'frontend'
 API_URL = 'http://127.0.0.1:8000'
 TESSERACT_CMD = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 

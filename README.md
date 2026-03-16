@@ -6,7 +6,7 @@
 ![Tesseract OCR](https://img.shields.io/badge/Tesseract-OCR-orange?style=flat-square)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
 
-Herramienta para registrar y consultar activos de Black Desert Online usando OCR, una API FastAPI y una interfaz web.
+Herramienta para registrar y consultar activos de Black Desert Online usando OCR y una API FastAPI (backend-only).
 
 ## Descripción General
 
@@ -49,10 +49,8 @@ Objetivos:
 
 ### Frontend
 
-- `frontend/index.html`: Shell principal + overlay de inicio.
-- `frontend/js/main.js`: Estado UI, render y sincronización.
-- `frontend/js/api.js`: Cliente API + observador de conexión.
-- `frontend/views/`: Pantallas (`dashboard`, `manual`, `metrics`, `warehouses`).
+- `frontend-tauri/`: Cliente desktop actual (Svelte + Tauri).
+- `frontend-legacy/`: Frontend legacy (solo referencia histórica, no servido por FastAPI).
 
 ## Flujo OCR en Cola (actual)
 
@@ -160,7 +158,7 @@ Requisitos para que funcione:
 
 | Método | Endpoint | Descripción |
 |---|---|---|
-| GET | `/` | Frontend principal |
+| GET | `/` | Estado del backend/API |
 | GET | `/api/dashboard` | Datos agregados del dashboard |
 | GET | `/api/history` | Historial paginado |
 | GET | `/api/snapshots` | Snapshots de almacenes paginados |
@@ -226,10 +224,8 @@ bdo-asset-value/
 │       └── config/
 ├── data/
 │   └── asset_history.json
-├── frontend/
-│   ├── css/
-│   ├── js/
-│   └── views/
+├── frontend-legacy/         # Legacy (no servido por FastAPI)
+├── frontend-tauri/          # Cliente desktop actual
 ├── run.py
 ├── dev.py
 └── migrate_to_mongodb.py
