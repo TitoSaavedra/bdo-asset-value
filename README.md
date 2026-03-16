@@ -6,24 +6,24 @@
 ![Tesseract OCR](https://img.shields.io/badge/Tesseract-OCR-orange?style=flat-square)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
 
-Sistema de seguimiento de activos para Black Desert Online con OCR, API FastAPI y dashboard web con historial, métricas y estado de conexión.
+Herramienta para registrar y consultar activos de Black Desert Online usando OCR, una API FastAPI y una interfaz web.
 
 ## Descripción General
 
-Esta aplicación captura valores de plata (mercado, inventario y almacenes), los procesa con OCR y los persiste como historial para análisis en tiempo real.
+La aplicación captura valores de plata (mercado, inventario y almacenes), ejecuta OCR y guarda los resultados como historial.
 
-Principales objetivos:
+Objetivos:
 
-- Registrar activos con baja fricción desde hotkeys.
+- Registrar activos desde hotkeys.
 - Mantener historial y snapshots de almacenes.
-- Visualizar evolución, métricas y estado del sistema.
+- Consultar evolución, métricas y estado del sistema.
 - Permitir operación local sin infraestructura adicional (JSON local), con base preparada para MongoDB.
 
-## Novedades Recientes
+## Cambios Recientes
 
-- OCR desacoplado de hotkeys mediante cola de tareas.
+- OCR desacoplado del manejo de hotkeys mediante cola de tareas.
 - Nuevo módulo dedicado: `app/ocr/queue_processor.py`.
-- Captura rápida + procesamiento diferido (OCR y guardado en JSON) en segundo plano.
+- Captura rápida y procesamiento diferido (OCR y guardado en JSON) en segundo plano.
 - Frontend con estado de conexión API/WebSocket.
 - Overlay de arranque con reintentos al iniciar frontend.
 - Endpoint de logs recientes: `/api/logs/recent`.
@@ -33,7 +33,7 @@ Principales objetivos:
 ### Backend
 
 - `app/main.py`: App FastAPI, rutas REST, WebSocket y ciclo de vida.
-- `app/service.py`: Lógica de negocio, cache de dashboard, métricas y compacción de historial.
+- `app/service.py`: Lógica de negocio, caché de dashboard, métricas y compactación de historial.
 - `app/storage.py`: Persistencia actual en JSON (`data/asset_history.json`) y opción MongoDB.
 - `app/database.py`: Cliente y creación de índices MongoDB.
 - `app/hotkeys.py`: Captura de imágenes desde atajos y encolado de tareas OCR.
@@ -59,10 +59,10 @@ Principales objetivos:
 1. Hotkey captura imágenes (rápido).
 2. Se encola una tarea (`market_inventory` o `storage_snapshot`).
 3. Worker de `queue_processor` procesa OCR en segundo plano.
-4. El resultado se guarda vía `AssetService` en `data/asset_history.json`.
+4. El resultado se guarda mediante `AssetService` en `data/asset_history.json`.
 5. El backend emite actualización para refresco de UI.
 
-Esto reduce bloqueos en la entrada de hotkeys cuando se disparan muchas capturas seguidas.
+Este flujo reduce bloqueos cuando se disparan muchas capturas seguidas.
 
 ## Requisitos
 
@@ -94,12 +94,12 @@ python run.py
 Esto inicia:
 
 - API en `http://127.0.0.1:8000`
-- Listener de hotkeys globales
+- Listener global de hotkeys
 
 ## Hotkeys Vigentes
 
-- `ALT + 1`: monitoreo de almacenes (captura nombre + valor y encola).
-- `ALT + 2`: captura mercado + inventario (encolado inmediato).
+- `ALT + 1`: monitoreo de almacenes (captura nombre y valor, luego encola).
+- `ALT + 2`: captura mercado e inventario (encolado inmediato).
 - `ESC`: cancela monitoreo activo de almacén.
 
 ## API Principal
@@ -107,10 +107,10 @@ Esto inicia:
 | Método | Endpoint | Descripción |
 |---|---|---|
 | GET | `/` | Frontend principal |
-| GET | `/api/dashboard` | Datos agregados de dashboard |
+| GET | `/api/dashboard` | Datos agregados del dashboard |
 | GET | `/api/history` | Historial paginado |
 | GET | `/api/snapshots` | Snapshots de almacenes paginados |
-| GET | `/api/metrics` | Métricas internas de runtime |
+| GET | `/api/metrics` | Métricas internas de ejecución |
 | GET | `/api/logs/recent` | Acciones recientes para monitoreo |
 | POST | `/api/manual-record` | Alta manual de registro |
 | POST | `/api/manual-warehouse-value` | Corrección manual de almacén |
@@ -127,7 +127,7 @@ Esto inicia:
 
 - Archivo: `data/asset_history.json`
 - Ventaja: simple y portable.
-- Limitación: lectura/escritura completa del archivo.
+- Limitación: requiere lectura/escritura completa del archivo.
 
 ### Preparado para MongoDB
 
@@ -198,14 +198,14 @@ Notas:
 
 ### Prioridad Alta
 
-- [ ] Migrar persistencia principal a MongoDB (o repositorio en memoria + flush por lotes).
-- [ ] Reducir recálculo completo de dashboard en broadcasts de actualización.
+- [ ] Migrar persistencia principal a MongoDB (o repositorio en memoria con flush por lotes).
+- [ ] Reducir recálculo completo del dashboard en broadcasts de actualización.
 - [ ] Añadir sincronización más robusta de escritura entre entradas concurrentes.
 
 ### Prioridad Media
 
 - [ ] Reutilizar instancia de captura (`mss`) para bajar overhead.
-- [ ] Endurecer gestión de conexiones WebSocket caídas.
+- [ ] Mejorar gestión de conexiones WebSocket caídas.
 - [ ] Exponer métricas de cola OCR (`enqueued`, `processed`, `dropped`, `queue_size`).
 
 ### Quick Wins
@@ -216,7 +216,7 @@ Notas:
 
 ## Contribución
 
-1. Haz fork del repositorio.
+1. Haz un fork del repositorio.
 2. Crea una rama de trabajo.
 3. Implementa cambios con foco en módulos y responsabilidad única.
 4. Abre Pull Request con contexto técnico claro.
@@ -227,4 +227,4 @@ Este proyecto está bajo licencia MIT.
 
 ## Descargo de Responsabilidad
 
-Proyecto para uso personal/educativo. No está afiliado con Pearl Abyss ni Black Desert Online. Usa esta herramienta bajo tu responsabilidad y revisa los términos del juego.
+Proyecto para uso personal y educativo. No está afiliado con Pearl Abyss ni con Black Desert Online. Usa la herramienta bajo tu responsabilidad y revisa los términos del juego.
