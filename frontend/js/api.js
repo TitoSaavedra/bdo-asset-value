@@ -16,3 +16,11 @@ export async function postToggleWarehouses(enabled) {
         method: "POST" 
     });
 }
+
+export async function postManualWarehouseValue(payload) {
+    return await fetch("/api/manual-warehouse-value", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+    });
+}

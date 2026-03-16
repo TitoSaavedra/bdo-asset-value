@@ -1459,6 +1459,629 @@
       "details": {
         "warehouse": "Isla de Illya"
       }
+    },
+    {
+      "captured_at": "2026-03-15T17:19:02",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 0,
+      "warehouses_total": 255587534385,
+      "total_with_warehouses": 603047625730,
+      "total_without_warehouses": 347460091345,
+      "source": "bdo-market-buyer-ext",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T17:26:39",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 255587534385,
+      "total_with_warehouses": 610685025730,
+      "total_without_warehouses": 355097491345,
+      "source": "bdo-market-buyer-ext",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T17:41:58",
+      "market_silver": 347338037063,
+      "inventory_silver": 122054282,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 263588023192,
+      "total_with_warehouses": 618685514537,
+      "total_without_warehouses": 355097491345,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Velia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T17:42:21",
+      "market_silver": 354646149563,
+      "inventory_silver": 122054282,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 263588023192,
+      "total_with_warehouses": 625993627037,
+      "total_without_warehouses": 362405603845,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T17:43:41",
+      "market_silver": 354646149563,
+      "inventory_silver": 3898254282,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 263588023192,
+      "total_with_warehouses": 629769827037,
+      "total_without_warehouses": 366181803845,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T18:03:31",
+      "market_silver": 354646149563,
+      "inventory_silver": 3898254282,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 263588492602,
+      "total_with_warehouses": 629770296447,
+      "total_without_warehouses": 366181803845,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Templo de Hakinza"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:37:21",
+      "market_silver": 354646149563,
+      "inventory_silver": 3900174282,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 266546365142,
+      "total_with_warehouses": 632730088987,
+      "total_without_warehouses": 366183723845,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T18:37:28",
+      "market_silver": null,
+      "inventory_silver": null,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 266546365142,
+      "total_with_warehouses": 632730088987,
+      "total_without_warehouses": 366183723845,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T18:51:03",
+      "market_silver": 358546323845,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 267461671142,
+      "total_with_warehouses": 633645394987,
+      "total_without_warehouses": 366183723845,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T18:54:29",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 267461671142,
+      "total_with_warehouses": 637935469587,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T18:55:39",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 259464234443,
+      "total_with_warehouses": 629938032888,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Velia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:55:59",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 310534319506,
+      "total_with_warehouses": 681008117951,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Heidel"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:03",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 306354566610,
+      "total_with_warehouses": 676828365055,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Glish"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:05",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 306354566610,
+      "total_with_warehouses": 676828365055,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Heidel"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:10",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 306354566610,
+      "total_with_warehouses": 676828365055,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Velia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:12",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 306358825560,
+      "total_with_warehouses": 676832624005,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Grana"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:19",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 306471190254,
+      "total_with_warehouses": 676944988699,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Valencia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:29",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 306471190254,
+      "total_with_warehouses": 676944988699,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Velia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:42",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 306472506604,
+      "total_with_warehouses": 676946305049,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Olvia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:44",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 255404505104,
+      "total_with_warehouses": 625878303549,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Heidel"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:49",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 255404505104,
+      "total_with_warehouses": 625878303549,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Glish"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:51",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 255412325374,
+      "total_with_warehouses": 625886123819,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Calpheon"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:56:58",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 255412979474,
+      "total_with_warehouses": 625886777919,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Keplan"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:00",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 254291627404,
+      "total_with_warehouses": 624765425849,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Puerto de Epheria"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:04",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 250547353974,
+      "total_with_warehouses": 621021152419,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Trent"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:13",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 250547814344,
+      "total_with_warehouses": 621021612789,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Tarif"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:15",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 250549457104,
+      "total_with_warehouses": 621023255549,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Bazar Granos de Arena"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:19",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 250549457104,
+      "total_with_warehouses": 621023255549,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Puerto Interior de Ancado"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:22",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 250549972414,
+      "total_with_warehouses": 621023770859,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Arehaza"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:26",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 250549972414,
+      "total_with_warehouses": 621023770859,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Shakatu"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:28",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 210554761914,
+      "total_with_warehouses": 581028560359,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Duvencrune"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T18:57:35",
+      "market_silver": 358546323845,
+      "inventory_silver": 4290074600,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 220077808189,
+      "total_with_warehouses": 590551606634,
+      "total_without_warehouses": 370473798445,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Velia"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T20:25:19",
+      "market_silver": 358546323845,
+      "inventory_silver": 9214339891,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 220077808189,
+      "total_with_warehouses": 595475871925,
+      "total_without_warehouses": 375398063736,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T20:27:07",
+      "market_silver": 358546323845,
+      "inventory_silver": 9214339891,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216767896499,
+      "total_with_warehouses": 592165960235,
+      "total_without_warehouses": 375398063736,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Templo de Hakinza"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T20:27:29",
+      "market_silver": 367643663736,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216767896499,
+      "total_with_warehouses": 592048960235,
+      "total_without_warehouses": 375281063736,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:24:48",
+      "market_silver": 367643663736,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774581521,
+      "total_with_warehouses": 592055645257,
+      "total_without_warehouses": 375281063736,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Heidel"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T22:24:50",
+      "market_silver": 369346325736,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774581521,
+      "total_with_warehouses": 593758307257,
+      "total_without_warehouses": 376983725736,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:25:38",
+      "market_silver": 369346325736,
+      "inventory_silver": null,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774360206,
+      "total_with_warehouses": 593758085942,
+      "total_without_warehouses": 376983725736,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:28:11",
+      "market_silver": 369474538236,
+      "inventory_silver": null,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774360206,
+      "total_with_warehouses": 593886298442,
+      "total_without_warehouses": 377111938236,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:28:21",
+      "market_silver": 0,
+      "inventory_silver": 369474591422,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774360206,
+      "total_with_warehouses": 963360889864,
+      "total_without_warehouses": 746586529658,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:28:35",
+      "market_silver": 253860750,
+      "inventory_silver": 369474591422,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774360206,
+      "total_with_warehouses": 594140212378,
+      "total_without_warehouses": 377365852172,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:38:10",
+      "market_silver": null,
+      "inventory_silver": null,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774360206,
+      "total_with_warehouses": 594140212378,
+      "total_without_warehouses": 377365852172,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:38:12",
+      "market_silver": 253860750,
+      "inventory_silver": 369474591422,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216774360206,
+      "total_with_warehouses": 594140212378,
+      "total_without_warehouses": 377365852172,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:38:22",
+      "market_silver": 253860750,
+      "inventory_silver": 369474591422,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216574885606,
+      "total_with_warehouses": 593940737778,
+      "total_without_warehouses": 377365852172,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Muzgar"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T22:39:22",
+      "market_silver": 253860750,
+      "inventory_silver": 369474591422,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216575792506,
+      "total_with_warehouses": 593941644678,
+      "total_without_warehouses": 377365852172,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Templo de Hakinza"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T22:42:15",
+      "market_silver": 0,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216575792506,
+      "total_with_warehouses": 224467053256,
+      "total_without_warehouses": 7891260750,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:45:39",
+      "market_silver": 365928452172,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216575792506,
+      "total_with_warehouses": 590141644678,
+      "total_without_warehouses": 373565852172,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:49:22",
+      "market_silver": null,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216575792506,
+      "total_with_warehouses": 590141644678,
+      "total_without_warehouses": 373565852172,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:51:22",
+      "market_silver": null,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 216575792506,
+      "total_with_warehouses": 590141644678,
+      "total_without_warehouses": 373565852172,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T22:53:38",
+      "market_silver": 365928452172,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 205447504717,
+      "total_with_warehouses": 579013356889,
+      "total_without_warehouses": 373565852172,
+      "source": "manual-storage",
+      "details": {
+        "warehouse": "Velia",
+        "manual": true
+      }
+    },
+    {
+      "captured_at": "2026-03-15T22:55:26",
+      "market_silver": 365928452172,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 205447504718,
+      "total_with_warehouses": 579013356890,
+      "total_without_warehouses": 373565852172,
+      "source": "manual-storage",
+      "details": {
+        "warehouse": "Olvia",
+        "manual": true
+      }
     }
   ],
   "warehouse_snapshots": [
@@ -1816,9 +2439,189 @@
       "captured_at": "2026-03-15T16:55:46",
       "warehouse": "Isla de Illya",
       "market_silver": 658881750
+    },
+    {
+      "captured_at": "2026-03-15T17:41:58",
+      "warehouse": "Velia",
+      "market_silver": 8534888329
+    },
+    {
+      "captured_at": "2026-03-15T18:03:31",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 7357151660
+    },
+    {
+      "captured_at": "2026-03-15T18:33:03",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 10315024200
+    },
+    {
+      "captured_at": "2026-03-15T18:47:31",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 11230330200
+    },
+    {
+      "captured_at": "2026-03-15T18:55:39",
+      "warehouse": "Velia",
+      "market_silver": 537451630
+    },
+    {
+      "captured_at": "2026-03-15T18:55:59",
+      "warehouse": "Heidel",
+      "market_silver": 56742223887
+    },
+    {
+      "captured_at": "2026-03-15T18:56:03",
+      "warehouse": "Glish",
+      "market_silver": 1441744848
+    },
+    {
+      "captured_at": "2026-03-15T18:56:05",
+      "warehouse": "Heidel",
+      "market_silver": 56742223887
+    },
+    {
+      "captured_at": "2026-03-15T18:56:10",
+      "warehouse": "Velia",
+      "market_silver": 537451630
+    },
+    {
+      "captured_at": "2026-03-15T18:56:12",
+      "warehouse": "Grana",
+      "market_silver": 7102486914
+    },
+    {
+      "captured_at": "2026-03-15T18:56:18",
+      "warehouse": "Valencia",
+      "market_silver": 8827851243
+    },
+    {
+      "captured_at": "2026-03-15T18:56:29",
+      "warehouse": "Velia",
+      "market_silver": 537451630
+    },
+    {
+      "captured_at": "2026-03-15T18:56:42",
+      "warehouse": "Olvia",
+      "market_silver": 1806092304
+    },
+    {
+      "captured_at": "2026-03-15T18:56:44",
+      "warehouse": "Heidel",
+      "market_silver": 5674222387
+    },
+    {
+      "captured_at": "2026-03-15T18:56:49",
+      "warehouse": "Glish",
+      "market_silver": 1441744848
+    },
+    {
+      "captured_at": "2026-03-15T18:56:51",
+      "warehouse": "Calpheon",
+      "market_silver": 9940091740
+    },
+    {
+      "captured_at": "2026-03-15T18:56:58",
+      "warehouse": "Keplan",
+      "market_silver": 878642058
+    },
+    {
+      "captured_at": "2026-03-15T18:57:00",
+      "warehouse": "Puerto de Epheria",
+      "market_silver": 771750000
+    },
+    {
+      "captured_at": "2026-03-15T18:57:04",
+      "warehouse": "Trent",
+      "market_silver": 1893485420
+    },
+    {
+      "captured_at": "2026-03-15T18:57:13",
+      "warehouse": "Tarif",
+      "market_silver": 1903942960
+    },
+    {
+      "captured_at": "2026-03-15T18:57:15",
+      "warehouse": "Bazar Granos de Arena",
+      "market_silver": 5352397264
+    },
+    {
+      "captured_at": "2026-03-15T18:57:19",
+      "warehouse": "Puerto Interior de Ancado",
+      "market_silver": 140000000
+    },
+    {
+      "captured_at": "2026-03-15T18:57:22",
+      "warehouse": "Arehaza",
+      "market_silver": 1281230910
+    },
+    {
+      "captured_at": "2026-03-15T18:57:26",
+      "warehouse": "Shakatu",
+      "market_silver": 2711868130
+    },
+    {
+      "captured_at": "2026-03-15T18:57:28",
+      "warehouse": "Duvencrune",
+      "market_silver": 1326977858
+    },
+    {
+      "captured_at": "2026-03-15T18:57:35",
+      "warehouse": "Velia",
+      "market_silver": 10060497905
+    },
+    {
+      "captured_at": "2026-03-15T20:27:07",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 7920418510
+    },
+    {
+      "captured_at": "2026-03-15T22:24:48",
+      "warehouse": "Heidel",
+      "market_silver": 5680907409
+    },
+    {
+      "captured_at": "2026-03-15T22:25:36",
+      "warehouse": "Heidel",
+      "market_silver": 5680686094
+    },
+    {
+      "captured_at": "2026-03-15T22:27:57",
+      "warehouse": "Heidel",
+      "market_silver": 5680686094
+    },
+    {
+      "captured_at": "2026-03-15T22:28:06",
+      "warehouse": "Heidel",
+      "market_silver": 5680686094
+    },
+    {
+      "captured_at": "2026-03-15T22:38:22",
+      "warehouse": "Muzgar",
+      "market_silver": 66025467400
+    },
+    {
+      "captured_at": "2026-03-15T22:39:22",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 7921325410
+    },
+    {
+      "captured_at": "2026-03-15T22:51:24",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 6853412070
+    },
+    {
+      "captured_at": "2026-03-15T22:53:38",
+      "warehouse": "Velia",
+      "market_silver": 123456
+    },
+    {
+      "captured_at": "2026-03-15T22:55:26",
+      "warehouse": "Olvia",
+      "market_silver": 1806092305
     }
   ],
   "settings": {
-    "include_warehouses_in_total": true
+    "include_warehouses_in_total": false
   }
 }

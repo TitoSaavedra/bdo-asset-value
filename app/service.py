@@ -218,18 +218,26 @@ class AssetService:
             {}
         )
 
-    def add_preorder(self, preorder_silver: int, source: str) -> RecordItem:
+    def add_preorder(self, preorder_silver: int, source: str, details: Optional[Dict[str, Any]] = None) -> RecordItem:
         """Add a preorder record.
 
         Args:
             preorder_silver: Preorder silver value.
             source: Source identifier for the preorder.
+            details: Additional preorder metadata.
 
         Returns:
             The created record item.
         """
         state = self.get_state()
-        return self.append_record(state, self.latest_market(state), self.latest_inventory(state), preorder_silver, source, {})
+        return self.append_record(
+            state,
+            self.latest_market(state),
+            self.latest_inventory(state),
+            preorder_silver,
+            source,
+            details or {}
+        )
 
     def add_storage_capture(self, warehouse: str, market_silver: int) -> tuple[WarehouseSnapshot, Optional[RecordItem]]:
         """Add a warehouse storage capture record.
@@ -263,6 +271,40 @@ class AssetService:
                 {'warehouse': warehouse}
             )
         return snapshot, record
+
+    def add_manual_warehouse_value(self, warehouse: str, market_silver: int) -> RecordItem:
+        """Add a manual warehouse value correction.
+
+        Args:
+            warehouse: Warehouse name.
+            market_silver: Manual warehouse silver value.
+
+        Returns:
+            The created record item.
+        """
+        state = self.get_state()
+
+        snapshot = WarehouseSnapshot(
+            captured_at=now_iso(),
+            warehouse=warehouse,
+            market_silver=market_silver,
+        )
+        state.warehouse_snapshots.append(snapshot)
+        storage.write_state(state)
+
+        record = self.append_record(
+            state,
+            self.latest_market(state),
+            self.latest_inventory(state),
+            self.latest_preorder(state),
+            'manual-storage',
+            {
+                'warehouse': warehouse,
+                'manual': True,
+            }
+        )
+
+        return record
 
     def dashboard(self) -> Dict[str, Any]:
         """Get dashboard data for the frontend.

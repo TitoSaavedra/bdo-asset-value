@@ -33,21 +33,25 @@
                         <div class="k">Mercado</div>
                         <div class="v" id="mMarket">$0</div>
                         <div class="s">Último valor manual u OCR</div>
+                        <div class="metric-delta" id="mMarketDelta">Sin referencia</div>
                     </div>
                     <div class="card metric">
                         <div class="k">Inventario</div>
                         <div class="v" id="mInventory">$0</div>
                         <div class="s">Leído por OCR</div>
+                        <div class="metric-delta" id="mInventoryDelta">Sin referencia</div>
                     </div>
                     <div class="card metric">
                         <div class="k">Preorders</div>
                         <div class="v" id="mPreorder">$0</div>
                         <div class="s">Integración navegador</div>
+                        <div class="metric-delta" id="mPreorderDelta">Sin referencia</div>
                     </div>
                     <div class="card metric">
                         <div class="k">Total</div>
                         <div class="v" id="mTotal">$0</div>
                         <div class="s" id="mTotalHint">Incluye almacenes</div>
+                        <div class="metric-delta" id="mTotalDelta">Sin referencia</div>
                     </div>
                 </div>
 
@@ -62,7 +66,14 @@
                                 </label>
                             </div>
                         </div>
-                        <canvas id="chart" width="1000" height="420"></canvas>
+                        <div class="chart-legend" aria-label="Leyenda del gráfico">
+                            <span class="legend-item"><span class="legend-dot legend-total"></span>Total</span>
+                            <span class="legend-item"><span class="legend-dot legend-market"></span>Mercado</span>
+                            <span class="legend-item"><span class="legend-dot legend-inventory"></span>Inventario</span>
+                            <span class="legend-item"><span class="legend-dot legend-preorder"></span>Preorden</span>
+                            <span class="legend-item"><span class="legend-dot legend-warehouses"></span>Almacenes</span>
+                        </div>
+                        <canvas id="chart"></canvas>
                     </section>
 
                     <section class="card panel">
@@ -86,6 +97,12 @@
                 <section class="card panel">
                     <div class="panel-head">
                         <h2>Historial general</h2>
+                        <div class="toolbar history-filters" id="historyFilters">
+                            <button class="history-filter-btn active" data-history-range="all">Todo</button>
+                            <button class="history-filter-btn" data-history-range="today">Hoy</button>
+                            <button class="history-filter-btn" data-history-range="7d">7 días</button>
+                            <button class="history-filter-btn" data-history-range="30d">30 días</button>
+                        </div>
                     </div>
                     <div class="table-wrap table-scroll-y" id="historyTableWrap">
                         <table>
@@ -148,7 +165,7 @@
                         <h2>Listado actual por almacén</h2>
                     </div>
                     <p id="warehouseMissingInfo" class="sub"></p>
-                    <div class="table-wrap">
+                    <div class="table-wrap table-scroll-y">
                         <table>
                             <thead>
                                 <tr>
@@ -167,7 +184,7 @@
                     <div class="panel-head">
                         <h2>Snapshots OCR</h2>
                     </div>
-                    <div class="table-wrap">
+                    <div class="table-wrap table-scroll-y">
                         <table>
                             <thead>
                                 <tr>

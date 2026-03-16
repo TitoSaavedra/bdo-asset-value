@@ -5,7 +5,7 @@ from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from app.models import ManualRecordIn, StorageCaptureIn, InventoryCaptureIn, PreorderIn
+from app.models import ManualRecordIn, StorageCaptureIn, InventoryCaptureIn, PreorderIn, ManualWarehouseValueIn
 from app.service import AssetService
 from app.config import FRONTEND_DIR
 
@@ -121,6 +121,27 @@ def capture_storage(
     }
 
 
+@app.post('/api/manual-warehouse-value')
+def create_manual_warehouse_value(
+    payload: ManualWarehouseValueIn,
+    service: AssetService = Depends(get_asset_service)
+) -> Dict[str, Any]:
+    """Create a manual warehouse value correction.
+
+    Args:
+        payload: Manual warehouse value input data.
+        service: Asset service dependency.
+
+    Returns:
+        Created record information.
+    """
+    record = service.add_manual_warehouse_value(
+        payload.warehouse,
+        payload.market_silver,
+    )
+    return record.model_dump()
+
+
 @app.post('/api/ocr/inventory')
 def capture_inventory(
     payload: InventoryCaptureIn,
@@ -155,7 +176,8 @@ def receive_preorder(
     """
     record = service.add_preorder(
         payload.preorder_silver,
-        payload.source or 'browser-extension'
+        payload.source or 'browser-extension',
+        payload.details
     )
     return record.model_dump()
 

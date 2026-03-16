@@ -17,9 +17,15 @@ class InventoryCaptureIn(BaseModel):
     inventory_silver: int
 
 
+class ManualWarehouseValueIn(BaseModel):
+    warehouse: str
+    market_silver: int
+
+
 class PreorderIn(BaseModel):
     preorder_silver: int
     source: Optional[str] = 'browser-extension'
+    details: Dict[str, Any] = Field(default_factory=dict)
 
 
 class WarehouseSnapshot(BaseModel):
