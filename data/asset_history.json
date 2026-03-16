@@ -1992,6 +1992,212 @@
           "ocr-market-inventory"
         ]
       }
+    },
+    {
+      "captured_at": "2026-03-16T12:04:58",
+      "market_silver": 360264661861,
+      "inventory_silver": 0,
+      "preorder_silver": 16717400000,
+      "warehouses_total": 209206364156,
+      "total_with_warehouses": 586188426017,
+      "total_without_warehouses": 376982061861,
+      "source": "bdo-market-buyer-ext",
+      "details": {
+        "items_count": 15,
+        "items": [
+          {
+            "completed": 0,
+            "id": "771",
+            "name": "Perfume del Abismo",
+            "pending": 100,
+            "price": 3000000000,
+            "quantity": 100,
+            "reserved": 100
+          },
+          {
+            "completed": 0,
+            "id": "3750",
+            "name": "Herramienta de Alquimia de la Tierra del Alba Radiante",
+            "pending": 10,
+            "price": 125000000,
+            "quantity": 10,
+            "reserved": 10
+          },
+          {
+            "completed": 0,
+            "id": "5019",
+            "name": "Esencia de Árbol Muerto",
+            "pending": 962,
+            "price": 311688000,
+            "quantity": 962,
+            "reserved": 962
+          },
+          {
+            "completed": 0,
+            "id": "5419",
+            "name": "Hongo payaso",
+            "pending": 1000,
+            "price": 2820000,
+            "quantity": 1000,
+            "reserved": 1000
+          },
+          {
+            "completed": 0,
+            "id": "6533",
+            "name": "Cristal de Coral",
+            "pending": 50,
+            "price": 450000000,
+            "quantity": 50,
+            "reserved": 50
+          },
+          {
+            "completed": 0,
+            "id": "9470",
+            "name": "Vino Fermentado Fuerte de Khalk",
+            "pending": 196,
+            "price": 97412000,
+            "quantity": 196,
+            "reserved": 196
+          },
+          {
+            "completed": 0,
+            "id": "9728",
+            "name": "Muela de Ballena Azul",
+            "pending": 10,
+            "price": 286000000,
+            "quantity": 10,
+            "reserved": 10
+          },
+          {
+            "completed": 0,
+            "id": "16103",
+            "name": "Botella Vacía Dura",
+            "pending": 980,
+            "price": 10780000,
+            "quantity": 980,
+            "reserved": 980
+          },
+          {
+            "completed": 0,
+            "id": "16153",
+            "name": "Caña de Pescar con Tres Flotadores",
+            "pending": 9,
+            "price": 83700000,
+            "quantity": 9,
+            "reserved": 9
+          },
+          {
+            "completed": 0,
+            "id": "601128",
+            "name": "[Guardiana] Set Premium Ynixtra",
+            "pending": 1,
+            "price": 2170000000,
+            "quantity": 1,
+            "reserved": 1
+          },
+          {
+            "completed": 0,
+            "id": "758021",
+            "name": "Piedra de Luz del Fuego: Distorsión",
+            "pending": 4,
+            "price": 3080000000,
+            "quantity": 4,
+            "reserved": 4
+          },
+          {
+            "completed": 0,
+            "id": "768160",
+            "name": "Cristal Mágico Negro Sellado",
+            "pending": 1000,
+            "price": 6000000000,
+            "quantity": 1000,
+            "reserved": 1000
+          },
+          {
+            "completed": 0,
+            "id": "821255",
+            "name": "Coral de Rusalka",
+            "pending": 100,
+            "price": 100000000,
+            "quantity": 100,
+            "reserved": 100
+          },
+          {
+            "completed": 0,
+            "id": "821344",
+            "name": "Cristal de la Gula",
+            "pending": 10,
+            "price": 500000000,
+            "quantity": 10,
+            "reserved": 10
+          },
+          {
+            "completed": 0,
+            "id": "821347",
+            "name": "Cristal de Sikraia",
+            "pending": 10,
+            "price": 500000000,
+            "quantity": 10,
+            "reserved": 10
+          }
+        ]
+      }
+    },
+    {
+      "captured_at": "2026-03-16T12:15:40",
+      "market_silver": 360264661861,
+      "inventory_silver": 0,
+      "preorder_silver": 16717400000,
+      "warehouses_total": 209206364157,
+      "total_with_warehouses": 586188426018,
+      "total_without_warehouses": 376982061861,
+      "source": "manual-storage",
+      "details": {
+        "warehouse": "Heidel",
+        "manual": true
+      }
+    },
+    {
+      "captured_at": "2026-03-16T12:22:26",
+      "market_silver": 360264661861,
+      "inventory_silver": 0,
+      "preorder_silver": 16717400000,
+      "warehouses_total": 209206364158,
+      "total_with_warehouses": 586188426019,
+      "total_without_warehouses": 376982061861,
+      "source": "manual-storage",
+      "details": {
+        "warehouse": "Trent",
+        "manual": true
+      }
+    },
+    {
+      "captured_at": "2026-03-16T12:22:44",
+      "market_silver": 360264661861,
+      "inventory_silver": 0,
+      "preorder_silver": 16717400000,
+      "warehouses_total": 209206364157,
+      "total_with_warehouses": 586188426018,
+      "total_without_warehouses": 376982061861,
+      "source": "manual-storage",
+      "details": {
+        "warehouse": "Bukpo",
+        "manual": true
+      }
+    },
+    {
+      "captured_at": "2026-03-16T12:43:18",
+      "market_silver": 360264661861,
+      "inventory_silver": 0,
+      "preorder_silver": 16717400000,
+      "warehouses_total": 209206364163,
+      "total_with_warehouses": 586188426024,
+      "total_without_warehouses": 376982061861,
+      "source": "manual-storage",
+      "details": {
+        "warehouse": "Olvia",
+        "manual": true
+      }
     }
   ],
   "warehouse_snapshots": [
@@ -2849,6 +3055,26 @@
       "captured_at": "2026-03-16T09:49:04",
       "warehouse": "Trent",
       "market_silver": 1895924040
+    },
+    {
+      "captured_at": "2026-03-16T12:15:40",
+      "warehouse": "Heidel",
+      "market_silver": 5643201108
+    },
+    {
+      "captured_at": "2026-03-16T12:22:26",
+      "warehouse": "Trent",
+      "market_silver": 1895924041
+    },
+    {
+      "captured_at": "2026-03-16T12:22:44",
+      "warehouse": "Bukpo",
+      "market_silver": 0
+    },
+    {
+      "captured_at": "2026-03-16T12:43:18",
+      "warehouse": "Olvia",
+      "market_silver": 1809329480
     }
   ],
   "settings": {

@@ -96,6 +96,39 @@ Esto inicia:
 - API en `http://127.0.0.1:8000`
 - Listener global de hotkeys
 
+### Levantar API + Frontend Tauri con 1 comando
+
+Desde la raíz del proyecto:
+
+```powershell
+.\start-dev.ps1
+```
+
+Este script abre dos terminales:
+
+- Backend: `python run.py` usando `.venv\Scripts\python.exe`
+- Frontend: `pnpm tauri dev` en `frontend-tauri/`
+
+## Frontend Separado (Tauri)
+
+Se agregó una carpeta independiente para migrar el frontend a desktop app:
+
+- `frontend-tauri/`
+
+Guía rápida:
+
+1. Instalar Rust, Node.js y Build Tools (Windows) siguiendo:
+	- `frontend-tauri/docs/RUST_WINDOWS_SETUP.md`
+2. Inicializar el proyecto Tauri dentro de `frontend-tauri/`.
+3. Mantener backend y frontend en procesos separados:
+	- Terminal A: `python run.py` (API/hotkeys)
+	- Terminal B: `pnpm tauri dev` (UI desktop)
+
+Variables frontend sugeridas:
+
+- `VITE_API_BASE_URL=http://127.0.0.1:8000`
+- `VITE_WS_URL=ws://127.0.0.1:8000/ws/updates`
+
 ## Hotkeys Vigentes
 
 - `ALT + 1`: monitoreo de almacenes (captura nombre y valor, luego encola).
