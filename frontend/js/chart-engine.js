@@ -1,9 +1,35 @@
 import { compact, money, shortDate } from './utils.js';
 
+function chartColorVariables() {
+    const rootStyles = getComputedStyle(document.body);
+    const getColor = (name, fallback) => rootStyles.getPropertyValue(name).trim() || fallback;
+
+    return {
+        emptyText: getColor('--chart-empty-text', 'rgba(246,236,214,0.72)'),
+        grid: getColor('--chart-grid', 'rgba(200,169,106,.16)'),
+        axisText: getColor('--chart-axis-text', 'rgba(185,171,141,.9)'),
+        guideline: getColor('--chart-guideline', 'rgba(243,221,176,0.45)'),
+        tooltipBg: getColor('--chart-tooltip-bg', 'rgba(23,18,13,0.96)'),
+        tooltipBorder: getColor('--chart-tooltip-border', 'rgba(200,169,106,0.4)'),
+        tooltipText: getColor('--chart-tooltip-text', 'rgba(246,236,214,0.95)'),
+        hoverInnerDot: getColor('--chart-hover-inner-dot', 'rgba(9,8,6,0.96)'),
+        totalStroke: getColor('--chart-total-stroke', 'rgba(217,180,111,1)'),
+        totalFill: getColor('--chart-total-fill', 'rgba(217,180,111,.18)'),
+        marketStroke: getColor('--chart-market-stroke', 'rgba(90,164,255,1)'),
+        marketFill: getColor('--chart-market-fill', 'rgba(90,164,255,.15)'),
+        inventoryStroke: getColor('--chart-inventory-stroke', 'rgba(243,221,176,1)'),
+        inventoryFill: getColor('--chart-inventory-fill', 'rgba(243,221,176,.16)'),
+        preorderStroke: getColor('--chart-preorder-stroke', 'rgba(97,211,145,1)'),
+        preorderFill: getColor('--chart-preorder-fill', 'rgba(97,211,145,.15)'),
+        warehousesStroke: getColor('--chart-warehouses-stroke', 'rgba(255,109,109,1)'),
+        warehousesFill: getColor('--chart-warehouses-fill', 'rgba(255,109,109,.15)'),
+    };
+}
+
 /**
  * Renderiza el gráfico de evolución de plata en el canvas.
  */
-export function renderChart(canvas, records, settings) {
+export function renderChart(canvas, records, settings, options = {}) {
     const ctx = canvas.getContext("2d");
     const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
@@ -18,9 +44,10 @@ export function renderChart(canvas, records, settings) {
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const colors = chartColorVariables();
 
     if (!records || records.length === 0) {
-        ctx.fillStyle = "rgba(246,236,214,0.72)";
+        ctx.fillStyle = colors.emptyText;
         ctx.font = `${16 * dpr}px Inter, Segoe UI, Arial`;
         ctx.textAlign = "center";
         ctx.fillText("Sin datos para graficar", canvas.width / 2, canvas.height / 2);
@@ -29,13 +56,34 @@ export function renderChart(canvas, records, settings) {
 
     // --- Configuración de Escalas ---
     const include = !!settings.include_warehouses_in_total;
+    const visibleSeries = {
+        total: options.visibleSeries?.total !== false,
+        market: options.visibleSeries?.market !== false,
+        inventory: options.visibleSeries?.inventory !== false,
+        preorder: options.visibleSeries?.preorder !== false,
+        warehouses: options.visibleSeries?.warehouses !== false,
+    };
     const totalSeries = records.map(x => include ? x.total_with_warehouses : x.total_without_warehouses);
     const marketSeries = records.map(x => x.market_silver || 0);
     const inventorySeries = records.map(x => x.inventory_silver || 0);
     const preorderSeries = records.map(x => x.preorder_silver || 0);
     const warehousesSeries = records.map(x => x.warehouses_total || 0);
 
-    const allValues = [...totalSeries, ...marketSeries, ...inventorySeries, ...preorderSeries, ...warehousesSeries];
+    const allValues = [];
+    if (visibleSeries.total) allValues.push(...totalSeries);
+    if (visibleSeries.market) allValues.push(...marketSeries);
+    if (visibleSeries.inventory) allValues.push(...inventorySeries);
+    if (visibleSeries.preorder) allValues.push(...preorderSeries);
+    if (visibleSeries.warehouses) allValues.push(...warehousesSeries);
+
+    if (allValues.length === 0) {
+        ctx.fillStyle = colors.emptyText;
+        ctx.font = `${16 * dpr}px Inter, Segoe UI, Arial`;
+        ctx.textAlign = "center";
+        ctx.fillText("Selecciona al menos una serie", canvas.width / 2, canvas.height / 2);
+        return;
+    }
+
     let min = Math.min(...allValues);
     let max = Math.max(...allValues);
 
@@ -60,7 +108,7 @@ export function renderChart(canvas, records, settings) {
     const yRange = yMax - yMin || 1;
 
     // --- Dibujo de Grid (Líneas horizontales) ---
-    ctx.strokeStyle = "rgba(200,169,106,.16)";
+    ctx.strokeStyle = colors.grid;
     ctx.lineWidth = 1 * dpr;
     for (let i = 0; i <= 5; i++) {
         const y = padding.top + (plotH / 5) * i;
@@ -71,7 +119,7 @@ export function renderChart(canvas, records, settings) {
     }
 
     // --- Etiquetas Eje Y ---
-    ctx.fillStyle = "rgba(185,171,141,.9)";
+    ctx.fillStyle = colors.axisText;
     ctx.font = `${12 * dpr}px Inter, Segoe UI, Arial`;
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
@@ -135,18 +183,18 @@ export function renderChart(canvas, records, settings) {
         ctx.stroke();
     }
 
-    // Dibujar las 5 series (Total, Mercado, Inventario, Preorden, Almacenes)
-    drawSeries(totalSeries, "rgba(217,180,111,1)", "rgba(217,180,111,.18)");
-    drawSeries(marketSeries, "rgba(90,164,255,1)", "rgba(90,164,255,.15)");
-    drawSeries(inventorySeries, "rgba(243,221,176,1)", "rgba(243,221,176,.16)");
-    drawSeries(preorderSeries, "rgba(97,211,145,1)", "rgba(97,211,145,.15)");
-    drawSeries(warehousesSeries, "rgba(255,109,109,1)", "rgba(255,109,109,.15)");
+    // Dibujar las series visibles
+    if (visibleSeries.total) drawSeries(totalSeries, colors.totalStroke, colors.totalFill);
+    if (visibleSeries.market) drawSeries(marketSeries, colors.marketStroke, colors.marketFill);
+    if (visibleSeries.inventory) drawSeries(inventorySeries, colors.inventoryStroke, colors.inventoryFill);
+    if (visibleSeries.preorder) drawSeries(preorderSeries, colors.preorderStroke, colors.preorderFill);
+    if (visibleSeries.warehouses) drawSeries(warehousesSeries, colors.warehousesStroke, colors.warehousesFill);
 
     // --- Etiquetas Eje X (Fechas) ---
     const labelIndexes = computeLabelIndexes(records.length);
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
-    ctx.fillStyle = "rgba(185,171,141,.9)";
+    ctx.fillStyle = colors.axisText;
     ctx.font = `${11 * dpr}px Inter, Segoe UI, Arial`;
     
     const xStep = records.length === 1 ? 0 : plotW / (records.length - 1);
@@ -174,12 +222,13 @@ export function renderChart(canvas, records, settings) {
         yMin,
         yRange,
         includeWarehouses: include,
+        visibleSeries,
     };
 
-    ensureChartHoverInteraction(canvas, () => renderChart(canvas, records, settings));
+    ensureChartHoverInteraction(canvas, () => renderChart(canvas, records, settings, options));
 
     if (typeof canvas.__hoverIndex === "number") {
-        drawHoverTooltip(ctx, canvas.__chartMeta, canvas.__hoverIndex);
+        drawHoverTooltip(ctx, canvas.__chartMeta, canvas.__hoverIndex, colors);
     }
 }
 
@@ -245,7 +294,7 @@ function ensureChartHoverInteraction(canvas, rerender) {
 }
 
 
-function drawHoverTooltip(ctx, meta, index) {
+function drawHoverTooltip(ctx, meta, index, colors) {
     const {
         padding,
         plotH,
@@ -260,6 +309,7 @@ function drawHoverTooltip(ctx, meta, index) {
         yMin,
         yRange,
         includeWarehouses,
+        visibleSeries,
     } = meta;
 
     if (index < 0 || index >= records.length) {
@@ -278,7 +328,7 @@ function drawHoverTooltip(ctx, meta, index) {
     ctx.save();
 
     // Vertical guide line
-    ctx.strokeStyle = "rgba(243,221,176,0.45)";
+    ctx.strokeStyle = colors.guideline;
     ctx.lineWidth = 1 * dpr;
     ctx.beginPath();
     ctx.moveTo(x, padding.top);
@@ -286,20 +336,18 @@ function drawHoverTooltip(ctx, meta, index) {
     ctx.stroke();
 
     // Hover points
-    drawHoverPoint(ctx, x, totalY, "rgba(217,180,111,1)", dpr);
-    drawHoverPoint(ctx, x, marketY, "rgba(90,164,255,1)", dpr);
-    drawHoverPoint(ctx, x, inventoryY, "rgba(243,221,176,1)", dpr);
-    drawHoverPoint(ctx, x, preorderY, "rgba(97,211,145,1)", dpr);
-    drawHoverPoint(ctx, x, warehousesY, "rgba(255,109,109,1)", dpr);
+    if (visibleSeries.total) drawHoverPoint(ctx, x, totalY, colors.totalStroke, colors.hoverInnerDot, dpr);
+    if (visibleSeries.market) drawHoverPoint(ctx, x, marketY, colors.marketStroke, colors.hoverInnerDot, dpr);
+    if (visibleSeries.inventory) drawHoverPoint(ctx, x, inventoryY, colors.inventoryStroke, colors.hoverInnerDot, dpr);
+    if (visibleSeries.preorder) drawHoverPoint(ctx, x, preorderY, colors.preorderStroke, colors.hoverInnerDot, dpr);
+    if (visibleSeries.warehouses) drawHoverPoint(ctx, x, warehousesY, colors.warehousesStroke, colors.hoverInnerDot, dpr);
 
-    const lines = [
-        `Fecha: ${records[index].captured_at}`,
-        `Total (${includeWarehouses ? "c/alm" : "s/alm"}): ${money(totalSeries[index])}`,
-        `Mercado: ${money(marketSeries[index])}`,
-        `Inventario: ${money(inventorySeries[index])}`,
-        `Preorden: ${money(preorderSeries[index])}`,
-        `Almacenes: ${money(warehousesSeries[index])}`,
-    ];
+    const lines = [`Fecha: ${records[index].captured_at}`];
+    if (visibleSeries.total) lines.push(`Total (${includeWarehouses ? "c/alm" : "s/alm"}): ${money(totalSeries[index])}`);
+    if (visibleSeries.market) lines.push(`Mercado: ${money(marketSeries[index])}`);
+    if (visibleSeries.inventory) lines.push(`Inventario: ${money(inventorySeries[index])}`);
+    if (visibleSeries.preorder) lines.push(`Preorden: ${money(preorderSeries[index])}`);
+    if (visibleSeries.warehouses) lines.push(`Almacenes: ${money(warehousesSeries[index])}`);
 
     ctx.font = `${12 * dpr}px Inter, Segoe UI, Arial`;
     const lineHeight = 18 * dpr;
@@ -319,13 +367,13 @@ function drawHoverTooltip(ctx, meta, index) {
     }
 
     drawRoundedRect(ctx, tooltipX, tooltipY, tooltipWidth, tooltipHeight, 10 * dpr);
-    ctx.fillStyle = "rgba(23,18,13,0.96)";
+    ctx.fillStyle = colors.tooltipBg;
     ctx.fill();
-    ctx.strokeStyle = "rgba(200,169,106,0.4)";
+    ctx.strokeStyle = colors.tooltipBorder;
     ctx.lineWidth = 1 * dpr;
     ctx.stroke();
 
-    ctx.fillStyle = "rgba(246,236,214,0.95)";
+    ctx.fillStyle = colors.tooltipText;
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     lines.forEach((line, lineIndex) => {
@@ -336,14 +384,14 @@ function drawHoverTooltip(ctx, meta, index) {
 }
 
 
-function drawHoverPoint(ctx, x, y, color, dpr) {
+function drawHoverPoint(ctx, x, y, color, innerDotColor, dpr) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.arc(x, y, 4 * dpr, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.beginPath();
-    ctx.fillStyle = "rgba(9,8,6,0.96)";
+    ctx.fillStyle = innerDotColor;
     ctx.arc(x, y, 2 * dpr, 0, Math.PI * 2);
     ctx.fill();
 }

@@ -1,5 +1,7 @@
 """FastAPI application for Black Desert Online Asset Tracker."""
 
+import asyncio
+from contextlib import suppress
 from typing import Dict, Any, List
 from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,7 +9,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from app.models import ManualRecordIn, StorageCaptureIn, InventoryCaptureIn, PreorderIn, ManualWarehouseValueIn
 from app.service import AssetService
-from app.config import FRONTEND_DIR
+from app.config import FRONTEND_DIR, HISTORY_COMPACTOR_INTERVAL_SECONDS, HISTORY_RETENTION_DAYS
 
 # Initialize FastAPI application
 app = FastAPI(
@@ -56,10 +58,48 @@ class ConnectionManager:
 # Global connection manager instance
 manager = ConnectionManager()
 
+asset_service = AssetService()
+compactor_task: asyncio.Task | None = None
+
 # Dependency injection for service
 def get_asset_service() -> AssetService:
     """Dependency injection for AssetService."""
-    return AssetService()
+    return asset_service
+
+
+async def periodic_compactor_loop() -> None:
+    """Run periodic history compaction in background."""
+    while True:
+        await asyncio.sleep(max(60, HISTORY_COMPACTOR_INTERVAL_SECONDS))
+        try:
+            asset_service.compact_history(retention_days=HISTORY_RETENTION_DAYS)
+        except Exception:
+            pass
+
+
+@app.on_event('startup')
+async def on_startup() -> None:
+    """Initialize startup resources and background jobs."""
+    global compactor_task
+    try:
+        from app.database import ensure_indexes
+        await ensure_indexes()
+    except Exception:
+        pass
+
+    if compactor_task is None or compactor_task.done():
+        compactor_task = asyncio.create_task(periodic_compactor_loop())
+
+
+@app.on_event('shutdown')
+async def on_shutdown() -> None:
+    """Stop background compactor task gracefully."""
+    global compactor_task
+    if compactor_task:
+        compactor_task.cancel()
+        with suppress(asyncio.CancelledError):
+            await compactor_task
+        compactor_task = None
 
 
 @app.get('/')
@@ -69,13 +109,50 @@ def index() -> FileResponse:
 
 
 @app.get('/api/dashboard')
-def get_dashboard(service: AssetService = Depends(get_asset_service)) -> Dict[str, Any]:
+def get_dashboard(
+    history_limit: int = 50,
+    snapshots_limit: int = 200,
+    service: AssetService = Depends(get_asset_service),
+) -> Dict[str, Any]:
     """Get dashboard data including latest records and settings.
 
     Returns:
         Dictionary containing dashboard information.
     """
-    return service.dashboard()
+    return service.dashboard(history_limit=history_limit, snapshots_limit=snapshots_limit)
+
+
+@app.get('/api/history')
+def get_history_page(
+    limit: int = 20,
+    offset: int = 0,
+    range_name: str = 'all',
+    service: AssetService = Depends(get_asset_service),
+) -> Dict[str, Any]:
+    """Get paginated history records."""
+    return service.get_history_page(limit=limit, offset=offset, range_name=range_name)
+
+
+@app.get('/api/snapshots')
+def get_snapshots_page(
+    limit: int = 20,
+    offset: int = 0,
+    service: AssetService = Depends(get_asset_service),
+) -> Dict[str, Any]:
+    """Get paginated warehouse snapshots."""
+    return service.get_snapshots_page(limit=limit, offset=offset)
+
+
+@app.post('/api/history/compact')
+def compact_history(service: AssetService = Depends(get_asset_service)) -> Dict[str, Any]:
+    """Force a history compaction run."""
+    return service.compact_history(retention_days=HISTORY_RETENTION_DAYS)
+
+
+@app.get('/api/metrics')
+def get_metrics(service: AssetService = Depends(get_asset_service)) -> Dict[str, Any]:
+    """Get basic runtime metrics for troubleshooting performance."""
+    return service.metrics()
 
 
 @app.post('/api/manual-record')

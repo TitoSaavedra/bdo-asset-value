@@ -2082,6 +2082,57 @@
         "warehouse": "Olvia",
         "manual": true
       }
+    },
+    {
+      "captured_at": "2026-03-15T23:10:32",
+      "market_silver": null,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 205447504718,
+      "total_with_warehouses": 579013356890,
+      "total_without_warehouses": 373565852172,
+      "source": "ocr-market-inventory",
+      "details": {}
+    },
+    {
+      "captured_at": "2026-03-15T23:10:33",
+      "market_silver": 365928452172,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 205447504718,
+      "total_with_warehouses": 579013356890,
+      "total_without_warehouses": 373565852172,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Muzgar"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T23:10:35",
+      "market_silver": 365928452172,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 205447774018,
+      "total_with_warehouses": 579013626190,
+      "total_without_warehouses": 373565852172,
+      "source": "ocr-storage",
+      "details": {
+        "warehouse": "Templo de Hakinza"
+      }
+    },
+    {
+      "captured_at": "2026-03-15T23:14:46",
+      "market_silver": 365928452172,
+      "inventory_silver": 0,
+      "preorder_silver": 7637400000,
+      "warehouses_total": 205447774019,
+      "total_with_warehouses": 579013626191,
+      "total_without_warehouses": 373565852172,
+      "source": "manual-storage",
+      "details": {
+        "warehouse": "Velia",
+        "manual": true
+      }
     }
   ],
   "warehouse_snapshots": [
@@ -2619,9 +2670,24 @@
       "captured_at": "2026-03-15T22:55:26",
       "warehouse": "Olvia",
       "market_silver": 1806092305
+    },
+    {
+      "captured_at": "2026-03-15T23:10:33",
+      "warehouse": "Muzgar",
+      "market_silver": 66025467400
+    },
+    {
+      "captured_at": "2026-03-15T23:10:35",
+      "warehouse": "Templo de Hakinza",
+      "market_silver": 6853681370
+    },
+    {
+      "captured_at": "2026-03-15T23:14:46",
+      "warehouse": "Velia",
+      "market_silver": 123457
     }
   ],
   "settings": {
-    "include_warehouses_in_total": false
+    "include_warehouses_in_total": true
   }
 }

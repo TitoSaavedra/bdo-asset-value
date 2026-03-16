@@ -2,6 +2,9 @@ import * as api from './api.js';
 import * as ui from './ui-manager.js';
 import { money, dateTime } from './utils.js';
 import { renderChart } from './chart-engine.js';
+import { loadScreenViews } from './view-loader.js';
+
+await loadScreenViews();
 
 const elements = {
     status: document.getElementById("status"),
@@ -22,10 +25,168 @@ const elements = {
     totalDelta: document.getElementById("mTotalDelta"),
     includeWarehousesToggle: document.getElementById("includeWarehousesToggle"),
     historyFilters: document.querySelectorAll("[data-history-range]"),
+    historyPagination: document.getElementById("historyPagination"),
+    historyPrevBtn: document.getElementById("historyPrevBtn"),
+    historyNextBtn: document.getElementById("historyNextBtn"),
+    historyPageInfo: document.getElementById("historyPageInfo"),
+    snapshotsPagination: document.getElementById("snapshotsPagination"),
+    snapshotsPrevBtn: document.getElementById("snapshotsPrevBtn"),
+    snapshotsNextBtn: document.getElementById("snapshotsNextBtn"),
+    snapshotsPageInfo: document.getElementById("snapshotsPageInfo"),
+    chartRangeFilters: document.querySelectorAll("[data-chart-range]"),
+    seriesToggles: document.querySelectorAll(".series-toggle"),
+    toastRegion: document.getElementById("toastRegion"),
     refreshBtn: document.getElementById("refreshBtn"),
+    themeSelect: document.getElementById("themeSelect"),
+    refreshMetricsBtn: document.getElementById("refreshMetricsBtn"),
+    metricDashboardLastMs: document.getElementById("metricDashboardLastMs"),
+    metricDashboardAvgMs: document.getElementById("metricDashboardAvgMs"),
+    metricPayloadBytes: document.getElementById("metricPayloadBytes"),
+    metricWritesPerMinute: document.getElementById("metricWritesPerMinute"),
+    metricsBody: document.getElementById("metricsBody"),
+    metricsUpdatedAt: document.getElementById("metricsUpdatedAt"),
 };
 
-let state = { dashboard: null, historyRange: "all" };
+const CHART_PREFS_KEY = "bdo_asset_chart_prefs";
+const THEME_PREFS_KEY = "bdo_asset_theme";
+const TABLE_PAGE_SIZE = 20;
+const ALLOWED_THEMES = new Set(["desert", "midnight", "light"]);
+const DEFAULT_VISIBLE_SERIES = {
+    total: true,
+    market: true,
+    inventory: true,
+    preorder: true,
+    warehouses: true,
+};
+
+let state = {
+    dashboard: null,
+    historyRange: "all",
+    historyPage: 1,
+    historyPageData: null,
+    snapshotsPage: 1,
+    snapshotsPageData: null,
+    chartRange: "all",
+    theme: "desert",
+    visibleSeries: { ...DEFAULT_VISIBLE_SERIES },
+    recentlyUpdatedWarehouse: null,
+};
+
+
+function updatePaginationControls(kind, pageData) {
+    const isHistory = kind === "history";
+    const container = isHistory ? elements.historyPagination : elements.snapshotsPagination;
+    const prevBtn = isHistory ? elements.historyPrevBtn : elements.snapshotsPrevBtn;
+    const nextBtn = isHistory ? elements.historyNextBtn : elements.snapshotsNextBtn;
+    const pageInfo = isHistory ? elements.historyPageInfo : elements.snapshotsPageInfo;
+
+    if (!container || !prevBtn || !nextBtn || !pageInfo) {
+        return;
+    }
+
+    const totalItems = Number(pageData?.total || 0);
+    const limit = Math.max(1, Number(pageData?.limit || TABLE_PAGE_SIZE));
+    const offset = Math.max(0, Number(pageData?.offset || 0));
+    const totalPages = Math.max(1, Math.ceil(totalItems / limit));
+    const currentPage = Math.min(totalPages, Math.floor(offset / limit) + 1);
+
+    container.hidden = totalItems <= limit;
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
+    pageInfo.textContent = `Página ${currentPage} / ${totalPages} · ${totalItems} items`;
+}
+
+
+function applyTheme(themeName) {
+    const safeTheme = ALLOWED_THEMES.has(themeName) ? themeName : "desert";
+    state.theme = safeTheme;
+
+    document.body.dataset.theme = safeTheme;
+
+    if (elements.themeSelect) {
+        elements.themeSelect.value = safeTheme;
+    }
+}
+
+
+function loadThemePreference() {
+    try {
+        const savedTheme = localStorage.getItem(THEME_PREFS_KEY);
+        applyTheme(savedTheme || "desert");
+    } catch (_error) {
+        applyTheme("desert");
+    }
+}
+
+
+function saveThemePreference() {
+    localStorage.setItem(THEME_PREFS_KEY, state.theme);
+}
+
+
+function loadChartPreferences() {
+    try {
+        const raw = localStorage.getItem(CHART_PREFS_KEY);
+        if (!raw) {
+            return;
+        }
+
+        const parsed = JSON.parse(raw);
+        state.chartRange = parsed.chartRange || "all";
+        state.visibleSeries = {
+            ...DEFAULT_VISIBLE_SERIES,
+            ...(parsed.visibleSeries || {}),
+        };
+    } catch (_error) {
+        state.chartRange = "all";
+        state.visibleSeries = { ...DEFAULT_VISIBLE_SERIES };
+    }
+}
+
+
+function saveChartPreferences() {
+    localStorage.setItem(CHART_PREFS_KEY, JSON.stringify({
+        chartRange: state.chartRange,
+        visibleSeries: state.visibleSeries,
+    }));
+}
+
+
+function showToast(message, tone = "ok") {
+    if (!elements.toastRegion) {
+        return;
+    }
+
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${tone}`;
+    toast.textContent = message;
+    elements.toastRegion.appendChild(toast);
+
+    window.setTimeout(() => {
+        toast.classList.add("toast-out");
+        window.setTimeout(() => toast.remove(), 240);
+    }, 2200);
+}
+
+
+function syncChartControls() {
+    if (elements.chartRangeFilters) {
+        elements.chartRangeFilters.forEach((button) => {
+            button.classList.toggle("active", button.dataset.chartRange === state.chartRange);
+        });
+    }
+
+    if (elements.seriesToggles) {
+        elements.seriesToggles.forEach((toggle) => {
+            const key = toggle.dataset.seriesKey;
+            toggle.checked = state.visibleSeries[key] !== false;
+            const legendItem = toggle.closest('.legend-item');
+            if (legendItem) {
+                legendItem.classList.toggle('legend-disabled', !toggle.checked);
+            }
+        });
+    }
+}
 
 
 function escapeAttribute(value) {
@@ -45,6 +206,7 @@ function renderEditableWarehouseValue(warehouse, marketSilver) {
             data-edit-kind="warehouse-market"
             data-warehouse="${safeWarehouse}"
             data-value="${numericValue}"
+            aria-label="Editar valor manual de ${safeWarehouse}"
             title="Click para editar"
         >${displayValue}</button>
     `;
@@ -144,19 +306,23 @@ function applyDelta(element, currentValue, previousValue) {
 
 function getWarehouseBadge(item) {
     if (!item.updated || !item.last_captured_at) {
-        return { text: "Pendiente", className: "status-pending" };
+        return { text: "Desactualizado", className: "status-stale" };
     }
 
     const now = new Date();
     const updatedAt = new Date(item.last_captured_at);
     const diffHours = (now.getTime() - updatedAt.getTime()) / (1000 * 60 * 60);
 
-    if (diffHours <= 24) {
+    if (!Number.isFinite(diffHours) || diffHours < 0) {
+        return { text: "Desactualizado", className: "status-stale" };
+    }
+
+    if (diffHours <= 10) {
         return { text: "Actualizado", className: "status-updated" };
     }
 
-    if (diffHours <= 72) {
-        return { text: "Por revisar", className: "status-review" };
+    if (diffHours <= 16) {
+        return { text: "Actualizado", className: "status-review" };
     }
 
     return { text: "Desactualizado", className: "status-stale" };
@@ -184,7 +350,37 @@ function connectUpdatesSocket() {
 
 async function refresh() {
     state.dashboard = await api.getDashboardData();
+    await Promise.all([
+        loadHistoryPage(),
+        loadSnapshotsPage(),
+    ]);
     render();
+}
+
+
+async function loadHistoryPage() {
+    const offset = (state.historyPage - 1) * TABLE_PAGE_SIZE;
+    const pageData = await api.getHistoryPage(TABLE_PAGE_SIZE, offset, state.historyRange);
+    state.historyPageData = pageData;
+
+    const totalPages = Math.max(1, Math.ceil((pageData.total || 0) / TABLE_PAGE_SIZE));
+    if (state.historyPage > totalPages) {
+        state.historyPage = totalPages;
+        return loadHistoryPage();
+    }
+}
+
+
+async function loadSnapshotsPage() {
+    const offset = (state.snapshotsPage - 1) * TABLE_PAGE_SIZE;
+    const pageData = await api.getSnapshotsPage(TABLE_PAGE_SIZE, offset);
+    state.snapshotsPageData = pageData;
+
+    const totalPages = Math.max(1, Math.ceil((pageData.total || 0) / TABLE_PAGE_SIZE));
+    if (state.snapshotsPage > totalPages) {
+        state.snapshotsPage = totalPages;
+        return loadSnapshotsPage();
+    }
 }
 
 
@@ -199,8 +395,27 @@ async function saveManualWarehouseValue(warehouse, marketSilver) {
         throw new Error('No se pudo guardar el valor manual del almacén');
     }
 
+    state.recentlyUpdatedWarehouse = warehouse;
     ui.setStatus(elements.status, `Valor manual guardado para ${warehouse}.`, 'ok');
+    showToast(`Guardado: ${warehouse}`, 'ok');
     await refresh();
+}
+
+
+function highlightRecentlyUpdatedWarehouse() {
+    if (!state.recentlyUpdatedWarehouse) {
+        return;
+    }
+
+    const targetWarehouse = state.recentlyUpdatedWarehouse;
+    const matchingButtons = document.querySelectorAll(`.inline-edit-trigger[data-warehouse="${CSS.escape(targetWarehouse)}"]`);
+
+    matchingButtons.forEach((button) => {
+        button.classList.add("inline-edit-saved");
+        window.setTimeout(() => button.classList.remove("inline-edit-saved"), 1500);
+    });
+
+    state.recentlyUpdatedWarehouse = null;
 }
 
 
@@ -274,6 +489,7 @@ function bindInlineTableEditing() {
                 await saveManualWarehouseValue(warehouse, Math.trunc(parsed));
             } catch (error) {
                 ui.setStatus(elements.status, error.message || 'Error guardando valor manual.', 'error');
+                showToast(error.message || 'No se pudo guardar.', 'error');
             } finally {
                 trigger.style.display = '';
                 input.remove();
@@ -342,9 +558,10 @@ function render() {
         elements.includeWarehousesToggle.checked = includeWarehouses;
     }
 
-    const filteredHistoryRecords = filterHistoryRecords(allRecords, state.historyRange);
+    const filteredChartRecords = filterHistoryRecords(allRecords, state.chartRange);
 
-    ui.updateTable(elements.historyBody, [...filteredHistoryRecords].reverse(), (item) => `
+    const historyItems = state.historyPageData?.items || [];
+    ui.updateTable(elements.historyBody, historyItems, (item) => `
         <td>${dateTime(item.captured_at)}</td>
         <td>${item.source || '-'}</td>
         <td>${money(item.market_silver)}</td>
@@ -353,6 +570,7 @@ function render() {
         <td>${money(item.total_without_warehouses)}</td>
         <td class="badge-green">${money(item.total_with_warehouses)}</td>
     `);
+    updatePaginationControls("history", state.historyPageData || { total: 0, limit: TABLE_PAGE_SIZE, offset: 0 });
 
     const warehouseRows = dashboard.warehouse_list || [];
     const warehouseStatusRows = dashboard.warehouse_status_list || [];
@@ -380,26 +598,171 @@ function render() {
         </td>
     `);
 
-    ui.updateTable(elements.snapshotsBody, [...(dashboard.warehouse_snapshots || [])].reverse(), (item) => `
+    const snapshotItems = state.snapshotsPageData?.items || [];
+    ui.updateTable(elements.snapshotsBody, snapshotItems, (item) => `
         <td>${dateTime(item.captured_at)}</td>
         <td>${item.warehouse}</td>
         <td>${money(item.market_silver)}</td>
     `);
+    updatePaginationControls("snapshots", state.snapshotsPageData || { total: 0, limit: TABLE_PAGE_SIZE, offset: 0 });
 
-    renderChart(elements.chart, dashboard.records, dashboard.settings);
+    syncChartControls();
+    renderChart(elements.chart, filteredChartRecords, dashboard.settings, {
+        visibleSeries: state.visibleSeries,
+    });
+    highlightRecentlyUpdatedWarehouse();
+}
+
+
+function bindChartRangeFilters() {
+    if (!elements.chartRangeFilters) {
+        return;
+    }
+
+    elements.chartRangeFilters.forEach((button) => {
+        button.addEventListener("click", () => {
+            state.chartRange = button.dataset.chartRange || "all";
+            saveChartPreferences();
+            render();
+        });
+    });
+}
+
+
+function bindChartSeriesToggles() {
+    if (!elements.seriesToggles) {
+        return;
+    }
+
+    elements.seriesToggles.forEach((toggle) => {
+        toggle.addEventListener("change", () => {
+            const key = toggle.dataset.seriesKey;
+            state.visibleSeries[key] = toggle.checked;
+
+            const enabledCount = Object.values(state.visibleSeries).filter(Boolean).length;
+            if (enabledCount === 0) {
+                state.visibleSeries[key] = true;
+                toggle.checked = true;
+                showToast("Debe quedar al menos una serie visible.", "error");
+                return;
+            }
+
+            saveChartPreferences();
+            render();
+        });
+    });
+}
+
+
+function bindThemeSelector() {
+    if (!elements.themeSelect) {
+        return;
+    }
+
+    elements.themeSelect.addEventListener("change", () => {
+        applyTheme(elements.themeSelect.value);
+        saveThemePreference();
+
+        if (state.dashboard) {
+            render();
+        }
+    });
+}
+
+
+function formatBytes(bytes) {
+    const value = Number(bytes || 0);
+    if (value < 1024) return `${value} B`;
+    if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
+    return `${(value / (1024 * 1024)).toFixed(2)} MB`;
+}
+
+
+async function refreshMetricsPanel() {
+    if (!elements.metricDashboardLastMs || !elements.metricsBody) {
+        return;
+    }
+
+    const metrics = await api.getMetrics();
+
+    elements.metricDashboardLastMs.textContent = `${Number(metrics.dashboard_render_ms_last || 0).toFixed(1)} ms`;
+    elements.metricDashboardAvgMs.textContent = `${Number(metrics.dashboard_render_ms_avg || 0).toFixed(1)} ms`;
+    elements.metricPayloadBytes.textContent = formatBytes(metrics.dashboard_payload_bytes_last || 0);
+    elements.metricWritesPerMinute.textContent = String(metrics.writes_per_minute || 0);
+
+    ui.updateTable(elements.metricsBody, [
+        { key: "Dashboard calls", value: metrics.dashboard_calls || 0 },
+        { key: "Writes total", value: metrics.writes_total || 0 },
+        { key: "Payload último", value: formatBytes(metrics.dashboard_payload_bytes_last || 0) },
+        { key: "Render último", value: `${Number(metrics.dashboard_render_ms_last || 0).toFixed(1)} ms` },
+        { key: "Render promedio", value: `${Number(metrics.dashboard_render_ms_avg || 0).toFixed(1)} ms` },
+        { key: "Writes/min", value: metrics.writes_per_minute || 0 },
+    ], (item) => `
+        <td>${item.key}</td>
+        <td>${item.value}</td>
+    `);
+
+    if (elements.metricsUpdatedAt) {
+        elements.metricsUpdatedAt.textContent = `Actualizado: ${new Date().toLocaleTimeString()}`;
+    }
+}
+
+
+function bindTablePagination() {
+    if (elements.historyPrevBtn) {
+        elements.historyPrevBtn.addEventListener("click", async () => {
+            state.historyPage = Math.max(1, state.historyPage - 1);
+            await loadHistoryPage();
+            render();
+        });
+    }
+
+    if (elements.historyNextBtn) {
+        elements.historyNextBtn.addEventListener("click", async () => {
+            state.historyPage += 1;
+            await loadHistoryPage();
+            render();
+        });
+    }
+
+    if (elements.snapshotsPrevBtn) {
+        elements.snapshotsPrevBtn.addEventListener("click", async () => {
+            state.snapshotsPage = Math.max(1, state.snapshotsPage - 1);
+            await loadSnapshotsPage();
+            render();
+        });
+    }
+
+    if (elements.snapshotsNextBtn) {
+        elements.snapshotsNextBtn.addEventListener("click", async () => {
+            state.snapshotsPage += 1;
+            await loadSnapshotsPage();
+            render();
+        });
+    }
 }
 
 // Event Listeners
-document.querySelectorAll(".menu button").forEach(btn => {
-    btn.addEventListener("click", () => ui.toggleScreens(
-        document.querySelectorAll(".screen"), 
-        document.querySelectorAll(".menu button"), 
-        btn.dataset.screen
-    ));
+document.querySelectorAll(".menu button").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+        ui.toggleScreens(
+            document.querySelectorAll(".screen"),
+            document.querySelectorAll(".menu button"),
+            btn.dataset.screen,
+        );
+
+        if (btn.dataset.screen === 'metrics') {
+            await refreshMetricsPanel();
+        }
+    });
 });
 
 if (elements.refreshBtn) {
     elements.refreshBtn.addEventListener("click", refresh);
+}
+
+if (elements.refreshMetricsBtn) {
+    elements.refreshMetricsBtn.addEventListener("click", refreshMetricsPanel);
 }
 
 if (elements.includeWarehousesToggle) {
@@ -412,18 +775,27 @@ if (elements.includeWarehousesToggle) {
 
 if (elements.historyFilters) {
     elements.historyFilters.forEach((button) => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", async () => {
             state.historyRange = button.dataset.historyRange || "all";
+            state.historyPage = 1;
 
             elements.historyFilters.forEach((filterButton) => {
                 filterButton.classList.toggle("active", filterButton === button);
             });
 
+            await loadHistoryPage();
             render();
         });
     });
 }
 
+loadThemePreference();
+loadChartPreferences();
 bindInlineTableEditing();
+bindChartRangeFilters();
+bindChartSeriesToggles();
+bindThemeSelector();
+bindTablePagination();
 refresh();
+refreshMetricsPanel();
 connectUpdatesSocket();

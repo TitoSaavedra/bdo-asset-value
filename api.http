@@ -1,0 +1,89 @@
+@baseUrl = http://127.0.0.1:8000
+@json = application/json
+
+### Healthcheck básico (frontend)
+GET {{baseUrl}}/
+
+### Dashboard (default)
+GET {{baseUrl}}/api/dashboard
+
+### Dashboard (límites personalizados)
+GET {{baseUrl}}/api/dashboard?history_limit=50&snapshots_limit=200
+
+### Historial paginado
+GET {{baseUrl}}/api/history?limit=20&offset=0&range_name=all
+
+### Historial paginado (7 días)
+GET {{baseUrl}}/api/history?limit=20&offset=20&range_name=7d
+
+### Snapshots paginados
+GET {{baseUrl}}/api/snapshots?limit=20&offset=0
+
+### Métricas backend
+GET {{baseUrl}}/api/metrics
+
+### Compactar historial manualmente
+POST {{baseUrl}}/api/history/compact
+
+### Guardar registro manual
+POST {{baseUrl}}/api/manual-record
+Content-Type: {{json}}
+
+{
+  "market_silver": 365900000000,
+  "inventory_silver": 1200000000,
+  "preorder_silver": 7600000000
+}
+
+### Captura OCR almacén
+POST {{baseUrl}}/api/ocr/storage
+Content-Type: {{json}}
+
+{
+  "warehouse": "Heidel",
+  "market_silver": 5400000000
+}
+
+### Corrección manual por almacén
+POST {{baseUrl}}/api/manual-warehouse-value
+Content-Type: {{json}}
+
+{
+  "warehouse": "Heidel",
+  "market_silver": 5500000000
+}
+
+### Captura OCR inventario
+POST {{baseUrl}}/api/ocr/inventory
+Content-Type: {{json}}
+
+{
+  "inventory_silver": 1300000000
+}
+
+### Ingresar preorder
+POST {{baseUrl}}/api/preorders
+Content-Type: {{json}}
+
+{
+  "preorder_silver": 7800000000,
+  "source": "browser-extension",
+  "details": {
+    "region": "NA",
+    "note": "test .http"
+  }
+}
+
+### Settings: incluir almacenes en total (ON)
+POST {{baseUrl}}/api/settings/include-warehouses/1
+
+### Settings: incluir almacenes en total (OFF)
+POST {{baseUrl}}/api/settings/include-warehouses/0
+
+### Info endpoint de WebSocket
+GET {{baseUrl}}/ws/updates
+
+### WebSocket updates (si tu cliente HTTP lo soporta)
+# WEBSOCKET ws://127.0.0.1:8000/ws/updates
+# Si abre conexión, puedes enviar un ping de texto:
+# ping

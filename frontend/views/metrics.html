@@ -1,0 +1,50 @@
+<div class="card header">
+    <h1>Métricas</h1>
+    <p>Rendimiento backend en tiempo real.</p>
+</div>
+
+<section class="card panel">
+    <div class="panel-head">
+        <h2>Resumen de rendimiento</h2>
+        <div class="toolbar">
+            <button class="history-filter-btn" id="refreshMetricsBtn" type="button">Actualizar</button>
+        </div>
+    </div>
+
+    <div class="grid-4 metrics-grid">
+        <div class="card metric metrics-card">
+            <div class="k">Dashboard (último)</div>
+            <div class="v" id="metricDashboardLastMs">0 ms</div>
+            <div class="s">Tiempo de render del último cálculo</div>
+        </div>
+        <div class="card metric metrics-card">
+            <div class="k">Dashboard (promedio)</div>
+            <div class="v" id="metricDashboardAvgMs">0 ms</div>
+            <div class="s">Promedio de render acumulado</div>
+        </div>
+        <div class="card metric metrics-card">
+            <div class="k">Payload último</div>
+            <div class="v" id="metricPayloadBytes">0 B</div>
+            <div class="s">Tamaño del dashboard serializado</div>
+        </div>
+        <div class="card metric metrics-card">
+            <div class="k">Writes / min</div>
+            <div class="v" id="metricWritesPerMinute">0</div>
+            <div class="s">Escrituras recientes por minuto</div>
+        </div>
+    </div>
+
+    <div class="table-wrap" id="metricsTableWrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Métrica</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody id="metricsBody" data-columns="2" data-empty-message="Sin métricas aún."></tbody>
+        </table>
+    </div>
+
+    <div class="status" id="metricsUpdatedAt"></div>
+</section>
