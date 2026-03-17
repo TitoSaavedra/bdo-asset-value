@@ -7,7 +7,7 @@
 ![Tesseract OCR](https://img.shields.io/badge/Tesseract-OCR-orange?style=flat-square)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
 
-Herramienta para registrar y consultar activos de Black Desert Online usando OCR, una API FastAPI y una interfaz web.
+Herramienta para registrar y consultar activos de Black Desert Online usando OCR y una API FastAPI (backend-only).
 
 ## Descripción General
 
@@ -50,10 +50,8 @@ Objetivos:
 
 ### Frontend
 
-- `frontend/index.html`: Shell principal + overlay de inicio.
-- `frontend/js/main.js`: Estado UI, render y sincronización.
-- `frontend/js/api.js`: Cliente API + observador de conexión.
-- `frontend/views/`: Pantallas (`dashboard`, `manual`, `metrics`, `warehouses`).
+- `frontend-tauri/`: Cliente desktop actual (Svelte + Tauri).
+- `frontend-legacy/`: Frontend legacy (solo referencia histórica, no servido por FastAPI).
 
 ## Flujo OCR en Cola (actual)
 
@@ -97,6 +95,39 @@ Esto inicia:
 - API en `http://127.0.0.1:8000`
 - Listener global de hotkeys
 
+### Levantar API + Frontend Tauri con 1 comando
+
+Desde la raíz del proyecto:
+
+```powershell
+.\start-dev.ps1
+```
+
+Este script abre dos terminales:
+
+- Backend: `python run.py` usando `.venv\Scripts\python.exe`
+- Frontend: `pnpm tauri dev` en `frontend-tauri/`
+
+## Frontend Separado (Tauri)
+
+Se agregó una carpeta independiente para migrar el frontend a desktop app:
+
+- `frontend-tauri/`
+
+Guía rápida:
+
+1. Instalar Rust, Node.js y Build Tools (Windows) siguiendo:
+	- `frontend-tauri/docs/RUST_WINDOWS_SETUP.md`
+2. Inicializar el proyecto Tauri dentro de `frontend-tauri/`.
+3. Mantener backend y frontend en procesos separados:
+	- Terminal A: `python run.py` (API/hotkeys)
+	- Terminal B: `pnpm tauri dev` (UI desktop)
+
+Variables frontend sugeridas:
+
+- `VITE_API_BASE_URL=http://127.0.0.1:8000`
+- `VITE_WS_URL=ws://127.0.0.1:8000/ws/updates`
+
 ## Hotkeys Vigentes
 
 - `ALT + 1`: monitoreo de almacenes (captura nombre y valor, luego encola).
@@ -128,7 +159,7 @@ Requisitos para que funcione:
 
 | Método | Endpoint | Descripción |
 |---|---|---|
-| GET | `/` | Frontend principal |
+| GET | `/` | Estado del backend/API |
 | GET | `/api/dashboard` | Datos agregados del dashboard |
 | GET | `/api/history` | Historial paginado |
 | GET | `/api/snapshots` | Snapshots de almacenes paginados |
@@ -194,10 +225,8 @@ bdo-asset-value/
 │       └── config/
 ├── data/
 │   └── asset_history.json
-├── frontend/
-│   ├── css/
-│   ├── js/
-│   └── views/
+├── frontend-legacy/         # Legacy (no servido por FastAPI)
+├── frontend-tauri/          # Cliente desktop actual
 ├── run.py
 ├── dev.py
 └── migrate_to_mongodb.py

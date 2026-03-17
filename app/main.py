@@ -5,11 +5,9 @@ from contextlib import suppress
 from typing import Dict, Any, List
 from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from app.models import ManualRecordIn, StorageCaptureIn, InventoryCaptureIn, PreorderIn, ManualWarehouseValueIn
 from app.service import AssetService
-from app.config import FRONTEND_DIR, HISTORY_COMPACTOR_INTERVAL_SECONDS, HISTORY_RETENTION_DAYS
+from app.config import HISTORY_COMPACTOR_INTERVAL_SECONDS, HISTORY_RETENTION_DAYS
 
 # Initialize FastAPI application
 app = FastAPI(
@@ -26,9 +24,6 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*'],
 )
-
-# Mount static files
-app.mount('/static', StaticFiles(directory=str(FRONTEND_DIR)), name='static')
 
 # WebSocket connection manager
 class ConnectionManager:
@@ -108,9 +103,13 @@ async def on_shutdown() -> None:
 
 
 @app.get('/')
-def index() -> FileResponse:
-    """Serve the main frontend application."""
-    return FileResponse(FRONTEND_DIR / 'index.html')
+def index() -> Dict[str, str]:
+    """Return API status information."""
+    return {
+        'service': 'bdo-asset-tracker-api',
+        'status': 'ok',
+        'docs': '/docs',
+    }
 
 
 @app.get('/api/dashboard')
