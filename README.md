@@ -140,6 +140,14 @@ bdo-asset-value/
 
 ## Notas
 
+- Este proyecto fue desarrollado con ayuda de IA y tiene fines de estudio/aprendizaje.
 - Hotkeys actuales: `ALT+1`, `ALT+2`, `ESC`.
 - El OCR worker debe correr en Windows host; no está soportado dentro de Docker para captura global/hotkeys.
 - El roadmap técnico está en `TODO.md`.
+
+## Disclaimer
+
+- Este repositorio es un proyecto de estudio y experimentación técnica.
+- El código fue desarrollado con apoyo de herramientas de inteligencia artificial.
+- No existe garantía de funcionamiento continuo, precisión absoluta de OCR ni compatibilidad total en todos los entornos.
+- Úsalo bajo tu propio criterio y valida cualquier resultado antes de tomar decisiones importantes.
