@@ -7,6 +7,8 @@ class WarehouseSnapshot(BaseModel):
     captured_at: str
     warehouse: str
     market_silver: int
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
 
 
 class RecordItem(BaseModel):
@@ -19,3 +21,5 @@ class RecordItem(BaseModel):
     total_without_warehouses: int = 0
     source: str = 'manual'
     details: Dict[str, Any] = Field(default_factory=dict)
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None

@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 from app.config import HISTORY_RETENTION_DAYS
 from app.models import RecordItem
 from app.services.record_merge import has_same_totals, is_same_hour_window
-from app.services.time_utils import parse_iso
+from app.utils.time import parse_iso
 
 
 class AssetServiceCompactionMixin:
@@ -60,6 +60,7 @@ class AssetServiceCompactionMixin:
                     'merged_count': int(previous.details.get('merged_count', 1)) + 1,
                     'merged_sources': merged_sources,
                 }
+                previous.updated_at = record.captured_at
             else:
                 compacted.append(record)
 

@@ -4,7 +4,7 @@ from time import perf_counter
 from typing import Any, Dict, List, Tuple
 
 from app.models import AppState, RecordItem, WarehouseSnapshot
-from app.services.time_utils import parse_iso
+from app.utils.time import parse_iso
 
 
 class AssetServiceQueryMixin:

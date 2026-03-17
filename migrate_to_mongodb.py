@@ -16,6 +16,7 @@ from app.database import (
     storage_names_collection,
     normalize_storage_name,
 )
+from app.utils.time import now_iso
 
 
 async def migrate_to_mongodb():
@@ -35,22 +36,37 @@ async def migrate_to_mongodb():
 
     # Insert records
     if state.records:
-        records_data = [record.model_dump() for record in state.records]
+        records_data = []
+        for record in state.records:
+            payload = record.model_dump()
+            captured_at = payload.get('captured_at')
+            payload['created_at'] = payload.get('created_at') or captured_at or now_iso()
+            payload['updated_at'] = payload.get('updated_at') or captured_at or now_iso()
+            records_data.append(payload)
         await records_collection.insert_many(records_data)
         print(f"✓ Migrated {len(records_data)} records")
 
     # Insert warehouse snapshots
     if state.warehouse_snapshots:
-        snapshots_data = [snapshot.model_dump() for snapshot in state.warehouse_snapshots]
+        snapshots_data = []
+        for snapshot in state.warehouse_snapshots:
+            payload = snapshot.model_dump()
+            captured_at = payload.get('captured_at')
+            payload['created_at'] = payload.get('created_at') or captured_at or now_iso()
+            payload['updated_at'] = payload.get('updated_at') or captured_at or now_iso()
+            snapshots_data.append(payload)
         await warehouse_snapshots_collection.insert_many(snapshots_data)
         print(f"✓ Migrated {len(snapshots_data)} warehouse snapshots")
 
     storage_names = sorted({item.warehouse.strip() for item in state.warehouse_snapshots if item.warehouse.strip()})
     if storage_names:
+        storage_now = now_iso()
         storage_names_data = [
             {
                 'name': name,
                 'normalized_name': normalize_storage_name(name),
+                'created_at': storage_now,
+                'updated_at': storage_now,
             }
             for name in storage_names
         ]
@@ -58,9 +74,12 @@ async def migrate_to_mongodb():
         print(f"✓ Migrated {len(storage_names_data)} storage names")
 
     # Insert settings
+    settings_now = now_iso()
     await settings_collection.insert_one({
         '_id': 'app_settings',
-        'settings': state.settings
+        'settings': state.settings,
+        'created_at': settings_now,
+        'updated_at': settings_now,
     })
     print("✓ Migrated settings")
 

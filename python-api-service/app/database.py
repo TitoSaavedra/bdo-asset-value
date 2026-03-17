@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import ASCENDING, DESCENDING
 from app.config import MONGODB_URL, DATABASE_NAME
+from app.utils.time import now_iso
 
 client = AsyncIOMotorClient(MONGODB_URL)
 db = client[DATABASE_NAME]
@@ -23,12 +24,17 @@ async def upsert_storage_name(name: str) -> None:
 	if not clean_name:
 		return
 
+	now = now_iso()
 	await storage_names_collection.update_one(
 		{'normalized_name': normalize_storage_name(clean_name)},
 		{
+			'$setOnInsert': {
+				'created_at': now,
+			},
 			'$set': {
 				'name': clean_name,
 				'normalized_name': normalize_storage_name(clean_name),
+				'updated_at': now,
 			},
 		},
 		upsert=True,

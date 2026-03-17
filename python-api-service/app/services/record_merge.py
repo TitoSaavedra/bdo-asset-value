@@ -1,5 +1,5 @@
 from app.models import RecordItem
-from app.services.time_utils import parse_iso
+from app.utils.time import parse_iso
 
 
 def is_same_hour_window(previous_captured_at: str, current_captured_at: str) -> bool:

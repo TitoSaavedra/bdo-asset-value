@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Tuple
 from app.config import DASHBOARD_CACHE_TTL_SECONDS
 from app.models import AppState
 from app.storage import storage
-from app.services.time_utils import now_iso
+from app.utils.time import now_iso
 
 logger = logging.getLogger(__name__)
 

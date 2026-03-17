@@ -4,6 +4,7 @@ from pymongo import MongoClient, ASCENDING
 
 from app.config import DATA_FILE, MONGODB_URL, DATABASE_NAME
 from app.models import AppState, RecordItem, WarehouseSnapshot
+from app.utils.time import now_iso
 
 
 class JSONStorage:
@@ -67,6 +68,7 @@ class MongoDBStorage:
         )
 
     def write_state(self, state: AppState) -> None:
+        now = now_iso()
         self._records.delete_many({})
         self._snapshots.delete_many({})
 
@@ -78,7 +80,15 @@ class MongoDBStorage:
 
         self._settings.update_one(
             {'_id': 'app_settings'},
-            {'$set': {'settings': state.settings}},
+            {
+                '$set': {
+                    'settings': state.settings,
+                    'updated_at': now,
+                },
+                '$setOnInsert': {
+                    'created_at': now,
+                },
+            },
             upsert=True,
         )
 

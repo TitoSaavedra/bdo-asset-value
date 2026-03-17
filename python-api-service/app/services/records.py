@@ -2,7 +2,7 @@ from typing import Any, Dict, Optional
 
 from app.models import AppState, RecordItem, WarehouseSnapshot
 from app.services.record_merge import has_same_totals, is_same_hour_window
-from app.services.time_utils import now_iso
+from app.utils.time import now_iso
 
 
 class AssetServiceRecordsMixin:
@@ -52,6 +52,7 @@ class AssetServiceRecordsMixin:
                     'merged_count': merged_count,
                     'merged_sources': merged_sources,
                 }
+                last.updated_at = captured_at
                 self._write_state(state)
                 self._register_action(
                     action_type='record-merged',
@@ -79,6 +80,8 @@ class AssetServiceRecordsMixin:
             total_without_warehouses=total_without_warehouses,
             source=source,
             details=details,
+            created_at=captured_at,
+            updated_at=captured_at,
         )
         state.records.append(record)
         self._write_state(state)
@@ -144,7 +147,14 @@ class AssetServiceRecordsMixin:
         state = self.get_state()
         previous_name = state.warehouse_snapshots[-1].warehouse if state.warehouse_snapshots else None
         changed = previous_name != warehouse
-        snapshot = WarehouseSnapshot(captured_at=now_iso(), warehouse=warehouse, market_silver=market_silver)
+        snapshot_time = now_iso()
+        snapshot = WarehouseSnapshot(
+            captured_at=snapshot_time,
+            warehouse=warehouse,
+            market_silver=market_silver,
+            created_at=snapshot_time,
+            updated_at=snapshot_time,
+        )
         state.warehouse_snapshots.append(snapshot)
         self._write_state(state)
         self._register_action(
@@ -176,10 +186,13 @@ class AssetServiceRecordsMixin:
     def add_manual_warehouse_value(self, warehouse: str, market_silver: int) -> RecordItem:
         state = self.get_state()
 
+        snapshot_time = now_iso()
         snapshot = WarehouseSnapshot(
-            captured_at=now_iso(),
+            captured_at=snapshot_time,
             warehouse=warehouse,
             market_silver=market_silver,
+            created_at=snapshot_time,
+            updated_at=snapshot_time,
         )
         state.warehouse_snapshots.append(snapshot)
         self._write_state(state)
