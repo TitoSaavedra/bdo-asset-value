@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../bdo-market-buyer-ext"
+		}
+	],
+	"settings": {
+		"powershell.cwd": "bdo-asset-value"
+	}
+}

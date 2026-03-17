@@ -5,7 +5,6 @@ import time
 import threading
 from typing import Callable
 from app.logs.logger import logger
-from app.service import AssetService
 from app.ocr.capture import capture_region
 from app.ocr.reader import read_storage_name
 from app.ocr.queue_processor import CaptureQueueProcessor
@@ -46,12 +45,9 @@ INACTIVITY_TIMEOUT = 10
 # Global flag for ESC key
 esc_pressed = threading.Event()
 
-# Service instance used by OCR worker/hotkeys process
-service = AssetService()
-
 # Background task locks to avoid running the same capture concurrently
 storage_capture_lock = threading.Lock()
-queue_processor = CaptureQueueProcessor(service=service)
+queue_processor = CaptureQueueProcessor()
 
 
 def run_in_background(task_name: str, lock: threading.Lock, target: Callable[[], None]) -> None:

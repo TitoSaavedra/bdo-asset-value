@@ -9,6 +9,7 @@ process = None
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 VENV_PYTHON = os.path.join(BASE_DIR, "venv", "Scripts", "python.exe")
+API_ENTRYPOINT = os.path.join(BASE_DIR, "python-api-service", "main.py")
 
 
 def get_python_executable() -> str:
@@ -54,7 +55,7 @@ class RestartHandler(FileSystemEventHandler):
 
         print("\nReiniciando aplicación...\n")
 
-        process = subprocess.Popen([get_python_executable(), "run.py"])
+        process = subprocess.Popen([get_python_executable(), API_ENTRYPOINT])
 
     def on_modified(self, event):
 

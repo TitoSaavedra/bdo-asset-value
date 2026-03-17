@@ -1,6 +1,21 @@
 import asyncio
+import sys
+from pathlib import Path
+
+
+BASE_DIR = Path(__file__).resolve().parent
+API_SERVICE_DIR = BASE_DIR / 'python-api-service'
+if str(API_SERVICE_DIR) not in sys.path:
+    sys.path.insert(0, str(API_SERVICE_DIR))
+
 from app.storage import JSONStorage
-from app.database import records_collection, warehouse_snapshots_collection, settings_collection
+from app.database import (
+    records_collection,
+    warehouse_snapshots_collection,
+    settings_collection,
+    storage_names_collection,
+    normalize_storage_name,
+)
 
 
 async def migrate_to_mongodb():
@@ -16,6 +31,7 @@ async def migrate_to_mongodb():
     await records_collection.delete_many({})
     await warehouse_snapshots_collection.delete_many({})
     await settings_collection.delete_many({})
+    await storage_names_collection.delete_many({})
 
     # Insert records
     if state.records:
@@ -28,6 +44,18 @@ async def migrate_to_mongodb():
         snapshots_data = [snapshot.model_dump() for snapshot in state.warehouse_snapshots]
         await warehouse_snapshots_collection.insert_many(snapshots_data)
         print(f"✓ Migrated {len(snapshots_data)} warehouse snapshots")
+
+    storage_names = sorted({item.warehouse.strip() for item in state.warehouse_snapshots if item.warehouse.strip()})
+    if storage_names:
+        storage_names_data = [
+            {
+                'name': name,
+                'normalized_name': normalize_storage_name(name),
+            }
+            for name in storage_names
+        ]
+        await storage_names_collection.insert_many(storage_names_data)
+        print(f"✓ Migrated {len(storage_names_data)} storage names")
 
     # Insert settings
     await settings_collection.insert_one({

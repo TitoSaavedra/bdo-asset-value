@@ -10,6 +10,7 @@ h11==0.16.0
 idna==3.11
 keyboard==0.13.5
 motor==3.6.0
+pymongo==4.9.2
 mss==10.1.0
 numpy==2.4.3
 opencv-python==4.13.0.92
