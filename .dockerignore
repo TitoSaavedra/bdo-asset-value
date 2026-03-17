@@ -1,0 +1,11 @@
+**/.git
+**/.gitignore
+**/.venv
+**/venv
+**/__pycache__
+**/*.pyc
+
+frontend-tauri/node_modules
+frontend-tauri/.svelte-kit
+frontend-tauri/build
+frontend-tauri/src-tauri/target

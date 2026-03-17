@@ -1,6 +1,7 @@
 """FastAPI application for Black Desert Online Asset Tracker."""
 
 import asyncio
+import logging
 from contextlib import suppress
 from typing import Dict, Any, List
 from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
@@ -15,6 +16,8 @@ from app.models import (
 )
 from app.services import AssetService
 from app.config import HISTORY_COMPACTOR_INTERVAL_SECONDS, HISTORY_RETENTION_DAYS
+
+logger = logging.getLogger(__name__)
 
 # Initialize FastAPI application
 app = FastAPI(
@@ -46,16 +49,20 @@ class ConnectionManager:
 
     def disconnect(self, websocket: WebSocket):
         """Remove a WebSocket connection."""
-        self.active_connections.remove(websocket)
+        if websocket in self.active_connections:
+            self.active_connections.remove(websocket)
 
     async def broadcast(self, message: str):
         """Broadcast a message to all connected clients."""
-        for connection in self.active_connections:
+        broken_connections: List[WebSocket] = []
+        for connection in list(self.active_connections):
             try:
                 await connection.send_text(message)
             except Exception:
-                # Remove broken connections
-                self.active_connections.remove(connection)
+                broken_connections.append(connection)
+
+        for broken_connection in broken_connections:
+            self.disconnect(broken_connection)
 
 # Global connection manager instance
 manager = ConnectionManager()
@@ -76,7 +83,7 @@ async def periodic_compactor_loop() -> None:
         try:
             asset_service.compact_history(retention_days=HISTORY_RETENTION_DAYS)
         except Exception:
-            pass
+            logger.exception('Periodic compactor loop failed')
 
 
 async def _ensure_indexes_background() -> None:
@@ -87,7 +94,17 @@ async def _ensure_indexes_background() -> None:
         known_storages = await list_storage_names()
         asset_service.set_known_storages(known_storages)
     except Exception:
-        pass
+        logger.exception('Failed to ensure MongoDB indexes or load known storages')
+
+
+async def _persist_storage_name(warehouse: str) -> None:
+    """Persist storage names in memory and MongoDB metadata."""
+    asset_service.add_known_storage(warehouse)
+    try:
+        from app.database import upsert_storage_name
+        await upsert_storage_name(warehouse)
+    except Exception:
+        logger.exception('Failed to persist storage name metadata', extra={'warehouse': warehouse})
 
 
 @app.on_event('startup')
@@ -214,12 +231,7 @@ async def capture_storage(
         Dictionary containing snapshot and optional record information.
     """
     snapshot, record = service.add_storage_capture(payload.warehouse, payload.market_silver)
-    service.add_known_storage(payload.warehouse)
-    try:
-        from app.database import upsert_storage_name
-        await upsert_storage_name(payload.warehouse)
-    except Exception:
-        pass
+    await _persist_storage_name(payload.warehouse)
 
     return {
         'snapshot': snapshot.model_dump(),
@@ -246,12 +258,7 @@ async def create_manual_warehouse_value(
         payload.market_silver,
     )
 
-    service.add_known_storage(payload.warehouse)
-    try:
-        from app.database import upsert_storage_name
-        await upsert_storage_name(payload.warehouse)
-    except Exception:
-        pass
+    await _persist_storage_name(payload.warehouse)
 
     return record.model_dump()
 

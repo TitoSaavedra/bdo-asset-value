@@ -113,8 +113,8 @@ class AssetServiceQueryMixin:
         records = self._filter_records_by_range(state.records, range_name)
         records_desc = list(reversed(records))
 
-        safe_limit = max(1, min(limit, 200))
-        safe_offset = max(0, offset)
+        safe_limit = self._sanitize_limit(limit=limit, max_limit=200)
+        safe_offset = self._sanitize_offset(offset=offset)
 
         paginated = records_desc[safe_offset:safe_offset + safe_limit]
         return {
@@ -129,8 +129,8 @@ class AssetServiceQueryMixin:
         state = self.get_state()
         snapshots_desc = list(reversed(state.warehouse_snapshots))
 
-        safe_limit = max(1, min(limit, 200))
-        safe_offset = max(0, offset)
+        safe_limit = self._sanitize_limit(limit=limit, max_limit=200)
+        safe_offset = self._sanitize_offset(offset=offset)
         paginated = snapshots_desc[safe_offset:safe_offset + safe_limit]
 
         return {
@@ -141,8 +141,8 @@ class AssetServiceQueryMixin:
         }
 
     def dashboard(self, history_limit: int = 50, snapshots_limit: int = 200) -> Dict[str, Any]:
-        safe_history_limit = max(1, min(history_limit, 300))
-        safe_snapshots_limit = max(1, min(snapshots_limit, 500))
+        safe_history_limit = self._sanitize_limit(limit=history_limit, max_limit=300)
+        safe_snapshots_limit = self._sanitize_limit(limit=snapshots_limit, max_limit=500)
         cache_key = (safe_history_limit, safe_snapshots_limit)
         now = datetime.now()
 

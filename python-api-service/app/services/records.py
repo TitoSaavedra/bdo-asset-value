@@ -1,7 +1,8 @@
 from typing import Any, Dict, Optional
 
 from app.models import AppState, RecordItem, WarehouseSnapshot
-from app.services.time_utils import now_iso, parse_iso
+from app.services.record_merge import has_same_totals, is_same_hour_window
+from app.services.time_utils import now_iso
 
 
 class AssetServiceRecordsMixin:
@@ -26,22 +27,17 @@ class AssetServiceRecordsMixin:
 
         if state.records:
             last = state.records[-1]
-            last_dt = parse_iso(last.captured_at)
-            current_dt = parse_iso(captured_at)
+            same_hour_window = is_same_hour_window(last.captured_at, captured_at)
 
-            same_hour_window = bool(
-                last_dt and current_dt and
-                last_dt.year == current_dt.year and
-                last_dt.month == current_dt.month and
-                last_dt.day == current_dt.day and
-                last_dt.hour == current_dt.hour
-            )
-
-            same_silver = (
-                last.total_without_warehouses == total_without_warehouses and
-                last.total_with_warehouses == total_with_warehouses and
-                last.preorder_silver == preorder_silver and
-                last.warehouses_total == warehouses_total
+            same_silver = has_same_totals(
+                previous_total_without_warehouses=last.total_without_warehouses,
+                previous_total_with_warehouses=last.total_with_warehouses,
+                previous_preorder_silver=last.preorder_silver,
+                previous_warehouses_total=last.warehouses_total,
+                current_total_without_warehouses=total_without_warehouses,
+                current_total_with_warehouses=total_with_warehouses,
+                current_preorder_silver=preorder_silver,
+                current_warehouses_total=warehouses_total,
             )
 
             if same_hour_window and same_silver:
@@ -160,10 +156,6 @@ class AssetServiceRecordsMixin:
             },
         )
 
-        self._broadcast_update('asset_history_updated', {
-            'dashboard': self.dashboard()
-        })
-
         record = None
         if changed:
             record = self.append_record(
@@ -174,6 +166,11 @@ class AssetServiceRecordsMixin:
                 'ocr-storage',
                 {'warehouse': warehouse},
             )
+        else:
+            self._broadcast_update('asset_history_updated', {
+                'dashboard': self.dashboard()
+            })
+
         return snapshot, record
 
     def add_manual_warehouse_value(self, warehouse: str, market_silver: int) -> RecordItem:

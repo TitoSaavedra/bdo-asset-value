@@ -1,6 +1,5 @@
 import json
 from json import JSONDecodeError
-from typing import List, Dict, Any
 from pymongo import MongoClient, ASCENDING
 
 from app.config import DATA_FILE, MONGODB_URL, DATABASE_NAME

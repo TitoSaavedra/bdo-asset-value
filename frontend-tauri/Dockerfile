@@ -3,7 +3,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 COPY frontend-tauri/package.json frontend-tauri/pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
+RUN corepack enable && pnpm install --frozen-lockfile --prod=false
 
 COPY frontend-tauri/ ./
 RUN pnpm build

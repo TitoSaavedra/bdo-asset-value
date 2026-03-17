@@ -3,6 +3,7 @@ from typing import Dict, List, Optional
 
 from app.config import HISTORY_RETENTION_DAYS
 from app.models import RecordItem
+from app.services.record_merge import has_same_totals, is_same_hour_window
 from app.services.time_utils import parse_iso
 
 
@@ -33,20 +34,16 @@ class AssetServiceCompactionMixin:
                 continue
 
             previous = compacted[-1]
-            prev_dt = parse_iso(previous.captured_at)
-            curr_dt = parse_iso(record.captured_at)
-            same_hour = bool(
-                prev_dt and curr_dt and
-                prev_dt.year == curr_dt.year and
-                prev_dt.month == curr_dt.month and
-                prev_dt.day == curr_dt.day and
-                prev_dt.hour == curr_dt.hour
-            )
-            same_silver = (
-                previous.total_without_warehouses == record.total_without_warehouses and
-                previous.total_with_warehouses == record.total_with_warehouses and
-                previous.preorder_silver == record.preorder_silver and
-                previous.warehouses_total == record.warehouses_total
+            same_hour = is_same_hour_window(previous.captured_at, record.captured_at)
+            same_silver = has_same_totals(
+                previous_total_without_warehouses=previous.total_without_warehouses,
+                previous_total_with_warehouses=previous.total_with_warehouses,
+                previous_preorder_silver=previous.preorder_silver,
+                previous_warehouses_total=previous.warehouses_total,
+                current_total_without_warehouses=record.total_without_warehouses,
+                current_total_with_warehouses=record.total_with_warehouses,
+                current_preorder_silver=record.preorder_silver,
+                current_warehouses_total=record.warehouses_total,
             )
 
             if same_hour and same_silver:

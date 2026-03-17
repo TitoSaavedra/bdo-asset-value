@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 from collections import deque
 from datetime import datetime, timedelta
 from threading import Lock
@@ -9,6 +10,8 @@ from app.config import DASHBOARD_CACHE_TTL_SECONDS
 from app.models import AppState
 from app.storage import storage
 from app.services.time_utils import now_iso
+
+logger = logging.getLogger(__name__)
 
 
 class AssetServiceBase:
@@ -42,7 +45,7 @@ class AssetServiceBase:
             )
 
     def get_recent_actions(self, limit: int = 30) -> Dict[str, Any]:
-        safe_limit = max(1, min(limit, 200))
+        safe_limit = self._sanitize_limit(limit=limit, max_limit=200)
         with self._actions_lock:
             items = list(self._recent_actions)[:safe_limit]
         return {
@@ -50,6 +53,14 @@ class AssetServiceBase:
             'total': len(items),
             'limit': safe_limit,
         }
+
+    @staticmethod
+    def _sanitize_limit(limit: int, max_limit: int) -> int:
+        return max(1, min(limit, max_limit))
+
+    @staticmethod
+    def _sanitize_offset(offset: int) -> int:
+        return max(0, offset)
 
     def _invalidate_dashboard_cache(self) -> None:
         with self._cache_lock:
@@ -92,7 +103,7 @@ class AssetServiceBase:
     def _broadcast_update(self, event_type: str, data: Dict[str, Any]) -> None:
         try:
             from app.main import manager
-        except Exception:
+        except ImportError:
             return
 
         payload = json.dumps({
@@ -105,7 +116,10 @@ class AssetServiceBase:
             loop = asyncio.get_running_loop()
             loop.create_task(manager.broadcast(payload))
         except RuntimeError:
-            asyncio.run(manager.broadcast(payload))
+            try:
+                asyncio.run(manager.broadcast(payload))
+            except Exception:
+                logger.exception('Failed to broadcast websocket payload from fallback loop')
 
     def get_state(self) -> AppState:
         return storage.read_state()
