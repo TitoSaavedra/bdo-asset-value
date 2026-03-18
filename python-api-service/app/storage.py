@@ -1,42 +1,8 @@
-import json
-from json import JSONDecodeError
 from pymongo import MongoClient, ASCENDING
 
-from app.config import DATA_FILE, MONGODB_URL, DATABASE_NAME
+from app.config import MONGODB_URL, DATABASE_NAME
 from app.models import AppState, RecordItem, WarehouseSnapshot
 from app.utils.time import now_iso
-
-
-class JSONStorage:
-    """JSON historical storage used only for migration scripts."""
-
-    def read_state(self) -> AppState:
-        if not DATA_FILE.exists():
-            state = AppState()
-            self.write_state(state)
-            return state
-
-        content = DATA_FILE.read_text(encoding='utf-8')
-
-        try:
-            raw = json.loads(content)
-        except JSONDecodeError as exc:
-            if exc.msg == 'Extra data':
-                decoder = json.JSONDecoder()
-                raw, end_index = decoder.raw_decode(content)
-                trailing = content[end_index:].strip()
-                if trailing:
-                    DATA_FILE.write_text(
-                        json.dumps(raw, ensure_ascii=False, indent=2),
-                        encoding='utf-8'
-                    )
-            else:
-                raise
-
-        return AppState(**raw)
-
-    def write_state(self, state: AppState) -> None:
-        DATA_FILE.write_text(state.model_dump_json(indent=2), encoding='utf-8')
 
 
 class MongoDBStorage:

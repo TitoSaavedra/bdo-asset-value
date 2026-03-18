@@ -4,7 +4,7 @@ import asyncio
 import logging
 from contextlib import suppress
 from typing import Dict, Any, List
-from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Depends, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import (
     ManualRecordIn,
@@ -80,31 +80,22 @@ async def periodic_compactor_loop() -> None:
     """Run periodic history compaction in background."""
     while True:
         await asyncio.sleep(max(60, HISTORY_COMPACTOR_INTERVAL_SECONDS))
-        try:
-            asset_service.compact_history(retention_days=HISTORY_RETENTION_DAYS)
-        except Exception:
-            logger.exception('Periodic compactor loop failed')
+        asset_service.compact_history(retention_days=HISTORY_RETENTION_DAYS)
 
 
 async def _ensure_indexes_background() -> None:
     """Load MongoDB metadata and indexes used by API service."""
-    try:
-        from app.database import ensure_indexes, list_storage_names
-        await ensure_indexes()
-        known_storages = await list_storage_names()
-        asset_service.set_known_storages(known_storages)
-    except Exception:
-        logger.exception('Failed to ensure MongoDB indexes or load known storages')
+    from app.database import ensure_indexes, list_storage_names
+    await ensure_indexes()
+    known_storages = await list_storage_names()
+    asset_service.set_known_storages(known_storages)
 
 
 async def _persist_storage_name(warehouse: str) -> None:
     """Persist storage names in memory and MongoDB metadata."""
     asset_service.add_known_storage(warehouse)
-    try:
-        from app.database import upsert_storage_name
-        await upsert_storage_name(warehouse)
-    except Exception:
-        logger.exception('Failed to persist storage name metadata', extra={'warehouse': warehouse})
+    from app.database import upsert_storage_name
+    await upsert_storage_name(warehouse)
 
 
 @app.on_event('startup')
@@ -354,7 +345,5 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             await websocket.receive_text()
-    except WebSocketDisconnect:
-        pass
     finally:
         manager.disconnect(websocket)

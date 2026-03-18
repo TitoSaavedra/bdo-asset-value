@@ -15,25 +15,30 @@ storage_names_collection = db.storage_names
 
 def normalize_storage_name(name: str) -> str:
 	"""Normalize storage name for case-insensitive uniqueness."""
-	return name.strip().lower()
+	return name.lower()
 
 
 async def upsert_storage_name(name: str) -> None:
 	"""Insert or update a storage name document."""
-	clean_name = name.strip()
-	if not clean_name:
-		return
+	normalized_name = normalize_storage_name(name)
+	last_order_doc = await storage_names_collection.find_one(
+		{},
+		{'_id': 0, 'order': 1},
+		sort=[('order', DESCENDING)],
+	)
+	next_order = (last_order_doc['order'] if last_order_doc else 0) + 1
 
 	now = now_iso()
 	await storage_names_collection.update_one(
-		{'normalized_name': normalize_storage_name(clean_name)},
+		{'normalized_name': normalized_name},
 		{
 			'$setOnInsert': {
 				'created_at': now,
+				'order': next_order,
 			},
 			'$set': {
-				'name': clean_name,
-				'normalized_name': normalize_storage_name(clean_name),
+				'name': name,
+				'normalized_name': normalized_name,
 				'updated_at': now,
 			},
 		},
@@ -42,10 +47,13 @@ async def upsert_storage_name(name: str) -> None:
 
 
 async def list_storage_names() -> list[str]:
-	"""Return storage names ordered alphabetically."""
-	cursor = storage_names_collection.find({}, {'_id': 0, 'name': 1}).sort('name', ASCENDING)
+	"""Return storage names ordered by explicit DB order field."""
+	cursor = storage_names_collection.find({}, {'_id': 0, 'name': 1}).sort([
+		('order', ASCENDING),
+		('name', ASCENDING),
+	])
 	items = await cursor.to_list(length=None)
-	return [item.get('name', '').strip() for item in items if item.get('name')]
+	return [item['name'] for item in items]
 
 
 async def ensure_indexes() -> None:
@@ -79,3 +87,8 @@ async def ensure_indexes() -> None:
 	await storage_names_collection.create_index([
 		('name', ASCENDING),
 	], name='idx_storage_names_name')
+
+	await storage_names_collection.create_index([
+		('order', ASCENDING),
+		('name', ASCENDING),
+	], name='idx_storage_names_order_name')

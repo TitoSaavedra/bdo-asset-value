@@ -1,6 +1,5 @@
 import asyncio
 import json
-import logging
 from collections import deque
 from datetime import datetime, timedelta
 from threading import Lock
@@ -10,8 +9,6 @@ from app.config import DASHBOARD_CACHE_TTL_SECONDS
 from app.models import AppState
 from app.storage import storage
 from app.utils.time import now_iso
-
-logger = logging.getLogger(__name__)
 
 
 class AssetServiceBase:
@@ -45,22 +42,13 @@ class AssetServiceBase:
             )
 
     def get_recent_actions(self, limit: int = 30) -> Dict[str, Any]:
-        safe_limit = self._sanitize_limit(limit=limit, max_limit=200)
         with self._actions_lock:
-            items = list(self._recent_actions)[:safe_limit]
+            items = list(self._recent_actions)[:limit]
         return {
             'items': items,
             'total': len(items),
-            'limit': safe_limit,
+            'limit': limit,
         }
-
-    @staticmethod
-    def _sanitize_limit(limit: int, max_limit: int) -> int:
-        return max(1, min(limit, max_limit))
-
-    @staticmethod
-    def _sanitize_offset(offset: int) -> int:
-        return max(0, offset)
 
     def _invalidate_dashboard_cache(self) -> None:
         with self._cache_lock:
@@ -77,49 +65,30 @@ class AssetServiceBase:
         self._invalidate_dashboard_cache()
 
     def set_known_storages(self, storages: List[str]) -> None:
-        normalized: Dict[str, str] = {}
-        for item in storages:
-            clean = item.strip()
-            if clean:
-                normalized[clean.lower()] = clean
+        normalized = {item.lower(): item for item in storages}
 
         with self._known_storages_lock:
-            self._known_storages = sorted(normalized.values())
+            self._known_storages = list(normalized.values())
 
     def add_known_storage(self, storage_name: str) -> None:
-        clean = storage_name.strip()
-        if not clean:
-            return
-
         with self._known_storages_lock:
             by_key = {item.lower(): item for item in self._known_storages}
-            by_key[clean.lower()] = clean
-            self._known_storages = sorted(by_key.values())
+            by_key[storage_name.lower()] = storage_name
+            self._known_storages = list(by_key.values())
 
     def get_known_storages(self) -> List[str]:
         with self._known_storages_lock:
             return list(self._known_storages)
 
     def _broadcast_update(self, event_type: str, data: Dict[str, Any]) -> None:
-        try:
-            from app.main import manager
-        except ImportError:
-            return
+        from app.main import manager
 
         payload = json.dumps({
             'type': event_type,
             'timestamp': now_iso(),
             'data': data,
         })
-
-        try:
-            loop = asyncio.get_running_loop()
-            loop.create_task(manager.broadcast(payload))
-        except RuntimeError:
-            try:
-                asyncio.run(manager.broadcast(payload))
-            except Exception:
-                logger.exception('Failed to broadcast websocket payload from fallback loop')
+        asyncio.run(manager.broadcast(payload))
 
     def get_state(self) -> AppState:
         return storage.read_state()

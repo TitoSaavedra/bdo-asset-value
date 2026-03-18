@@ -98,6 +98,54 @@
 
     cancelInlineEdit();
   }
+
+  function getWarehouseAgeHours(lastCapturedAt: string | null): number | null {
+    if (!lastCapturedAt) {
+      return null;
+    }
+
+    const capturedAtMs = new Date(lastCapturedAt).getTime();
+    if (!Number.isFinite(capturedAtMs)) {
+      return null;
+    }
+
+    const ageHours = (Date.now() - capturedAtMs) / (1000 * 60 * 60);
+    if (!Number.isFinite(ageHours)) {
+      return null;
+    }
+
+    return Math.max(0, ageHours);
+  }
+
+  function getWarehouseStatusClass(lastCapturedAt: string | null): string {
+    const ageHours = getWarehouseAgeHours(lastCapturedAt);
+    if (ageHours === null) {
+      return "status-stale";
+    }
+
+    if (ageHours < 5) {
+      return "status-updated";
+    }
+
+    if (ageHours < 10) {
+      return "status-review";
+    }
+
+    return "status-stale";
+  }
+
+  function getWarehouseStatusLabel(lastCapturedAt: string | null): string {
+    const ageHours = getWarehouseAgeHours(lastCapturedAt);
+    if (ageHours === null) {
+      return "Desactualizado";
+    }
+
+    if (ageHours < 10) {
+      return "Actualizado";
+    }
+
+    return "Desactualizado";
+  }
 </script>
 
 <section class="warehouses-layout">
@@ -163,8 +211,8 @@
                 </td>
                 <td>{dateTime(rowItem.last_captured_at)}</td>
                 <td>
-                  <span class={`connection-pill ${rowItem.updated ? "connection-online" : "connection-offline"}`}>
-                    {rowItem.updated ? "Actualizado" : "Pendiente"}
+                  <span class={`connection-pill ${getWarehouseStatusClass(rowItem.last_captured_at)}`}>
+                    {getWarehouseStatusLabel(rowItem.last_captured_at)}
                   </span>
                 </td>
               </tr>
