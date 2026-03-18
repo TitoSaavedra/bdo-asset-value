@@ -3,7 +3,6 @@
 import time
 import threading
 from dataclasses import dataclass
-from concurrent.futures import ThreadPoolExecutor
 from queue import Empty, Full, Queue
 from typing import Any, Optional, Literal
 
@@ -13,7 +12,6 @@ from app.ocr.reader import read_silver_value, read_storage_name
 
 TASK_QUEUE_MAX_SIZE = 500
 TASK_QUEUE_GET_TIMEOUT_SECONDS = 0.5
-OCR_MAX_WORKERS = 4
 
 
 @dataclass
@@ -26,6 +24,7 @@ class CaptureTask:
     img_inventory: Any = None
     img_storage_name: Any = None
     img_storage_value: Any = None
+    detected_storage_name: Optional[str] = None
 
 
 class CaptureQueueProcessor:
@@ -35,10 +34,6 @@ class CaptureQueueProcessor:
         self.task_queue: Queue[CaptureTask] = Queue(maxsize=TASK_QUEUE_MAX_SIZE)
         self._worker_started = False
         self._worker_start_lock = threading.Lock()
-        self._ocr_executor = ThreadPoolExecutor(
-            max_workers=OCR_MAX_WORKERS,
-            thread_name_prefix='ocr-worker'
-        )
         self._last_storage_name: Optional[str] = None
 
     def start(self) -> None:
@@ -67,7 +62,12 @@ class CaptureQueueProcessor:
             )
         )
 
-    def enqueue_storage_snapshot(self, img_storage_name: Any, img_storage_value: Any) -> bool:
+    def enqueue_storage_snapshot(
+        self,
+        img_storage_name: Any,
+        img_storage_value: Any,
+        detected_storage_name: Optional[str] = None,
+    ) -> bool:
         """Enqueue a storage snapshot OCR task."""
         return self._enqueue(
             CaptureTask(
@@ -75,6 +75,7 @@ class CaptureQueueProcessor:
                 captured_at=time.time(),
                 img_storage_name=img_storage_name,
                 img_storage_value=img_storage_value,
+                detected_storage_name=detected_storage_name,
             )
         )
 
@@ -109,11 +110,9 @@ class CaptureQueueProcessor:
                 self.task_queue.task_done()
 
     def _process_market_inventory_task(self, task: CaptureTask) -> None:
-        market_future = self._ocr_executor.submit(read_silver_value, task.img_market, 'market')
-        inventory_future = self._ocr_executor.submit(read_silver_value, task.img_inventory, 'inventory')
-
-        market_silver = market_future.result()
-        inventory_silver = inventory_future.result()
+        logger.debug("Processing market/inventory OCR sequentially...")
+        market_silver = read_silver_value(task.img_market, 'market')
+        inventory_silver = read_silver_value(task.img_inventory, 'inventory')
 
         sent = post_market_inventory_capture(market_silver, inventory_silver)
         if sent:
@@ -124,7 +123,10 @@ class CaptureQueueProcessor:
         logger.info(f'Market/Inventory result → market={market_silver} inventory={inventory_silver}')
 
     def _process_storage_snapshot_task(self, task: CaptureTask) -> None:
-        storage_name = read_storage_name(task.img_storage_name)
+        storage_name = task.detected_storage_name
+        if not storage_name:
+            storage_name = read_storage_name(task.img_storage_name)
+
         if not storage_name:
             return
 

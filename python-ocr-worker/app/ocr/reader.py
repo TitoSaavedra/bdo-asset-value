@@ -2,6 +2,8 @@
 
 import difflib
 import re
+import threading
+import time
 from typing import Optional, Tuple
 import pytesseract
 import numpy as np
@@ -9,6 +11,23 @@ from app.ocr.image import bright_text, warm_text, cream_to_bw
 from app.logs.logger import logger
 from app.ocr.utils import save_failed_capture
 from app.ocr.config.storages import KNOWN_STORAGES
+
+OCR_FALLBACK_COOLDOWN_SECONDS = 2.5
+_fallback_last_run_by_source: dict[str, float] = {}
+_fallback_lock = threading.Lock()
+
+
+def _should_run_fallback(source: str) -> bool:
+    """Return whether fallback OCR should run for the given source now."""
+    now = time.time()
+
+    with _fallback_lock:
+        last_run = _fallback_last_run_by_source.get(source)
+        if last_run is None or (now - last_run) >= OCR_FALLBACK_COOLDOWN_SECONDS:
+            _fallback_last_run_by_source[source] = now
+            return True
+
+    return False
 
 
 def clean_digits(text: str, source: str = 'silver') -> Optional[int]:
@@ -66,6 +85,13 @@ def read_silver_value(img: np.ndarray, source: str = 'silver') -> Optional[int]:
             logger.info(f"OCR capture [{source}] detected (primary mode): {value}")
             return value
 
+        if not _should_run_fallback(source):
+            logger.debug(
+                f"Skipping fallback OCR due to cooldown [{source}] "
+                f"({OCR_FALLBACK_COOLDOWN_SECONDS:.2f}s)"
+            )
+            return None
+
         # Fallback method: warm text processing
         logger.debug(f"Primary OCR failed [{source}], trying alternative warm_text method")
 
@@ -83,10 +109,10 @@ def read_silver_value(img: np.ndarray, source: str = 'silver') -> Optional[int]:
         if value_alt is not None:
             logger.info(f"OCR capture [{source}] detected (alternative mode): {value_alt}")
             return value_alt
-        else:
-            logger.warning(f"Failed to detect silver with OCR [{source}]")
-            save_failed_capture(img, f"{source}_silver_fail")
-            return None
+
+        logger.warning(f"Failed to detect silver with OCR [{source}]")
+        save_failed_capture(img, f"{source}_silver_fail")
+        return None
 
     except Exception as e:
         logger.error(f"OCR processing error [{source}]: {e}")

@@ -5,6 +5,11 @@
     { value: "desert", label: "Desierto" },
     { value: "midnight", label: "Nocturno" },
     { value: "light", label: "Claro" },
+    { value: "darcula", label: "Darcula" },
+    { value: "onedark", label: "One Dark Pro" },
+    { value: "monokai", label: "Monokai" },
+    { value: "solarized", label: "Solarized Dark" },
+    { value: "draculanight", label: "Dracula At Night" },
   ];
 
   let isThemeOpen = $state(false);

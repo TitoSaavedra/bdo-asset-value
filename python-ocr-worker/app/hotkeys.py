@@ -106,6 +106,7 @@ def handle_storage_snapshot() -> None:
             queue_processor.enqueue_storage_snapshot(
                 img_storage_name=img_name,
                 img_storage_value=img_value,
+                detected_storage_name=storage_name,
             )
         else:
             if current_time - last_seen_time >= INACTIVITY_TIMEOUT:

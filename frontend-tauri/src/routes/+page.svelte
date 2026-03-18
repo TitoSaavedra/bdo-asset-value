@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import "$lib/styles/legacy.css";
+  import "$lib/styles/themes.css";
   import AppSidebar from "$lib/components/dashboard/AppSidebar.svelte";
   import DashboardScreen from "$lib/components/dashboard/DashboardScreen.svelte";
   import ManualScreen from "$lib/components/dashboard/ManualScreen.svelte";
