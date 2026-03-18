@@ -1,0 +1,136 @@
+@media (max-height: 860px), (max-width: 1260px) {
+  body {
+    padding: 12px 0;
+  }
+
+  .app {
+    width: min(1400px, calc(100% - 20px));
+    height: calc(100vh - 24px);
+    gap: 12px;
+    grid-template-columns: 240px 1fr;
+  }
+
+  .sidebar {
+    padding: 16px;
+  }
+
+  .brand {
+    grid-template-columns: 54px 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .brand-spirit {
+    width: 54px;
+    height: 54px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .menu {
+    gap: 8px;
+  }
+
+  .menu button {
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+  }
+
+  .theme-picker {
+    margin-top: 12px;
+  }
+
+  .content {
+    gap: 10px;
+  }
+
+  .screen.active {
+    gap: 10px;
+  }
+
+  .header {
+    padding: 12px 14px;
+    min-height: 88px;
+    height: 88px;
+    flex-basis: 88px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .header p {
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  .panel {
+    padding: 12px;
+  }
+
+  .panel-head {
+    margin-bottom: 10px;
+  }
+
+  .panel-head h2 {
+    font-size: 19px;
+  }
+
+  .grid-4 {
+    gap: 10px;
+  }
+
+  .metric {
+    min-height: 112px;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .metric .v {
+    font-size: 24px;
+  }
+
+  th,
+  td {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .history-filter-btn,
+  .pagination-btn {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+  canvas {
+    height: min(30vh, 340px);
+  }
+}
+
+@media (max-width: 1150px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .app {
+    height: auto;
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .sidebar,
+  .content {
+    overflow: visible;
+  }
+
+  .grid-4,
+  .row,
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+}

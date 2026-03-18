@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import "$lib/styles/legacy.css";
-  import "$lib/styles/themes.css";
+  import "$lib/styles/main.css";
   import AppSidebar from "$lib/components/dashboard/AppSidebar.svelte";
   import DashboardScreen from "$lib/components/dashboard/DashboardScreen.svelte";
   import ManualScreen from "$lib/components/dashboard/ManualScreen.svelte";
@@ -38,8 +37,11 @@
 
   const CHART_PREFS_KEY = "bdo_asset_chart_prefs";
   const THEME_PREFS_KEY = "bdo_asset_theme";
+  const DENSITY_PREFS_KEY = "bdo_asset_density";
   const TABLE_PAGE_SIZE = 20;
   const TOAST_LIFETIME_MS = 3200;
+
+  type DensityMode = "normal" | "compact";
 
   type ToastTone = "ok" | "error" | "info";
   type ToastItem = {
@@ -74,6 +76,7 @@
   let lastSavedInlineAt = $state(0);
 
   let theme = $state<ThemeName>("desert");
+  let density = $state<DensityMode>("normal");
   let apiConnected = $state(false);
   let wsConnected = $state(false);
   let connectionUpdatedAt = $state<string | null>(null);
@@ -194,9 +197,28 @@
     renderChartView();
   }
 
+  function previewTheme(nextTheme: string | null): void {
+    const safeTheme = nextTheme && ALLOWED_THEMES.includes(nextTheme as ThemeName) ? (nextTheme as ThemeName) : theme;
+    document.body.dataset.theme = safeTheme;
+    renderChartView();
+  }
+
   function loadThemePreference(): void {
     const savedTheme = localStorage.getItem(THEME_PREFS_KEY);
     applyTheme(savedTheme || "desert");
+  }
+
+  function applyDensity(nextDensity: string): void {
+    const safeDensity: DensityMode = nextDensity === "compact" ? "compact" : "normal";
+    density = safeDensity;
+    document.body.dataset.density = safeDensity;
+    localStorage.setItem(DENSITY_PREFS_KEY, safeDensity);
+    renderChartView();
+  }
+
+  function loadDensityPreference(): void {
+    const savedDensity = localStorage.getItem(DENSITY_PREFS_KEY);
+    applyDensity(savedDensity || "normal");
   }
 
   function loadChartPreferences(): void {
@@ -470,6 +492,7 @@
 
   onMount(() => {
     loadThemePreference();
+    loadDensityPreference();
     loadChartPreferences();
     void refreshAll();
     connectWebSocket();
@@ -503,24 +526,28 @@
   <AppSidebar
     {activeScreen}
     {theme}
+    {density}
     {apiConnected}
     {wsConnected}
     {connectionUpdatedAt}
     onScreenChange={(screen) => (activeScreen = screen)}
     onThemeChange={applyTheme}
+    onThemePreview={previewTheme}
+    onDensityChange={applyDensity}
     onRefresh={refreshAll}
     {formatConnectionTime}
   />
 
   <main class="content">
     {#if isLoading}
-      <section class="card panel">
-        <h2>Cargando aplicación...</h2>
+      <section class="card panel state-panel">
+        <h2 class="state-title">Cargando aplicación...</h2>
+        <p class="state-description">Preparando dashboard, historial y métricas en tiempo real.</p>
       </section>
     {:else if errorMessage}
-      <section class="card panel">
-        <h2>Error</h2>
-        <p class="status">{errorMessage}</p>
+      <section class="card panel state-panel state-error">
+        <h2 class="state-title">Error de carga</h2>
+        <p class="state-description">{errorMessage}</p>
       </section>
     {/if}
 
@@ -546,6 +573,11 @@
         {delta}
         {deltaClass}
       />
+    {:else if activeScreen === "dashboard" && !isLoading && !errorMessage}
+      <section class="card panel state-panel">
+        <h2 class="state-title">Sin datos para mostrar</h2>
+        <p class="state-description">No se encontraron datos del dashboard todavía.</p>
+      </section>
     {/if}
 
     {#if activeScreen === "manual"}
@@ -573,10 +605,20 @@
         onSnapshotsPageChange={setSnapshotsPage}
         onSaveWarehouseValue={saveWarehouseValue}
       />
+    {:else if activeScreen === "warehouses" && !isLoading && !errorMessage}
+      <section class="card panel state-panel">
+        <h2 class="state-title">Sin datos de almacenes</h2>
+        <p class="state-description">Aún no hay estado de almacenes para renderizar.</p>
+      </section>
     {/if}
 
-    {#if activeScreen === "metrics"}
+    {#if activeScreen === "metrics" && metrics}
       <MetricsScreen {metrics} {recentLogs} onRefresh={refreshMetricsAndLogs} />
+    {:else if activeScreen === "metrics" && !isLoading && !errorMessage}
+      <section class="card panel state-panel">
+        <h2 class="state-title">Sin métricas disponibles</h2>
+        <p class="state-description">Las métricas se mostrarán cuando el backend publique datos.</p>
+      </section>
     {/if}
   </main>
 </div>

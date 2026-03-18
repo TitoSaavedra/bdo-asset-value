@@ -156,7 +156,10 @@
 
   <section class="card panel warehouses-panel">
     <div class="panel-head">
-      <h2>Listado actual por almacén</h2>
+      <div>
+        <h2>Listado actual por almacén</h2>
+        <p class="section-subtitle">Estado más reciente y edición inline por almacén.</p>
+      </div>
     </div>
     <p id="warehouseMissingInfo" class="sub">
       {dashboard.missing_warehouses.length ? `Faltan datos para: ${dashboard.missing_warehouses.join(", ")}` : "Todos los almacenes conocidos tienen datos."}
@@ -225,7 +228,10 @@
 
   <section class="card panel warehouses-panel">
     <div class="panel-head">
-      <h2>Snapshots OCR</h2>
+      <div>
+        <h2>Snapshots OCR</h2>
+        <p class="section-subtitle">Historial de capturas detectadas por OCR.</p>
+      </div>
     </div>
     <div class="table-wrap table-scroll-y" id="warehouseSnapshotsTableWrap">
       <table>

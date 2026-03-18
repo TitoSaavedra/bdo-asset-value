@@ -88,7 +88,14 @@ class AssetServiceBase:
             'timestamp': now_iso(),
             'data': data,
         })
-        asyncio.run(manager.broadcast(payload))
+
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            asyncio.run(manager.broadcast(payload))
+            return
+
+        loop.create_task(manager.broadcast(payload))
 
     def get_state(self) -> AppState:
         return storage.read_state()

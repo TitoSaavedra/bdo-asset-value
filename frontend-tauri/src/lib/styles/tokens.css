@@ -1,0 +1,67 @@
+:root {
+  --bg: #0a0907;
+  --panel: rgba(24, 19, 13, 0.96);
+  --panel-2: rgba(31, 24, 17, 0.96);
+  --gold: #c8a96a;
+  --gold-2: #f3ddb0;
+  --blue: #5aa4ff;
+  --green: #61d391;
+  --red: #ff6d6d;
+  --text: #f6ecd6;
+  --muted: #b9ab8d;
+  --border: rgba(200, 169, 106, 0.24);
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  --radius: 22px;
+  --body-glow-primary: rgba(200, 169, 106, 0.16);
+  --body-glow-secondary: rgba(90, 164, 255, 0.12);
+  --body-gradient-start: #13100b;
+  --body-gradient-end: #090806;
+  --card-grad-start: rgba(37, 29, 19, 0.96);
+  --card-grad-end: rgba(18, 14, 10, 0.96);
+  --card-shine-start: rgba(243, 221, 176, 0.05);
+  --card-shine-end: rgba(243, 221, 176, 0.04);
+  --button-grad-start: rgba(44, 35, 23, 0.9);
+  --button-grad-end: rgba(24, 18, 12, 0.9);
+  --button-active-start: #e1c58d;
+  --button-active-end: #b88e52;
+  --button-active-text: #1a130b;
+  --metric-grad-start: rgba(45, 35, 22, 0.96);
+  --metric-grad-end: rgba(24, 18, 12, 0.96);
+  --canvas-grad-start: rgba(13, 11, 8, 0.84);
+  --canvas-grad-end: rgba(21, 17, 12, 0.94);
+  --table-head-bg: rgba(35, 28, 19, 0.95);
+  --table-wrap-bg: rgba(14, 11, 8, 0.9);
+  --scroll-track-bg: rgba(35, 28, 19, 0.95);
+  --scroll-thumb-border: rgba(35, 28, 19, 0.95);
+  --chart-empty-text: rgba(246, 236, 214, 0.72);
+  --chart-grid: rgba(200, 169, 106, 0.16);
+  --chart-axis-text: rgba(185, 171, 141, 0.9);
+  --chart-guideline: rgba(243, 221, 176, 0.45);
+  --chart-tooltip-bg: rgba(23, 18, 13, 0.96);
+  --chart-tooltip-border: rgba(200, 169, 106, 0.4);
+  --chart-tooltip-text: rgba(246, 236, 214, 0.95);
+  --chart-hover-inner-dot: rgba(9, 8, 6, 0.96);
+  --chart-total-stroke: rgba(217, 180, 111, 1);
+  --chart-total-fill: rgba(217, 180, 111, 0.18);
+  --chart-market-stroke: rgba(90, 164, 255, 1);
+  --chart-market-fill: rgba(90, 164, 255, 0.15);
+  --chart-inventory-stroke: rgba(243, 221, 176, 1);
+  --chart-inventory-fill: rgba(243, 221, 176, 0.16);
+  --chart-preorder-stroke: rgba(97, 211, 145, 1);
+  --chart-preorder-fill: rgba(97, 211, 145, 0.15);
+  --chart-warehouses-stroke: rgba(255, 109, 109, 1);
+  --chart-warehouses-fill: rgba(255, 109, 109, 0.15);
+  --selection-bg: rgba(200, 169, 106, 0.35);
+  --selection-text: #f6ecd6;
+  --brand-spirit-tint-filter: sepia(0.45) saturate(1.15) hue-rotate(-10deg) brightness(1.03);
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+::-moz-selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}

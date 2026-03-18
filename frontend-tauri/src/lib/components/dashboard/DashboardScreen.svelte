@@ -117,7 +117,7 @@
 
 <div class="card header">
   <h1>Dashboard</h1>
-  <p>Estado actual de tus activos.</p>
+  <p>Vista general de valor total, evolución y estado por origen.</p>
 </div>
 
 <div class="grid-4">
@@ -158,24 +158,31 @@
 <div class="row">
   <section class="card panel">
     <div class="panel-head">
-      <h2>Evolución histórica</h2>
-      <div class="toolbar">
-        <label class="toggle">
-          <input
-            type="checkbox"
-            checked={dashboard.settings.include_warehouses_in_total}
-            onchange={(event) => onToggleIncludeWarehouses((event.currentTarget as HTMLInputElement).checked)}
-          />
-          Sumar almacenes
-        </label>
-        <div class="toolbar chart-range-filters">
-          <button class={`history-filter-btn ${chartRange === "all" ? "active" : ""}`} onclick={() => onChartRangeChange("all")}>Todo</button>
-          <button class={`history-filter-btn ${chartRange === "today" ? "active" : ""}`} onclick={() => onChartRangeChange("today")}>Hoy</button>
-          <button class={`history-filter-btn ${chartRange === "7d" ? "active" : ""}`} onclick={() => onChartRangeChange("7d")}>7 días</button>
-          <button class={`history-filter-btn ${chartRange === "30d" ? "active" : ""}`} onclick={() => onChartRangeChange("30d")}>30 días</button>
-        </div>
+      <div>
+        <h2>Evolución histórica</h2>
+        <p class="section-subtitle">Tendencia consolidada y comparación por fuente de valor.</p>
+      </div>
+      <div class="toolbar chart-range-filters">
+        <button class={`history-filter-btn ${chartRange === "all" ? "active" : ""}`} onclick={() => onChartRangeChange("all")}>Todo</button>
+        <button class={`history-filter-btn ${chartRange === "today" ? "active" : ""}`} onclick={() => onChartRangeChange("today")}>Hoy</button>
+        <button class={`history-filter-btn ${chartRange === "7d" ? "active" : ""}`} onclick={() => onChartRangeChange("7d")}>7 días</button>
+        <button class={`history-filter-btn ${chartRange === "30d" ? "active" : ""}`} onclick={() => onChartRangeChange("30d")}>30 días</button>
       </div>
     </div>
+
+    <label class="toggle-enhanced">
+      <input
+        type="checkbox"
+        checked={dashboard.settings.include_warehouses_in_total}
+        onchange={(event) => onToggleIncludeWarehouses((event.currentTarget as HTMLInputElement).checked)}
+      />
+      <span class="toggle-track">
+        <span class="toggle-thumb"></span>
+      </span>
+      <span class="toggle-label">Sumar almacenes</span>
+    </label>
+
+    <canvas bind:this={chartCanvas} id="chart"></canvas>
 
     <div class="chart-legend" aria-label="Leyenda del gráfico">
       <button
@@ -209,12 +216,15 @@
         onclick={() => onSeriesToggle("warehouses")}
       ><span class="legend-dot legend-warehouses"></span><span class="legend-text">Almacenes</span></button>
     </div>
-
-    <canvas bind:this={chartCanvas} id="chart"></canvas>
   </section>
 
   <section class="card panel">
-    <div class="panel-head"><h2>Resumen almacenes</h2></div>
+    <div class="panel-head">
+      <div>
+        <h2>Resumen almacenes</h2>
+        <p class="section-subtitle">Edición rápida de valor actual por almacén.</p>
+      </div>
+    </div>
     <div class="table-wrap table-scroll-y">
       <table>
         <thead>
@@ -272,7 +282,10 @@
 
 <section class="card panel">
   <div class="panel-head">
-    <h2>Historial general</h2>
+    <div>
+      <h2>Historial general</h2>
+      <p class="section-subtitle">Registros cronológicos para auditoría y seguimiento.</p>
+    </div>
     <div class="toolbar history-filters">
       <button class={`history-filter-btn ${historyRange === "all" ? "active" : ""}`} onclick={() => onHistoryRangeChange("all")}>Todo</button>
       <button class={`history-filter-btn ${historyRange === "today" ? "active" : ""}`} onclick={() => onHistoryRangeChange("today")}>Hoy</button>

@@ -29,7 +29,10 @@
 
   <section class="card panel metrics-panel metrics-summary-panel">
     <div class="panel-head">
-      <h2>Resumen de rendimiento</h2>
+      <div>
+        <h2>Resumen de rendimiento</h2>
+        <p class="section-subtitle">Latencia, payload y ritmo de escritura del backend.</p>
+      </div>
       <div class="toolbar">
         <button class="history-filter-btn" onclick={onRefresh}>Actualizar</button>
       </div>
@@ -80,7 +83,10 @@
 
   <section class="card panel metrics-panel metrics-logs-panel">
     <div class="panel-head">
-      <h2>Logs recientes</h2>
+      <div>
+        <h2>Logs recientes</h2>
+        <p class="section-subtitle">Eventos recientes para trazabilidad operativa.</p>
+      </div>
     </div>
     <div class="table-wrap table-scroll-y" id="recentLogsTableWrap">
       <table>

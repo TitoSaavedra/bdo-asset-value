@@ -1,0 +1,76 @@
+body[data-density='compact'] .content {
+  gap: 10px;
+}
+
+body[data-density='compact'] .grid-4 {
+  grid-auto-rows: minmax(78px, max-content);
+  gap: 6px;
+}
+
+body[data-density='compact'] .row {
+  gap: 8px;
+}
+
+body[data-density='compact'] .metric {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'k delta'
+    'v v'
+    's s';
+  align-items: start;
+  column-gap: 8px;
+  row-gap: 1px;
+  padding: 6px 9px;
+  min-height: 78px;
+  border-radius: 12px;
+}
+
+body[data-density='compact'] .metric .k {
+  grid-area: k;
+  margin-bottom: 1px;
+  font-size: 10px;
+  line-height: 1.1;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+body[data-density='compact'] .metric .v {
+  grid-area: v;
+  font-size: 17px;
+  line-height: 1;
+}
+
+body[data-density='compact'] .metric .s {
+  grid-area: s;
+  margin-top: 2px;
+  font-size: 10px;
+  line-height: 1.15;
+}
+
+body[data-density='compact'] .metric-delta {
+  grid-area: delta;
+  margin-top: 0;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 1.1;
+}
+
+body[data-density='compact'] .panel {
+  padding: 12px;
+}
+
+body[data-density='compact'] .table-wrap {
+  border-radius: 16px;
+}
+
+body[data-density='compact'] th,
+body[data-density='compact'] td {
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+body[data-density='compact'] th {
+  font-size: 11px;
+}

@@ -28,6 +28,12 @@
 </div>
 
 <section class="card panel">
+  <div class="panel-head">
+    <div>
+      <h2>Registro general manual</h2>
+      <p class="section-subtitle">Carga puntual de mercado, inventario y preorden.</p>
+    </div>
+  </div>
   <div class="field-grid">
     <div class="field">
       <label for="marketInput">Silver mercado</label>
@@ -49,7 +55,12 @@
 </section>
 
 <section class="card panel">
-  <h2>Valor manual de almacén</h2>
+  <div class="panel-head">
+    <div>
+      <h2>Valor manual de almacén</h2>
+      <p class="section-subtitle">Sobrescribe o corrige el valor de un almacén específico.</p>
+    </div>
+  </div>
   <div class="field-grid">
     <div class="field">
       <label for="warehouseInput">Almacén</label>

@@ -5,6 +5,8 @@ type ChartSettings = {
   include_warehouses_in_total: boolean;
 };
 
+const hoverRerenderByCanvas = new WeakMap<HTMLCanvasElement, () => void>();
+
 function chartColorVariables() {
   const rootStyles = getComputedStyle(document.body);
   const getColor = (name: string, fallback: string) => rootStyles.getPropertyValue(name).trim() || fallback;
@@ -80,13 +82,15 @@ function drawHoverPoint(
 }
 
 function bindChartHover(canvas: HTMLCanvasElement, rerender: () => void): void {
+  hoverRerenderByCanvas.set(canvas, rerender);
+
   if (canvas.dataset.hoverBound === "1") {
     return;
   }
 
   canvas.addEventListener("mouseleave", () => {
     canvas.dataset.hoverIndex = "";
-    rerender();
+    hoverRerenderByCanvas.get(canvas)?.();
   });
 
   canvas.addEventListener("mousemove", (event) => {
@@ -115,7 +119,7 @@ function bindChartHover(canvas: HTMLCanvasElement, rerender: () => void): void {
 
     if (scaledX < minX || scaledX > maxX || scaledY < minY || scaledY > maxY) {
       canvas.dataset.hoverIndex = "";
-      rerender();
+      hoverRerenderByCanvas.get(canvas)?.();
       return;
     }
 
@@ -125,7 +129,7 @@ function bindChartHover(canvas: HTMLCanvasElement, rerender: () => void): void {
 
     if (canvas.dataset.hoverIndex !== String(nextHoverIndex)) {
       canvas.dataset.hoverIndex = String(nextHoverIndex);
-      rerender();
+      hoverRerenderByCanvas.get(canvas)?.();
     }
   });
 

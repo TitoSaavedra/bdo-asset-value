@@ -1,0 +1,133 @@
+body[data-density='compact'] {
+  --density-content-gap: 8px;
+  --density-screen-gap: 8px;
+}
+
+body[data-density='normal'] {
+  --density-content-gap: 14px;
+  --density-screen-gap: 14px;
+}
+
+/* Layout spacing */
+body[data-density='compact'] .content {
+  gap: var(--density-content-gap);
+}
+
+body[data-density='compact'] .screen.active {
+  gap: var(--density-screen-gap);
+}
+
+/* Header */
+body[data-density='compact'] .header {
+  min-height: 84px;
+  height: 84px;
+  flex: 0 0 84px;
+  padding: 10px 14px;
+}
+
+body[data-density='compact'] .header h1 {
+  font-size: 22px;
+  margin: 0 0 4px;
+}
+
+body[data-density='compact'] .header p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Metrics */
+body[data-density='compact'] .grid-4 {
+  gap: 8px;
+}
+
+body[data-density='compact'] .metric {
+  min-height: 88px;
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+
+body[data-density='compact'] .metric .k {
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+body[data-density='compact'] .metric .v {
+  font-size: 22px;
+  margin: 0;
+}
+
+body[data-density='compact'] .metric .s,
+body[data-density='compact'] .metric-delta {
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+/* Layout grids */
+body[data-density='compact'] .row {
+  gap: 10px;
+}
+
+/* Panels */
+body[data-density='compact'] .panel {
+  padding: 12px;
+}
+
+body[data-density='compact'] .panel-head {
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+body[data-density='compact'] .panel-head h2 {
+  font-size: 18px;
+}
+
+/* Subtitles */
+body[data-density='compact'] .section-subtitle {
+  margin: 3px 0 0;
+  font-size: 11px;
+}
+
+/* State panels */
+body[data-density='compact'] .state-panel {
+  min-height: 132px;
+  gap: 6px;
+}
+
+body[data-density='compact'] .state-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+body[data-density='compact'] .state-description {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Chart */
+body[data-density='compact'] canvas {
+  height: min(28vh, 300px);
+}
+
+/* Tables */
+body[data-density='compact'] th,
+body[data-density='compact'] td {
+  padding: 7px 9px;
+  font-size: 12px;
+}
+
+/* Buttons */
+body[data-density='compact'] .history-filter-btn,
+body[data-density='compact'] .pagination-btn {
+  padding: 5px 8px;
+  font-size: 11px;
+}
+
+/* Toggle */
+body[data-density='compact'] .toggle-enhanced {
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+body[data-density='compact'] .toggle-label {
+  font-size: 12px;
+}

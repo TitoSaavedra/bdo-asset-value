@@ -1,7 +1,7 @@
 export type ChartRange = "all" | "today" | "7d" | "30d";
 export type ScreenName = "dashboard" | "manual" | "warehouses" | "metrics";
 
-export type ThemeName = "desert" | "midnight" | "light" | "darcula" | "onedark" | "monokai" | "solarized" | "draculanight";
+export type ThemeName = "desert" | "midnight" | "light" | "darcula" | "onedark" | "monokai" | "solarized" | "draculanight" | "tokyonight" | "githubdark" | "nord" | "palenight" | "materialocean" | "catppuccinmocha";
 
 export type RecordItem = {
   captured_at: string;
@@ -76,7 +76,7 @@ export type LogsPayload = {
   limit: number;
 };
 
-export const ALLOWED_THEMES: ThemeName[] = ["desert", "midnight", "light", "darcula", "onedark", "monokai", "solarized", "draculanight"];
+export const ALLOWED_THEMES: ThemeName[] = ["desert", "midnight", "light", "darcula", "onedark", "monokai", "solarized", "draculanight", "tokyonight", "githubdark", "nord", "palenight", "materialocean", "catppuccinmocha"];
 
 export const DEFAULT_VISIBLE_SERIES = {
   total: true,
