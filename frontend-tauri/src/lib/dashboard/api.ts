@@ -82,11 +82,11 @@ export async function fetchLogs(updateApiConnection: (connected: boolean) => voi
   return payload.items;
 }
 
-export function postIncludeWarehouses(
+export function putIncludeWarehouses(
   updateApiConnection: (connected: boolean) => void,
   enabled: boolean,
 ): Promise<unknown> {
-  return requestJson(`/api/settings/include-warehouses/${enabled ? 1 : 0}`, updateApiConnection, { method: "POST" });
+  return requestJson(`/api/settings/include-warehouses/${enabled ? 1 : 0}`, updateApiConnection, { method: "PUT" });
 }
 
 export function postManualRecord(
@@ -104,7 +104,7 @@ export function postManualRecord(
   });
 }
 
-export function postManualWarehouseValue(
+export function putManualWarehouseValue(
   updateApiConnection: (connected: boolean) => void,
   payload: {
     warehouse: string;
@@ -112,7 +112,7 @@ export function postManualWarehouseValue(
   },
 ): Promise<unknown> {
   return requestJson("/api/manual-warehouse-value", updateApiConnection, {
-    method: "POST",
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });

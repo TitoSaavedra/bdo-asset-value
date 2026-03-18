@@ -230,7 +230,7 @@ async def capture_storage(
     }
 
 
-@app.post('/api/manual-warehouse-value')
+@app.put('/api/manual-warehouse-value')
 async def create_manual_warehouse_value(
     payload: ManualWarehouseValueIn,
     service: AssetService = Depends(get_asset_service)
@@ -307,7 +307,7 @@ def receive_preorder(
     return record.model_dump()
 
 
-@app.post('/api/settings/include-warehouses/{value}')
+@app.put('/api/settings/include-warehouses/{value}')
 def set_include_warehouses(value: int, service: AssetService = Depends(get_asset_service)) -> Dict[str, Any]:
     """Set whether warehouses are included in total calculations.
 

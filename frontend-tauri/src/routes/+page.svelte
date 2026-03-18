@@ -13,9 +13,9 @@
     fetchMetrics,
     fetchSnapshotsPage,
     getWsUrl,
-    postIncludeWarehouses,
+    putIncludeWarehouses,
     postManualRecord,
-    postManualWarehouseValue,
+    putManualWarehouseValue,
   } from "$lib/dashboard/api";
   import { money } from "$lib/dashboard/formatters";
   import { renderChart } from "$lib/dashboard/chart";
@@ -405,7 +405,7 @@
 
   async function toggleIncludeWarehouses(enabled: boolean): Promise<void> {
     try {
-      await postIncludeWarehouses(updateApiConnection, enabled);
+      await putIncludeWarehouses(updateApiConnection, enabled);
       await Promise.all([refreshDashboard(), refreshChartRecords(), refreshHistoryPage()]);
       statusMessage = "Configuración actualizada";
       pushToast("Configuracion actualizada", enabled ? "Ahora el total incluye almacenes." : "Ahora el total excluye almacenes.", "ok");
@@ -444,7 +444,7 @@
 
     try {
       statusMessage = "Guardando almacén...";
-      await postManualWarehouseValue(updateApiConnection, {
+      await putManualWarehouseValue(updateApiConnection, {
         warehouse: warehouseName,
         market_silver: manualWarehouseValue,
       });
@@ -472,7 +472,7 @@
     try {
       savingWarehouse = warehouse;
       statusMessage = `Guardando valor manual para ${warehouse}...`;
-      await postManualWarehouseValue(updateApiConnection, {
+      await putManualWarehouseValue(updateApiConnection, {
         warehouse: warehouse.trim(),
         market_silver: Math.trunc(marketSilver),
       });

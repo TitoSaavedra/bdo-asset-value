@@ -45,7 +45,7 @@ Content-Type: {{json}}
 }
 
 ### Corrección manual por almacén
-POST {{baseUrl}}/api/manual-warehouse-value
+PUT {{baseUrl}}/api/manual-warehouse-value
 Content-Type: {{json}}
 
 {
@@ -75,10 +75,10 @@ Content-Type: {{json}}
 }
 
 ### Settings: incluir almacenes en total (ON)
-POST {{baseUrl}}/api/settings/include-warehouses/1
+PUT {{baseUrl}}/api/settings/include-warehouses/1
 
 ### Settings: incluir almacenes en total (OFF)
-POST {{baseUrl}}/api/settings/include-warehouses/0
+PUT {{baseUrl}}/api/settings/include-warehouses/0
 
 ### Info endpoint de WebSocket
 GET {{baseUrl}}/ws/updates
