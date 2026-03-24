@@ -21,10 +21,19 @@ th {
 }
 
 .table-wrap {
-  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
   border: 1px solid rgba(200, 169, 106, 0.18);
-  border-radius: 18px;
+  border-radius: var(--radius);
   background: var(--table-wrap-bg);
+}
+
+.table-wrap table {
+  width: 100%;
+  min-width: 0;
 }
 
 #warehouseSummaryTableWrap {
@@ -36,6 +45,9 @@ th {
 }
 
 .table-scroll-y {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -60,6 +72,7 @@ th {
 
 .table-scroll-y tbody {
   display: block;
+  width: 100%;
   max-height: var(--table-body-max-height, 340px);
   overflow-y: auto;
   overflow-x: hidden;

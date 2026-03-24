@@ -1,3 +1,7 @@
+body[data-density='compact'] {
+  padding: 10px 0;
+}
+
 body[data-density='compact'] .content {
   gap: 10px;
 }
@@ -73,4 +77,120 @@ body[data-density='compact'] td {
 
 body[data-density='compact'] th {
   font-size: 11px;
+}
+
+/* Sidebar and navigation */
+body[data-density='compact'] .app {
+  gap: 10px;
+}
+
+body[data-density='compact'] .sidebar {
+  padding: 14px;
+  gap: 8px;
+}
+
+body[data-density='compact'] .brand {
+  gap: 8px;
+}
+
+body[data-density='compact'] .brand-spirit {
+  width: 52px;
+  height: 52px;
+}
+
+body[data-density='compact'] .logo {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+body[data-density='compact'] .menu {
+  gap: 8px;
+}
+
+body[data-density='compact'] .menu button {
+  padding: 10px 12px;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+body[data-density='compact'] .theme-picker,
+body[data-density='compact'] .density-picker {
+  gap: 8px;
+}
+
+body[data-density='compact'] .theme-select-trigger {
+  padding: 8px 12px;
+  font-size: 12px;
+  border-radius: 14px;
+}
+
+body[data-density='compact'] .theme-select-menu {
+  padding: 6px;
+  max-height: calc(10 * 36px + 12px);
+}
+
+body[data-density='compact'] .theme-select-option {
+  padding: 8px 10px;
+  min-height: 38px;
+  font-size: 12px;
+}
+
+body[data-density='compact'] .density-option {
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+body[data-density='compact'] .connection-card {
+  padding: 10px;
+  gap: 6px;
+}
+
+body[data-density='compact'] .connection-grid {
+  gap: 6px 8px;
+}
+
+body[data-density='compact'] .connection-pill {
+  padding: 3px 7px;
+  font-size: 10px;
+}
+
+body[data-density='compact'] .field input {
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+body[data-density='compact'] .field label {
+  font-size: 11px;
+}
+
+body[data-density='compact'] .field-grid {
+  gap: 10px;
+}
+
+/* Toasts */
+body[data-density='compact'] .toast-region {
+  right: 14px;
+  top: 14px;
+  gap: 6px;
+  width: min(320px, calc(100vw - 24px));
+}
+
+body[data-density='compact'] .toast {
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: 11px;
+}
+
+body[data-density='compact'] .toast-title {
+  font-size: 11px;
+}
+
+body[data-density='compact'] .toast-message {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+body[data-density='compact'] .card {
+  border-radius: 14px;
 }

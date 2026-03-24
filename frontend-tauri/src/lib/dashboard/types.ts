@@ -1,7 +1,33 @@
 export type ChartRange = "all" | "today" | "7d" | "30d";
 export type ScreenName = "dashboard" | "manual" | "warehouses" | "metrics";
 
-export type ThemeName = "desert" | "midnight" | "light" | "darcula" | "onedark" | "monokai" | "solarized" | "draculanight" | "tokyonight" | "githubdark" | "nord" | "palenight" | "materialocean" | "catppuccinmocha";
+export type ThemeName =
+  | "desert"
+  | "midnight"
+  | "light"
+  | "darcula"
+  | "onedark"
+  | "monokai"
+  | "monokai-spectrum"
+  | "monokai-rissoto"
+  | "solarized"
+  | "draculanight"
+  | "tokyonight"
+  | "githubdark"
+  | "nord"
+  | "palenight"
+  | "materialocean"
+  | "catppuccinmocha"
+  | "cyberpunk"
+  | "synthwave"
+  | "emerald"
+  | "rosepine"
+  | "dracula"
+  | "abyss"
+  | "sakura"
+  | "crimson"
+  | "forest"
+  | "slate";
 
 export type RecordItem = {
   captured_at: string;
@@ -76,7 +102,34 @@ export type LogsPayload = {
   limit: number;
 };
 
-export const ALLOWED_THEMES: ThemeName[] = ["desert", "midnight", "light", "darcula", "onedark", "monokai", "solarized", "draculanight", "tokyonight", "githubdark", "nord", "palenight", "materialocean", "catppuccinmocha"];
+export const ALLOWED_THEMES: ThemeName[] = [
+  "desert",
+  "midnight",
+  "light",
+  "darcula",
+  "onedark",
+  "monokai",
+  "monokai-spectrum",
+  "monokai-rissoto",
+  "solarized",
+  "draculanight",
+  "tokyonight",
+  "githubdark",
+  "nord",
+  "palenight",
+  "materialocean",
+  "catppuccinmocha",
+  "cyberpunk",
+  "synthwave",
+  "emerald",
+  "rosepine",
+  "dracula",
+  "abyss",
+  "sakura",
+  "crimson",
+  "forest",
+  "slate",
+];
 
 export const DEFAULT_VISIBLE_SERIES = {
   total: true,

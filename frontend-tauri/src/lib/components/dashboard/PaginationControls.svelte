@@ -65,6 +65,9 @@
     justify-content: flex-end;
     gap: 8px;
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .pagination-pages {

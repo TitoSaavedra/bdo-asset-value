@@ -24,7 +24,7 @@ body {
   background:
     radial-gradient(circle at top, var(--body-glow-primary), transparent 28%),
     radial-gradient(circle at right bottom, var(--body-glow-secondary), transparent 25%), linear-gradient(180deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
-  overflow: hidden;
+  overflow: auto;
 }
 
 .app {
@@ -34,7 +34,7 @@ body {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 18px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .card {
@@ -60,6 +60,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100%;
 }
 
 .brand {
@@ -111,6 +115,11 @@ body {
 .menu {
   display: grid;
   gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: inherit;
+  padding-top: 8px;
 }
 
 .menu button {

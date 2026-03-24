@@ -11,6 +11,8 @@
     { value: "darcula", label: "Darcula", accent: "#ffc66d" },
     { value: "onedark", label: "One Dark Pro", accent: "#e5c07b" },
     { value: "monokai", label: "Monokai", accent: "#e6db74" },
+    { value: "monokai-spectrum", label: "Monokai Spectrum", accent: "#8be9fd" },
+    { value: "monokai-rissoto", label: "Monokai Rissoto", accent: "#ffb86c" },
     { value: "solarized", label: "Solarized Dark", accent: "#b58900" },
     { value: "draculanight", label: "Dracula At Night", accent: "#bb9af7" },
     { value: "tokyonight", label: "Tokyo Night", accent: "#7aa2f7" },
@@ -19,6 +21,16 @@
     { value: "palenight", label: "Palenight", accent: "#c792ea" },
     { value: "materialocean", label: "Material Ocean", accent: "#89ddff" },
     { value: "catppuccinmocha", label: "Catppuccin Mocha", accent: "#cba6f7" },
+    { value: "cyberpunk", label: "Cyberpunk", accent: "#fcee0a" },
+    { value: "synthwave", label: "Synthwave", accent: "#ff7edb" },
+    { value: "emerald", label: "Emerald", accent: "#2ecc71" },
+    { value: "rosepine", label: "Rose Pine", accent: "#ebbcba" },
+    { value: "dracula", label: "Dracula Vibrant", accent: "#bd93f9" },
+    { value: "abyss", label: "Abyss", accent: "#00d2ff" },
+    { value: "sakura", label: "Sakura", accent: "#ff8da1" },
+    { value: "crimson", label: "Crimson", accent: "#ff3e3e" },
+    { value: "forest", label: "Forest", accent: "#81c784" },
+    { value: "slate", label: "Slate", accent: "#708090" },
   ];
 
   let isThemeOpen = $state(false);
