@@ -1,0 +1,3 @@
+[tasks.dev]
+description = "Levanta API (FastAPI), frontend (Svelte/Tauri servido por Nginx) y MongoDB con Docker Compose. El OCR worker corre aparte en el host Windows (ver README)"
+run = "docker compose up --build"
